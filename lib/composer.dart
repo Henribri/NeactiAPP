@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'profil.dart';
-import 'invite.dart';
-import 'join.dart';
-import 'main.dart';
 
 
-class mydrawer {
 
-  Drawer drawer;
-  mydrawer(BuildContext context){
+class MainDrawer extends StatelessWidget {
 
-    this.drawer = Drawer(
+  final BuildContext context;
+
+  MainDrawer({this.context});
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
       child: ListView(
         padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
         children: <Widget>[
           DrawerHeader(
-            child:Text(
+            child: Text(
               'Let\'s \nmove',
               style: TextStyle(
                   color: Colors.white,
@@ -37,23 +37,17 @@ class mydrawer {
             ),
           ),
           ListTile(
-            onTap: (){
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder:(context)=>Profile()),
-              );
+            onTap: () {
+              Navigator.pushNamed(context, '/profil');
             },
             leading: Icon(Icons.account_circle, color: Colors.red, size: 40),
-            title: Text('Profil',
+            title: Text('Me',
                 style: TextStyle(fontSize: 26)),
           ),
           SizedBox(height: 10),
           ListTile(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Invite()),
-              );
+              Navigator.pushNamed(context, '/invite');
             },
             leading: Icon(Icons.add_location, color: Colors.red, size: 40),
             title: Text('Invite',
@@ -62,10 +56,7 @@ class mydrawer {
           SizedBox(height: 10),
           ListTile(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Join()),
-              );
+              Navigator.pushNamed(context, '/join');
             },
             leading: Icon(Icons.group, color: Colors.red, size: 40),
             title: Text('Join',
@@ -73,11 +64,8 @@ class mydrawer {
           ),
           SizedBox(height: 10),
           ListTile(
-            onTap: (){
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder:(context)=>Profile()),
-              );
+            onTap: () {
+              Navigator.pushNamed(context, '/settings');
             },
             leading: Icon(Icons.settings, color: Colors.red, size: 40),
             title: Text('Settings',
@@ -86,11 +74,8 @@ class mydrawer {
           ),
           SizedBox(height: 10),
           ListTile(
-            onTap: (){
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder:(context)=>Profile()),
-              );
+            onTap: () {
+              Navigator.pushNamed(context, '/donate');
             },
             leading: Icon(Icons.monetization_on, color: Colors.red, size: 40),
             title: Text('Donate',
@@ -100,43 +85,42 @@ class mydrawer {
       ),
 
     );
-
   }
-
 }
 
+  class MainAppBar extends StatelessWidget implements PreferredSizeWidget{
 
-class myappbar{
-  PreferredSize mybar;
+  final BuildContext context;
+  MainAppBar({this.context});
 
-  myappbar(BuildContext context){
-    this.mybar=PreferredSize(
-      preferredSize: Size.fromHeight(70),
-      child: AppBar(
+  @override
+  Size get preferredSize => Size.fromHeight(70);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
         elevation: 0,
         flexibleSpace: Container(
-          decoration: new BoxDecoration(
-            gradient: new LinearGradient(
-                colors: [
-                  Colors.pink,
-                  Colors.redAccent[400],
-                ],
-                begin: const FractionalOffset(0.0, 0.0),
-                end: const FractionalOffset(1.0, 0.0),
-                stops: [0.0, 1.0],
-                tileMode: TileMode.clamp),
-          ),
-        ),
-        title: Align(
-          alignment: Alignment.centerRight,
-          child:FlatButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder:(context)=>Home()),
-              );
-            },
-            child: Text('Neacti',
+               decoration: new BoxDecoration(
+                  gradient: new LinearGradient(
+                    colors: [
+                    Colors.pink,
+                    Colors.redAccent[400],
+                    ],
+                    begin: const FractionalOffset(0.0, 0.0),
+                    end: const FractionalOffset(1.0, 0.0),
+                    stops: [0.0, 1.0],
+                    tileMode: TileMode.clamp
+                  ),
+                ),
+              ),
+              title: Align(
+                alignment: Alignment.centerRight,
+              child:FlatButton(
+                onPressed: () {
+              Navigator.pushNamed(context, '/home');
+              },
+              child: Text('Neacti',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 50.0,
@@ -149,7 +133,8 @@ class myappbar{
 
 
         backgroundColor: Colors.red,
-      ),
-    );
+
+      );
+    }
+
   }
-}

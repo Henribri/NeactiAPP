@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'tools.dart';
+import 'composer.dart';
 
 
 class Invite extends StatelessWidget {
@@ -7,8 +7,8 @@ class Invite extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
 
-      drawer: mydrawer(context).drawer,
-      appBar: myappbar(context).mybar,
+      drawer: MainDrawer(context:context),
+      appBar: MainAppBar(context: context),
 
 
     );
