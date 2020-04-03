@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:neacti/tools.dart';
-
+import 'package:neacti/donate.dart';
+import 'package:neacti/settings.dart';
+import 'package:neacti/composer.dart';
+import 'profil.dart';
+import 'invite.dart';
+import 'join.dart';
+import 'donate.dart';
+import 'settings.dart';
 
 void main() => runApp(MaterialApp(
-  home: Home(),
+  initialRoute: '/home',
+  routes: {
+  '/home':(context)=>Home(),
+  '/profil':(context)=>Profil(),
+  '/invite':(context)=>Invite(),
+  '/join':(context)=>Join(),
+  '/settings':(context)=>Settings(),
+  '/donate':(context)=>Donate(),
+
+},
 ));
 
 
@@ -12,8 +27,8 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
 
-      drawer: mydrawer(context).drawer,
-      appBar: myappbar(context).mybar,
+      drawer: MainDrawer(context: context),
+      appBar: MainAppBar(context: context),
       body: Column(
         children: <Widget>[
           Row(
@@ -50,7 +65,7 @@ class Home extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: FlatButton(
-                    onPressed: (){},
+                    onPressed: (){Navigator.pushNamed(context, '/invite');},
                     color: Colors.redAccent[400],
                     padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
 
@@ -78,7 +93,7 @@ class Home extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                   child: FlatButton(
-                      onPressed: (){},
+                      onPressed: (){Navigator.pushNamed(context, '/join');},
                       color: Colors.redAccent[400],
                       padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
 
@@ -106,3 +121,7 @@ class Home extends StatelessWidget {
     );
   }
 }
+
+
+
+
