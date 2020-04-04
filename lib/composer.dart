@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:neacti/join.dart';
 
 
 
@@ -116,11 +117,7 @@ class MainDrawer extends StatelessWidget {
               ),
               title: Align(
                 alignment: Alignment.centerRight,
-              child:FlatButton(
-                onPressed: () {
-              Navigator.pushNamed(context, '/home');
-              },
-              child: Text('Neacti',
+              child:Text('Neacti',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 50.0,
@@ -128,7 +125,6 @@ class MainDrawer extends StatelessWidget {
                   fontFamily: 'Fred',
                 )
             ),
-          ),
         ),
 
 
@@ -138,3 +134,4 @@ class MainDrawer extends StatelessWidget {
     }
 
   }
+

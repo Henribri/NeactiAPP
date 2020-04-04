@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:neacti/donate.dart';
+import 'package:neacti/home.dart';
 import 'package:neacti/settings.dart';
 import 'package:neacti/composer.dart';
 import 'profil.dart';
@@ -22,105 +23,76 @@ void main() => runApp(MaterialApp(
 ));
 
 
-class Home extends StatelessWidget {
+
+class Home extends StatefulWidget {
+  @override
+
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  int _selectedIndex = 0;
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+  final List<Widget> _children = [
+    Menu(),
+    Invite(),
+    Join(),
+    Donate()
+
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      drawer: MainDrawer(context: context),
       appBar: MainAppBar(context: context),
-      body: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  margin:EdgeInsets.fromLTRB(0,10,0,0),
-                  color: Colors.redAccent[400],
-                  child:Center(
-                    child: Text(
-                      'Bienvenue que voulez vous faire',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Cali',
-                        letterSpacing: 3,
+      body: _children[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
 
-                      ),
-                    ),
-                  )
-                ),
-              )
-            ],
+        unselectedItemColor: Colors.black87,
+
+        selectedLabelStyle: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold
+        ),
+
+        fixedColor: Colors.red,
+        iconSize: 30,
+
+        items: const <BottomNavigationBarItem>[
+
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle),
+            title: Text('Me'),
+
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_location),
+            title: Text('Invite'),
+          ),
+          BottomNavigationBarItem(
+            icon:Icon(Icons.group),
+            title: Text('Join'),
+
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.monetization_on),
+            title: Text('Donate'),
           ),
 
-          SizedBox(height: 60),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Expanded(
-                child: FlatButton(
-                    onPressed: (){Navigator.pushNamed(context, '/invite');},
-                    color: Colors.redAccent[400],
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-
-                    shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30),
-                        side: BorderSide(color: Colors.redAccent),
-
-                    ),
-                    child: Center(
-                      child: Text('Inviter',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontFamily: 'Fred',
-                            letterSpacing: 2
-                          )),
-                    )
-                ),
-              ),
-            ]),
-          SizedBox(height: 40,),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-
-              children: <Widget>[
-                Expanded(
-                  child: FlatButton(
-                      onPressed: (){Navigator.pushNamed(context, '/join');},
-                      color: Colors.redAccent[400],
-                      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-
-                      shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30),
-                        side: BorderSide(color: Colors.redAccent),
-
-                      ),
-                      child: Center(
-                        child: Text('Rejoindre',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                              fontFamily: 'Fred',
-                              letterSpacing: 2
-                            )),
-                      )
-                  ),
-                ),
-              ]),
-
-
         ],
-      ),
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+      )
     );
   }
 }
+
+
+
 
 
 

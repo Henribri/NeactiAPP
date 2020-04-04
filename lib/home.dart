@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'composer.dart';
 
-class Join extends StatelessWidget {
+class Menu extends StatelessWidget {
+  const Menu({
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.greenAccent,
-
+      color: Colors.yellowAccent,
 
     );
   }
