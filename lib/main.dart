@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:neacti/donate.dart';
-import 'package:neacti/home.dart';
-import 'package:neacti/settings.dart';
 import 'package:neacti/composer.dart';
 import 'profil.dart';
 import 'invite.dart';
 import 'join.dart';
 import 'donate.dart';
-import 'settings.dart';
+
 
 void main() => runApp(MaterialApp(
   initialRoute: '/home',
   routes: {
   '/home':(context)=>Home(),
-  '/profil':(context)=>Profil(),
-  '/invite':(context)=>Invite(),
-  '/join':(context)=>Join(),
-  '/settings':(context)=>Settings(),
-  '/donate':(context)=>Donate(),
 
 },
 ));
@@ -38,7 +31,7 @@ class _HomeState extends State<Home> {
     });
   }
   final List<Widget> _children = [
-    Menu(),
+    Profil(),
     Invite(),
     Join(),
     Donate()
@@ -49,7 +42,10 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(context: context),
-      body: _children[_selectedIndex],
+      body: AnimatedSwitcher(
+        duration: Duration(milliseconds: 200),
+        child: _children[_selectedIndex],
+      ),
       bottomNavigationBar: BottomNavigationBar(
 
         unselectedItemColor: Colors.black87,
@@ -74,7 +70,7 @@ class _HomeState extends State<Home> {
             title: Text('Invite'),
           ),
           BottomNavigationBarItem(
-            icon:Icon(Icons.group),
+            icon:Icon(Icons.group_add),
             title: Text('Join'),
 
           ),
