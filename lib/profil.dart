@@ -32,15 +32,12 @@ class Profil extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
 
-                Padding(
-                  padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
-                  child: Text("Briaux",
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontFamily: 'Cali',
+                Text("Briaux",
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontFamily: 'Cali',
 
-                      ),
-                  ),
+                    ),
                 ),
               ],
             ),
@@ -48,13 +45,10 @@ class Profil extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
 
-            Padding(
-              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-              child: Text("Henri",
-                style: TextStyle(
-                    fontSize: 30,
-                    fontFamily: 'Cali'
-                ),
+            Text("Henri",
+              style: TextStyle(
+                  fontSize: 30,
+                  fontFamily: 'Cali'
               ),
             ),
             ]
