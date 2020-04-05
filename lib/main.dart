@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:neacti/donate.dart';
 import 'package:neacti/composer.dart';
+import 'package:neacti/plans.dart';
 import 'profil.dart';
 import 'invite.dart';
 import 'join.dart';
 import 'donate.dart';
 
 
+
 void main() => runApp(MaterialApp(
   initialRoute: '/home',
   routes: {
   '/home':(context)=>Home(),
+  '/plans':(context)=>Plans(),
 
 },
 ));
