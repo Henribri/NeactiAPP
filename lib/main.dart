@@ -45,10 +45,8 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(context: context),
-      body: AnimatedSwitcher(
-        duration: Duration(milliseconds: 200),
-        child: _children[_selectedIndex],
-      ),
+      backgroundColor: Colors.blueGrey[50],
+      body: _children[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
 
         unselectedItemColor: Colors.black87,

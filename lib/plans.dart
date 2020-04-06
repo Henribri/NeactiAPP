@@ -10,53 +10,214 @@ class _PlansState extends State<Plans> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(),
+      backgroundColor: Colors.indigo,
       body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            SizedBox(height: 10,),
-            Card(
-              child: Column(
-                children: <Widget>[
-                  ListTile(
-                    leading: Icon(Icons.videogame_asset, size: 40, color: Colors.red,),
-                    title: Text('Tournoi Smash'),
-                    subtitle: Text('7 rue du marais'),
-                    trailing: Text('12-05-19')
-                  ),
+      child: Column(
+        children: <Widget>[
+          SizedBox(height: 10,),
+          Card(
+            child: Column(
+              children: <Widget>[
+                ExpansionTile(
+                  leading: Icon(Icons.videogame_asset, size: 40, color: Colors.red,),
+                  title: Text(
+                    'Tournoi Smash',
+                    style:TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold
+                    ) ,),
+                  subtitle: Text('Ramenez vos manettes !',
+                    style: TextStyle(
+                        fontSize: 16
+                    ),),
 
-        ButtonBar(
-          children: <Widget>[
-            FlatButton(
-                color: Colors.red,
-                child: Text('More'),
-                onPressed: () {
-
-                },
-            )
-]),
-
-
-                ],
-              ),
-            ),
-            Card(
-              child: Padding(
-                padding: EdgeInsets.only(
-                    top: 36.0, left: 6.0, right: 6.0, bottom: 6.0),
-                child: ExpansionTile(
-                  title: Text('Birth of Universe'),
                   children: <Widget>[
-                    Text('Big Bang'),
-                    Text('Birth of the Sun'),
-                    Text('Earth is Born'),
+
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(15, 10, 0, 5),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.date_range, size: 30,),
+                          SizedBox(width: 20,),
+                          Text('12-05-2020',
+                            style: TextStyle(
+                                fontSize: 18
+                            ),),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.location_on,size: 30,),
+                          SizedBox(width: 20,),
+                          Text('7 rue du marais',
+                            style: TextStyle(
+                              fontSize: 18,
+
+                            ),),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.group,size: 30,),
+                          SizedBox(width: 20,),
+                          Text('10/14',
+                            style: TextStyle(
+                                fontSize: 18
+                            ),),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.description, size: 30,),
+                          SizedBox(width: 20,),
+                          Expanded(
+                            child: Container(
+                              child: Text('Description',
+                                maxLines: 3,
+                                style: TextStyle(
+                                    fontSize: 18
+                                ),),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    ButtonBar(
+                        children: <Widget>[
+                          FlatButton(
+                            color: Colors.red,
+                            child: Text('Leave'),
+                            onPressed: () {
+
+                            },
+                          )
+                        ]),
                   ],
                 ),
-              ),
-            )
 
-          ],
-        ),
+
+
+
+
+              ],
+            ),
+          ),
+
+          SizedBox(height: 10,),
+          Card(
+            child: Column(
+              children: <Widget>[
+                ExpansionTile(
+                  leading: Icon(Icons.videogame_asset, size: 40, color: Colors.red,),
+                  title: Text(
+                    'Tournoi Smash',
+                    style:TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold
+                    ) ,),
+                  subtitle: Text('Ramenez vos manettes !',
+                    style: TextStyle(
+                        fontSize: 16
+                    ),),
+
+                  children: <Widget>[
+
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(15, 10, 0, 5),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.date_range, size: 30,),
+                          SizedBox(width: 20,),
+                          Text('12-05-2020',
+                            style: TextStyle(
+                                fontSize: 18
+                            ),),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.location_on,size: 30,),
+                          SizedBox(width: 20,),
+                          Text('7 rue du marais',
+                            style: TextStyle(
+                              fontSize: 18,
+
+                            ),),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.group,size: 30,),
+                          SizedBox(width: 20,),
+                          Text('10/14',
+                            style: TextStyle(
+                                fontSize: 18
+                            ),),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.description, size: 30,),
+                          SizedBox(width: 20,),
+                          Expanded(
+                            child: Container(
+                              child: Text('Description',
+                                maxLines: 3,
+                                style: TextStyle(
+                                    fontSize: 18
+                                ),),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    ButtonBar(
+                        children: <Widget>[
+                          FlatButton(
+                            color: Colors.red,
+                            child: Text('Leave'),
+                            onPressed: () {
+
+                            },
+                          )
+                        ]),
+                  ],
+                ),
+
+
+
+
+
+              ],
+            ),
+          ),
+        ],
       ),
+    ),
 
     );
   }
