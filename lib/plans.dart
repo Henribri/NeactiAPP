@@ -16,7 +16,7 @@ class _PlansState extends State<Plans> {
           const SliverAppBar(
             backgroundColor: Color.fromARGB(210, 255, 0, 60),
             pinned: true,
-            expandedHeight: 100,
+            expandedHeight: 50,
             flexibleSpace: FlexibleSpaceBar(
               title: Text('Mes plans',
                 style: TextStyle(
