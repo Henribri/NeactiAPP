@@ -82,3 +82,5 @@ flutter:
       - asset: fonts/YeonSung-Regular.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+datetime_picker_formfield: ^0.1.8
