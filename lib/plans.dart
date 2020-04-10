@@ -17,6 +17,13 @@ class _PlansState extends State<Plans> {
               fontFamily: 'Fred',
               fontSize: 26
           ),),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.search, size: 40, color: Colors.white,),
+            tooltip: 'Add new entry',
+
+          ),
+        ],
       ),
 
       backgroundColor: Colors.blueGrey[50],

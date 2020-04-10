@@ -24,33 +24,14 @@ class _InviteState extends State<Invite> {
         key: _formKey,
         child: Column(
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-              Container(
-                width: 250,
-                margin: EdgeInsets.all(10),
-                child: TextFormField(
-                  cursorColor: Colors.red,
 
-                  decoration: InputDecoration(
-                    labelStyle: TextStyle(color: Colors.black),
-                    labelText: 'Titre',
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.red)
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red)
-                    )
-                  ),
-                  validator: (value){
-                    if(value.isEmpty){
-                      return "Please enter some text";
-                    }
-                    return null;
-                  }
-                ),
-              ),
+            SizedBox(height: 10,),
+
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+
 
                 DropdownButton<String>(
 
@@ -77,25 +58,66 @@ class _InviteState extends State<Invite> {
                     );
                   })
                       .toList(),
-                )
+                ),
+
+                Container(
+                  width: 100,
+                  
+
+
+                  child: TextFormField(
+                      cursorColor: Colors.red,
+                      maxLines: 1,
+                      initialValue: '5',
+                      decoration: InputDecoration(
+
+                          prefixIcon: Icon(Icons.group_add, color: Colors.black,),
+
+                          labelStyle: TextStyle(color: Colors.black, fontSize: 14),
+
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.red)
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.red)
+                          )
+                      ),
+                      validator: (value){
+                        if(value.isEmpty || value=='0'){
+                          return "Please enter some text";
+                        }
+                        _nbr=value;
+                        return null;
+                      }
+                  ),
+                ),
+
 
               ],),
-            Container(
-              width: 340,
-              margin: EdgeInsets.all(10),
-              child: TextFormField(
+
+            SizedBox(height: 10,),
+
+
+
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+              Container(
+                width: 340,
+                margin: EdgeInsets.all(10),
+                child: TextFormField(
                   cursorColor: Colors.red,
 
-
                   decoration: InputDecoration(
-                      labelStyle: TextStyle(color: Colors.black),
-                      labelText: 'Message',
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red)
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red)
-                      )
+                    labelStyle: TextStyle(color: Colors.black),
+                    labelText: 'Titre',
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red)
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red)
+                    )
                   ),
                   validator: (value){
                     if(value.isEmpty){
@@ -103,8 +125,39 @@ class _InviteState extends State<Invite> {
                     }
                     return null;
                   }
+                ),
               ),
-            ),
+
+              ],),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  width: 340,
+                  margin: EdgeInsets.all(10),
+                  child: TextFormField(
+                      cursorColor: Colors.red,
+
+                      decoration: InputDecoration(
+                          labelStyle: TextStyle(color: Colors.black),
+                          labelText: 'Message',
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.red)
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.red)
+                          )
+                      ),
+                      validator: (value){
+                        if(value.isEmpty){
+                          return "Please enter some text";
+                        }
+                        return null;
+                      }
+                  ),
+                ),
+
+              ],),
             Container(
               width: 340,
               margin: EdgeInsets.all(10),
@@ -169,44 +222,8 @@ class _InviteState extends State<Invite> {
 
               ],
             ),
-            
-            SizedBox(height: 10,),
-            
-            
-            Container(
-              width: 150,
-              height: 70,
-
-
-              child: TextFormField(
-
-                  cursorColor: Colors.red,
-                  maxLines: 1,
-
-                  decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.group_add, color: Colors.black,),
-                      labelText: 'Nombre',
-                      labelStyle: TextStyle(color: Colors.black, fontSize: 14),
-
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red)
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red)
-                      )
-                  ),
-                  validator: (value){
-                    if(value.isEmpty || value=='0'){
-                      return "Please enter some text";
-                    }
-                    _nbr=value;
-                    return null;
-                  }
-              ),
-            ),
 
             SizedBox(height: 10,),
-
 
             Container(
               width: 340,
