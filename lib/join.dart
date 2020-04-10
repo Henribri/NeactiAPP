@@ -31,205 +31,210 @@ class Join extends StatelessWidget {
           delegate: SliverChildListDelegate(
             [
               SizedBox(height: 10,),
-                  Card(
-                    child: Column(
+              Card(
+                child: Column(
+                  children: <Widget>[
+                    ExpansionTile(
+                      leading: Icon(
+                        Icons.videogame_asset, size: 40, color: Colors.red,),
+                      title: Text(
+                        'Tournoi Smash',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold
+                        ),),
+                      subtitle: Text('Ramenez vos manettes !',
+                        style: TextStyle(
+                            fontSize: 16
+                        ),),
+
                       children: <Widget>[
-                        ExpansionTile(
-                          leading: Icon(
-                            Icons.videogame_asset, size: 40, color: Colors.red,),
-                          title: Text(
-                            'Tournoi Smash',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold
-                            ),),
-                          subtitle: Text('Ramenez vos manettes !',
-                            style: TextStyle(
-                                fontSize: 16
-                            ),),
 
-                          children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(15, 10, 0, 5),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(Icons.date_range, size: 30,),
+                              SizedBox(width: 10,),
+                              Text('12-05-2020',
+                                style: TextStyle(
+                                    fontSize: 18
+                                ),),
+                              SizedBox(width: 30,),
+                              Icon(Icons.access_time, size: 30,),
+                              SizedBox(width: 10,),
+                              Text('16:30',
+                                style: TextStyle(
+                                    fontSize: 18
+                                ),),
+                              SizedBox(width: 30,),
+                              Icon(Icons.group, size: 30,),
+                              SizedBox(width: 10,),
+                              Text('10/14',
+                                style: TextStyle(
+                                    fontSize: 18
+                                ),),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 10,),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(Icons.location_on, size: 30,),
+                              SizedBox(width: 10,),
+                              Text('7 rue du marais',
+                                style: TextStyle(
+                                  fontSize: 18,
 
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(15, 10, 0, 5),
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(Icons.date_range, size: 30,),
-                                  SizedBox(width: 20,),
-                                  Text('12-05-2020',
-                                    style: TextStyle(
-                                        fontSize: 18
-                                    ),),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 10,),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(Icons.location_on, size: 30,),
-                                  SizedBox(width: 20,),
-                                  Text('7 rue du marais',
-                                    style: TextStyle(
-                                      fontSize: 18,
-
-                                    ),),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 10,),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(Icons.group, size: 30,),
-                                  SizedBox(width: 20,),
-                                  Text('10/14',
-                                    style: TextStyle(
-                                        fontSize: 18
-                                    ),),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 10),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(Icons.description, size: 30,),
-                                  SizedBox(width: 20,),
-                                  Expanded(
-                                    child: Container(
-                                      child: Text('Description',
-                                        maxLines: 3,
-                                        style: TextStyle(
-                                            fontSize: 18
-                                        ),),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            ButtonBar(
-                                children: <Widget>[
-                                  FlatButton(
-                                    color: Colors.red,
-                                    child: Text('Join'),
-                                    onPressed: () {
-
-                                    },
-                                  )
-                                ]),
-                          ],
+                                ),),
+                            ],
+                          ),
                         ),
 
+                        SizedBox(height: 10),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(Icons.description, size: 30,),
+                              SizedBox(width: 10,),
+                              Expanded(
+                                child: Container(
+                                  child: Text('Description',
+                                    maxLines: 3,
+                                    style: TextStyle(
+                                        fontSize: 18
+                                    ),),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        ButtonBar(
+                            children: <Widget>[
+                              FlatButton(
+                                color: Colors.red,
+                                child: Text('Join'),
+                                onPressed: () {
+
+                                },
+                              ),
+
+
+                            ]),
 
                       ],
                     ),
-                  ),
+
+
+                  ],
+                ),
+              ),
 
 
                   SizedBox(height: 10,),
-                  Card(
-                    child: Column(
+              Card(
+                child: Column(
+                  children: <Widget>[
+                    ExpansionTile(
+                      leading: Icon(
+                        Icons.videogame_asset, size: 40, color: Colors.red,),
+                      title: Text(
+                        'Tournoi Smash',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold
+                        ),),
+                      subtitle: Text('Ramenez vos manettes !',
+                        style: TextStyle(
+                            fontSize: 16
+                        ),),
+
                       children: <Widget>[
-                        ExpansionTile(
-                          leading: Icon(
-                            Icons.videogame_asset, size: 40, color: Colors.red,),
-                          title: Text(
-                            'Tournoi Smash',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold
-                            ),),
-                          subtitle: Text('Ramenez vos manettes !',
-                            style: TextStyle(
-                                fontSize: 16
-                            ),),
 
-                          children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(15, 10, 0, 5),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(Icons.date_range, size: 30,),
+                              SizedBox(width: 10,),
+                              Text('12-05-2020',
+                                style: TextStyle(
+                                    fontSize: 18
+                                ),),
+                              SizedBox(width: 30,),
+                              Icon(Icons.access_time, size: 30,),
+                              SizedBox(width: 10,),
+                              Text('16:30',
+                                style: TextStyle(
+                                    fontSize: 18
+                                ),),
+                              SizedBox(width: 30,),
+                              Icon(Icons.group, size: 30,),
+                              SizedBox(width: 10,),
+                              Text('10/14',
+                                style: TextStyle(
+                                    fontSize: 18
+                                ),),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 10,),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(Icons.location_on, size: 30,),
+                              SizedBox(width: 10,),
+                              Text('7 rue du marais',
+                                style: TextStyle(
+                                  fontSize: 18,
 
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(15, 10, 0, 5),
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(Icons.date_range, size: 30,),
-                                  SizedBox(width: 20,),
-                                  Text('12-05-2020',
-                                    style: TextStyle(
-                                        fontSize: 18
-                                    ),),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 10,),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(Icons.location_on, size: 30,),
-                                  SizedBox(width: 20,),
-                                  Text('7 rue du marais',
-                                    style: TextStyle(
-                                      fontSize: 18,
-
-                                    ),),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 10,),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(Icons.group, size: 30,),
-                                  SizedBox(width: 20,),
-                                  Text('10/14',
-                                    style: TextStyle(
-                                        fontSize: 18
-                                    ),),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 10),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(Icons.description, size: 30,),
-                                  SizedBox(width: 20,),
-                                  Expanded(
-                                    child: Container(
-                                      child: Text('Description',
-                                        maxLines: 3,
-                                        style: TextStyle(
-                                            fontSize: 18
-                                        ),),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            ButtonBar(
-                                children: <Widget>[
-                                  FlatButton(
-                                    color: Colors.red,
-                                    child: Text('Join'),
-                                    onPressed: () {
-
-                                    },
-                                  ),
-
-
-                                ]),
-
-                          ],
+                                ),),
+                            ],
+                          ),
                         ),
 
+                        SizedBox(height: 10),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(Icons.description, size: 30,),
+                              SizedBox(width: 10,),
+                              Expanded(
+                                child: Container(
+                                  child: Text('Description',
+                                    maxLines: 3,
+                                    style: TextStyle(
+                                        fontSize: 18
+                                    ),),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        ButtonBar(
+                            children: <Widget>[
+                              FlatButton(
+                                color: Colors.red,
+                                child: Text('Join'),
+                                onPressed: () {
+
+                                },
+                              ),
+
+
+                            ]),
 
                       ],
                     ),
+
+
+                  ],
+                ),
               ),
             ]
           ),

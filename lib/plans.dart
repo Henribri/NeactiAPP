@@ -49,8 +49,22 @@ class _PlansState extends State<Plans> {
                         child: Row(
                           children: <Widget>[
                             Icon(Icons.date_range, size: 30,),
-                            SizedBox(width: 20,),
+                            SizedBox(width: 10,),
                             Text('12-05-2020',
+                              style: TextStyle(
+                                  fontSize: 18
+                              ),),
+                            SizedBox(width: 30,),
+                            Icon(Icons.access_time, size: 30,),
+                            SizedBox(width: 10,),
+                            Text('16:30',
+                              style: TextStyle(
+                                  fontSize: 18
+                              ),),
+                            SizedBox(width: 30,),
+                            Icon(Icons.group, size: 30,),
+                            SizedBox(width: 10,),
+                            Text('10/14',
                               style: TextStyle(
                                   fontSize: 18
                               ),),
@@ -63,7 +77,7 @@ class _PlansState extends State<Plans> {
                         child: Row(
                           children: <Widget>[
                             Icon(Icons.location_on, size: 30,),
-                            SizedBox(width: 20,),
+                            SizedBox(width: 10,),
                             Text('7 rue du marais',
                               style: TextStyle(
                                 fontSize: 18,
@@ -72,27 +86,14 @@ class _PlansState extends State<Plans> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 10,),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
-                        child: Row(
-                          children: <Widget>[
-                            Icon(Icons.group, size: 30,),
-                            SizedBox(width: 20,),
-                            Text('10/14',
-                              style: TextStyle(
-                                  fontSize: 18
-                              ),),
-                          ],
-                        ),
-                      ),
+
                       SizedBox(height: 10),
                       Padding(
                         padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
                         child: Row(
                           children: <Widget>[
                             Icon(Icons.description, size: 30,),
-                            SizedBox(width: 20,),
+                            SizedBox(width: 10,),
                             Expanded(
                               child: Container(
                                 child: Text('Description',
@@ -113,8 +114,11 @@ class _PlansState extends State<Plans> {
                               onPressed: () {
 
                               },
-                            )
+                            ),
+
+
                           ]),
+
                     ],
                   ),
 
@@ -149,8 +153,22 @@ class _PlansState extends State<Plans> {
                         child: Row(
                           children: <Widget>[
                             Icon(Icons.date_range, size: 30,),
-                            SizedBox(width: 20,),
+                            SizedBox(width: 10,),
                             Text('12-05-2020',
+                              style: TextStyle(
+                                  fontSize: 18
+                              ),),
+                            SizedBox(width: 30,),
+                            Icon(Icons.access_time, size: 30,),
+                            SizedBox(width: 10,),
+                            Text('16:30',
+                              style: TextStyle(
+                                  fontSize: 18
+                              ),),
+                            SizedBox(width: 30,),
+                            Icon(Icons.group, size: 30,),
+                            SizedBox(width: 10,),
+                            Text('10/14',
                               style: TextStyle(
                                   fontSize: 18
                               ),),
@@ -163,7 +181,7 @@ class _PlansState extends State<Plans> {
                         child: Row(
                           children: <Widget>[
                             Icon(Icons.location_on, size: 30,),
-                            SizedBox(width: 20,),
+                            SizedBox(width: 10,),
                             Text('7 rue du marais',
                               style: TextStyle(
                                 fontSize: 18,
@@ -172,27 +190,14 @@ class _PlansState extends State<Plans> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 10,),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
-                        child: Row(
-                          children: <Widget>[
-                            Icon(Icons.group, size: 30,),
-                            SizedBox(width: 20,),
-                            Text('10/14',
-                              style: TextStyle(
-                                  fontSize: 18
-                              ),),
-                          ],
-                        ),
-                      ),
+
                       SizedBox(height: 10),
                       Padding(
                         padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
                         child: Row(
                           children: <Widget>[
                             Icon(Icons.description, size: 30,),
-                            SizedBox(width: 20,),
+                            SizedBox(width: 10,),
                             Expanded(
                               child: Container(
                                 child: Text('Description',
