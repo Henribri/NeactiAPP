@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'composer.dart';
+import 'package:http/http.dart';
+import 'dart:convert';
 
 
 
@@ -11,11 +13,18 @@ class Invite extends StatefulWidget {
 }
 
 class _InviteState extends State<Invite> {
+
   final _formKey = GlobalKey<FormState>();
   String _nbr='0';
   String _date = "Non définie";
   String _time = "Non définie";
   String _catvalue= 'Sport';
+  String _desc = 'Hello';
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +71,7 @@ class _InviteState extends State<Invite> {
 
                 Container(
                   width: 100,
-                  
+
 
 
                   child: TextFormField(

@@ -1,7 +1,29 @@
 import 'package:flutter/material.dart';
 import 'composer.dart';
+import 'event.dart';
 
-class Join extends StatelessWidget {
+class Join extends StatefulWidget {
+  @override
+  _JoinState createState() => _JoinState();
+}
+
+class _JoinState extends State<Join> {
+
+  Event _event= Event();
+  void setEvent() async{
+    await _event.getData();
+    setState(() {
+
+    });
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    setEvent();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
@@ -38,12 +60,12 @@ class Join extends StatelessWidget {
                       leading: Icon(
                         Icons.videogame_asset, size: 40, color: Colors.red,),
                       title: Text(
-                        'Tournoi Smash',
+                        _event.title,
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold
                         ),),
-                      subtitle: Text('Ramenez vos manettes !',
+                      subtitle: Text(_event.message,
                         style: TextStyle(
                             fontSize: 16
                         ),),
@@ -56,21 +78,21 @@ class Join extends StatelessWidget {
                             children: <Widget>[
                               Icon(Icons.date_range, size: 30,),
                               SizedBox(width: 10,),
-                              Text('12-05-2020',
+                              Text(_event.date,
                                 style: TextStyle(
                                     fontSize: 18
                                 ),),
                               SizedBox(width: 30,),
                               Icon(Icons.access_time, size: 30,),
                               SizedBox(width: 10,),
-                              Text('16:30',
+                              Text(_event.time,
                                 style: TextStyle(
                                     fontSize: 18
                                 ),),
                               SizedBox(width: 30,),
                               Icon(Icons.group, size: 30,),
                               SizedBox(width: 10,),
-                              Text('10/14',
+                              Text(_event.group,
                                 style: TextStyle(
                                     fontSize: 18
                                 ),),
@@ -84,7 +106,7 @@ class Join extends StatelessWidget {
                             children: <Widget>[
                               Icon(Icons.location_on, size: 30,),
                               SizedBox(width: 10,),
-                              Text('7 rue du marais',
+                              Text(_event.adress,
                                 style: TextStyle(
                                   fontSize: 18,
 
@@ -102,7 +124,7 @@ class Join extends StatelessWidget {
                               SizedBox(width: 10,),
                               Expanded(
                                 child: Container(
-                                  child: Text('Description',
+                                  child: Text(_event.desc,
                                     maxLines: 3,
                                     style: TextStyle(
                                         fontSize: 18
