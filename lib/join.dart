@@ -106,7 +106,7 @@ class _JoinState extends State<Join> {
                             children: <Widget>[
                               Icon(Icons.location_on, size: 30,),
                               SizedBox(width: 10,),
-                              Text(_event.adress,
+                              Text(_event.address,
                                 style: TextStyle(
                                   fontSize: 18,
 

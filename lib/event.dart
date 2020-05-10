@@ -6,7 +6,7 @@ class Event {
   String message= 'Ramenez vos manettes';
   String date = "15-05-2020";
   String time = "16:30";
-  String adress = '7 rue du marais';
+  String address = '7 rue du marais';
   String group= '10/14';
   String desc = 'Chargement';
 
@@ -16,9 +16,9 @@ class Event {
 
   Future<void> getData() async {
     Response response = await get(
-        'https://jsonplaceholder.typicode.com/todos/1');
+        'http://10.0.2.2:8000/events/1');
     Map data = jsonDecode(response.body);
-    this.desc = data['title'];
+    this.desc = data['description'];
     print(this.desc);
   }
 }
