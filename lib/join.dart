@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'composer.dart';
-import 'event.dart';
+import 'package:http/http.dart';
+import 'event_list.dart';
+import 'dart:convert';
 
 class Join extends StatefulWidget {
   @override
@@ -9,12 +11,11 @@ class Join extends StatefulWidget {
 
 class _JoinState extends State<Join> {
 
-  Event _event= Event();
+  EventList _eventList= EventList();
   void setEvent() async{
-    await _event.getData();
-    setState(() {
 
-    });
+    _eventList.getData();
+
   }
 
   @override
@@ -60,12 +61,12 @@ class _JoinState extends State<Join> {
                       leading: Icon(
                         Icons.videogame_asset, size: 40, color: Colors.red,),
                       title: Text(
-                        _event.title,
+                        'Title',
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold
                         ),),
-                      subtitle: Text(_event.message,
+                      subtitle: Text('Subtitle',
                         style: TextStyle(
                             fontSize: 16
                         ),),
@@ -78,21 +79,21 @@ class _JoinState extends State<Join> {
                             children: <Widget>[
                               Icon(Icons.date_range, size: 30,),
                               SizedBox(width: 10,),
-                              Text(_event.date,
+                              Text('15-12-2020',
                                 style: TextStyle(
                                     fontSize: 18
                                 ),),
                               SizedBox(width: 30,),
                               Icon(Icons.access_time, size: 30,),
                               SizedBox(width: 10,),
-                              Text(_event.time,
+                              Text('08:03',
                                 style: TextStyle(
                                     fontSize: 18
                                 ),),
                               SizedBox(width: 30,),
                               Icon(Icons.group, size: 30,),
                               SizedBox(width: 10,),
-                              Text(_event.group,
+                              Text('10/15',
                                 style: TextStyle(
                                     fontSize: 18
                                 ),),
@@ -106,7 +107,7 @@ class _JoinState extends State<Join> {
                             children: <Widget>[
                               Icon(Icons.location_on, size: 30,),
                               SizedBox(width: 10,),
-                              Text(_event.address,
+                              Text('adresse',
                                 style: TextStyle(
                                   fontSize: 18,
 
@@ -124,7 +125,7 @@ class _JoinState extends State<Join> {
                               SizedBox(width: 10,),
                               Expanded(
                                 child: Container(
-                                  child: Text(_event.desc,
+                                  child: Text('description',
                                     maxLines: 3,
                                     style: TextStyle(
                                         fontSize: 18

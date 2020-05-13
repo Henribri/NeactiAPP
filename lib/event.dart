@@ -1,18 +1,25 @@
 import 'package:http/http.dart';
 import 'dart:convert';
+import 'event_list.dart';
 
 class Event {
-  String title='Tournoi Smash';
-  String message= 'Ramenez vos manettes';
-  String date = "15-05-2020";
-  String time = "16:30";
-  String address = '7 rue du marais';
-  String group= '10/14';
-  String desc = 'Chargement';
+  int id;
+  String title;
+  String subtitle;
+  String date_time ;
+  String address;
+  int act_people;
+  int all_people;
+  String desc;
+  String category;
 
-  Event() {
-    getData();
-    }
+  Event(this.id, this.title, this.subtitle, this.date_time, this.address, this.act_people, this.all_people, this.desc, this.category);
+
+
+
+
+
+
 
   Future<void> getData() async {
     Response response = await get(
