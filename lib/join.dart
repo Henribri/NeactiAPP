@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'composer.dart';
+import 'package:intl/intl.dart';
 import 'package:http/http.dart';
-import 'event_list.dart';
+
+import 'package:flutter/cupertino.dart';
+import 'event.dart';
 import 'dart:convert';
 
 class Join extends StatefulWidget {
@@ -10,261 +12,188 @@ class Join extends StatefulWidget {
 }
 
 class _JoinState extends State<Join> {
+  Future<List<Event>> _getData() async {
+    Response response = await get('http://10.0.2.2:8000/events.json');
+    List<dynamic> data = jsonDecode(response.body);
 
-  EventList _eventList= EventList();
-  void setEvent() async{
+    List<Event> _list_event = [];
+    for (var event in data) {
+      Event _event = Event(
+          event['id'],
+          event['title'],
+          event['subtitle'],
+          event['date_time'],
+          event['address'],
+          event['act_people'],
+          event['all_people'],
+          event['description'],
+          event['category']);
+      _list_event.add(_event);
+    }
 
-    _eventList.getData();
-
+    return _list_event;
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    setEvent();
   }
-
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        const SliverAppBar(
-          backgroundColor: Colors.white,
-          pinned: true,
-          expandedHeight: 70,
-          elevation: 10,
-
-          title: Text('Filtre : Tous',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-                color: Colors.red,
-            ),),
-
-
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.search, size: 40, color: Colors.red,),
-            tooltip: 'Add new entry',
-
-          ),
-        ],),
-        SliverList(
-          delegate: SliverChildListDelegate(
-            [
-              SizedBox(height: 10,),
-              Card(
-                child: Column(
-                  children: <Widget>[
-                    ExpansionTile(
-                      leading: Icon(
-                        Icons.videogame_asset, size: 40, color: Colors.red,),
-                      title: Text(
-                        'Title',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold
-                        ),),
-                      subtitle: Text('Subtitle',
-                        style: TextStyle(
-                            fontSize: 16
-                        ),),
-
+    return Container(
+      child: FutureBuilder(
+          future: _getData(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.data == null) {
+              return Center(
+                  child: Container(
+                      height: 80,
+                      width: 80,
+                      child: CircularProgressIndicator(
+                          backgroundColor: Colors.redAccent,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                              Colors.deepPurpleAccent),
+                          strokeWidth: 5)));
+            } else {
+              return ListView.builder(
+                itemCount: snapshot.data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Card(
+                    child: Column(
                       children: <Widget>[
-
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(15, 10, 0, 5),
-                          child: Row(
-                            children: <Widget>[
-                              Icon(Icons.date_range, size: 30,),
-                              SizedBox(width: 10,),
-                              Text('15-12-2020',
-                                style: TextStyle(
-                                    fontSize: 18
-                                ),),
-                              SizedBox(width: 30,),
-                              Icon(Icons.access_time, size: 30,),
-                              SizedBox(width: 10,),
-                              Text('08:03',
-                                style: TextStyle(
-                                    fontSize: 18
-                                ),),
-                              SizedBox(width: 30,),
-                              Icon(Icons.group, size: 30,),
-                              SizedBox(width: 10,),
-                              Text('10/15',
-                                style: TextStyle(
-                                    fontSize: 18
-                                ),),
-                            ],
+                        ExpansionTile(
+                          leading: Icon(
+                            Icons.videogame_asset,
+                            size: 40,
+                            color: Colors.red,
                           ),
-                        ),
-                        SizedBox(height: 10,),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
-                          child: Row(
-                            children: <Widget>[
-                              Icon(Icons.location_on, size: 30,),
-                              SizedBox(width: 10,),
-                              Text('adresse',
-                                style: TextStyle(
-                                  fontSize: 18,
-
-                                ),),
-                            ],
+                          title: Text(
+                            snapshot.data[index].title,
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
                           ),
-                        ),
-
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
-                          child: Row(
-                            children: <Widget>[
-                              Icon(Icons.description, size: 30,),
-                              SizedBox(width: 10,),
-                              Expanded(
-                                child: Container(
-                                  child: Text('description',
-                                    maxLines: 3,
-                                    style: TextStyle(
-                                        fontSize: 18
-                                    ),),
-                                ),
+                          subtitle: Text(
+                            snapshot.data[index].subtitle,
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(15, 10, 0, 5),
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.date_range,
+                                    size: 30,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    DateFormat("dd-MM-yyyy").format(
+                                        DateTime.parse(snapshot
+                                            .data[index].date_time
+                                            .substring(0, 10))),
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  SizedBox(
+                                    width: 30,
+                                  ),
+                                  Icon(
+                                    Icons.access_time,
+                                    size: 30,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    snapshot.data[index].date_time
+                                        .substring(11, 16),
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  SizedBox(
+                                    width: 30,
+                                  ),
+                                  Icon(
+                                    Icons.group,
+                                    size: 30,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    snapshot.data[index].act_people.toString() +
+                                        '/' +
+                                        snapshot.data[index].all_people
+                                            .toString(),
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                        ButtonBar(
-                            children: <Widget>[
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.location_on,
+                                    size: 30,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    snapshot.data[index].address,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.description,
+                                    size: 30,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      child: Text(
+                                        snapshot.data[index].desc,
+                                        maxLines: 3,
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            ButtonBar(children: <Widget>[
                               FlatButton(
                                 color: Colors.red,
                                 child: Text('Join'),
-                                onPressed: () {
-
-                                },
+                                onPressed: () {},
                               ),
-
-
                             ]),
-
+                          ],
+                        ),
                       ],
                     ),
-
-
-                  ],
-                ),
-              ),
-
-
-                  SizedBox(height: 10,),
-              Card(
-                child: Column(
-                  children: <Widget>[
-                    ExpansionTile(
-                      leading: Icon(
-                        Icons.videogame_asset, size: 40, color: Colors.red,),
-                      title: Text(
-                        'Tournoi Smash',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold
-                        ),),
-                      subtitle: Text('Ramenez vos manettes !',
-                        style: TextStyle(
-                            fontSize: 16
-                        ),),
-
-                      children: <Widget>[
-
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(15, 10, 0, 5),
-                          child: Row(
-                            children: <Widget>[
-                              Icon(Icons.date_range, size: 30,),
-                              SizedBox(width: 10,),
-                              Text('12-05-2020',
-                                style: TextStyle(
-                                    fontSize: 18
-                                ),),
-                              SizedBox(width: 30,),
-                              Icon(Icons.access_time, size: 30,),
-                              SizedBox(width: 10,),
-                              Text('16:30',
-                                style: TextStyle(
-                                    fontSize: 18
-                                ),),
-                              SizedBox(width: 30,),
-                              Icon(Icons.group, size: 30,),
-                              SizedBox(width: 10,),
-                              Text('10/14',
-                                style: TextStyle(
-                                    fontSize: 18
-                                ),),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 10,),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
-                          child: Row(
-                            children: <Widget>[
-                              Icon(Icons.location_on, size: 30,),
-                              SizedBox(width: 10,),
-                              Text('7 rue du marais',
-                                style: TextStyle(
-                                  fontSize: 18,
-
-                                ),),
-                            ],
-                          ),
-                        ),
-
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
-                          child: Row(
-                            children: <Widget>[
-                              Icon(Icons.description, size: 30,),
-                              SizedBox(width: 10,),
-                              Expanded(
-                                child: Container(
-                                  child: Text('Description',
-                                    maxLines: 3,
-                                    style: TextStyle(
-                                        fontSize: 18
-                                    ),),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        ButtonBar(
-                            children: <Widget>[
-                              FlatButton(
-                                color: Colors.red,
-                                child: Text('Join'),
-                                onPressed: () {
-
-                                },
-                              ),
-
-
-                            ]),
-
-                      ],
-                    ),
-
-
-                  ],
-                ),
-              ),
-            ]
-          ),
-        ),
-
-      ],
+                  );
+                },
+              );
+            }
+          }),
     );
   }
 }
-
