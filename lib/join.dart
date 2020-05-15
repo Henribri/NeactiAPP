@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -34,6 +35,31 @@ class _JoinState extends State<Join> {
     return _list_event;
   }
 
+  IconData _getIcon(int category) {
+    switch (category) {
+      case 1:
+        return Icons.videogame_asset;
+        break;
+
+      case 2:
+        return FontAwesomeIcons.volleyballBall;
+        break;
+
+      case 3:
+        return FontAwesomeIcons.pagelines;
+        break;
+
+      case 4:
+        return Icons.library_music;
+        break;
+
+      default:
+        return FontAwesomeIcons.volleyballBall;
+    }
+
+    return Icons.videogame_asset;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -64,7 +90,7 @@ class _JoinState extends State<Join> {
                       children: <Widget>[
                         ExpansionTile(
                           leading: Icon(
-                            Icons.videogame_asset,
+                            _getIcon(snapshot.data[index].category),
                             size: 40,
                             color: Colors.red,
                           ),

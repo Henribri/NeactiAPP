@@ -12,7 +12,7 @@ class Event {
   int act_people;
   int all_people;
   String desc;
-  String category;
+  int category;
 
   Event(this.id, this.title, this.subtitle, this.date_time, this.address, this.act_people, this.all_people, this.desc, this.category);
 
