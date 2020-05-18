@@ -38,23 +38,23 @@ class _JoinState extends State<Join> {
   IconData _getIcon(int category) {
     switch (category) {
       case 1:
-        return Icons.videogame_asset;
+        return IconData(57392, fontFamily: 'MaterialIcons', fontPackage: null);
         break;
 
       case 2:
-        return FontAwesomeIcons.volleyballBall;
+        return IconData(62559, fontFamily: 'FontAwesomeSolid', fontPackage: 'font_awesome_flutter');
         break;
 
       case 3:
-        return FontAwesomeIcons.pagelines;
+        return IconData(61836, fontFamily: 'FontAwesomeBrands', fontPackage: 'font_awesome_flutter');
         break;
 
       case 4:
-        return Icons.library_music;
+        return IconData(57392, fontFamily: 'MaterialIcons', fontPackage: null);
         break;
 
       default:
-        return FontAwesomeIcons.volleyballBall;
+        return IconData(62559, fontFamily: 'FontAwesomeSolid', fontPackage: 'font_awesome_flutter');
     }
 
     return Icons.videogame_asset;
