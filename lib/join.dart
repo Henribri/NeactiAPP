@@ -13,11 +13,12 @@ class Join extends StatefulWidget {
 }
 
 class _JoinState extends State<Join> {
+
   Future<List<Event>> _getData() async {
     Response response = await get('http://10.0.2.2:8000/events.json');
     List<dynamic> data = jsonDecode(response.body);
 
-    List<Event> _list_event = [];
+    List<Event> ListEvent = [];
     for (var event in data) {
       Event _event = Event(
           event['id'],
@@ -29,35 +30,21 @@ class _JoinState extends State<Join> {
           event['all_people'],
           event['description'],
           event['category']);
-      _list_event.add(_event);
+      ListEvent.add(_event);
     }
 
-    return _list_event;
+    return ListEvent;
   }
 
-  IconData _getIcon(int category) {
-    switch (category) {
-      case 1:
-        return IconData(57392, fontFamily: 'MaterialIcons', fontPackage: null);
-        break;
+  Future<IconData> _getIcon(int numCategory) async{
 
-      case 2:
-        return IconData(62559, fontFamily: 'FontAwesomeSolid', fontPackage: 'font_awesome_flutter');
-        break;
+    Response response = await get('http://10.0.2.2:8000/category/$numCategory.json');
+    Map category = jsonDecode(response.body);
 
-      case 3:
-        return IconData(61836, fontFamily: 'FontAwesomeBrands', fontPackage: 'font_awesome_flutter');
-        break;
+    return IconData(category['iconId'], fontFamily: category['fontFamily'], fontPackage: category['fontPackage']);
 
-      case 4:
-        return IconData(57392, fontFamily: 'MaterialIcons', fontPackage: null);
-        break;
 
-      default:
-        return IconData(62559, fontFamily: 'FontAwesomeSolid', fontPackage: 'font_awesome_flutter');
-    }
 
-    return Icons.videogame_asset;
   }
 
   @override
@@ -70,8 +57,8 @@ class _JoinState extends State<Join> {
     return Container(
       child: FutureBuilder(
           future: _getData(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.data == null) {
+          builder: (BuildContext context, AsyncSnapshot listEvent) {
+            if (listEvent.data == null) {
               return Center(
                   child: Container(
                       height: 80,
@@ -83,24 +70,37 @@ class _JoinState extends State<Join> {
                           strokeWidth: 5)));
             } else {
               return ListView.builder(
-                itemCount: snapshot.data.length,
+                itemCount: listEvent.data.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Card(
                     child: Column(
                       children: <Widget>[
                         ExpansionTile(
-                          leading: Icon(
-                            _getIcon(snapshot.data[index].category),
-                            size: 40,
-                            color: Colors.red,
+                          leading: FutureBuilder(
+                            future: _getIcon(listEvent.data[index].category),
+                            builder: (BuildContext context, AsyncSnapshot category) {
+                              if (category.data == null) {
+                               return Icon(
+                                Icons.hourglass_empty,
+                                size: 40,
+                                color: Colors.red,
+                                );
+                              } else {
+                               return Icon(
+                                 category.data,
+                                  size: 40,
+                                  color: Colors.red,
+                                );
+                              }
+                            }
                           ),
                           title: Text(
-                            snapshot.data[index].title,
+                            listEvent.data[index].title,
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                           subtitle: Text(
-                            snapshot.data[index].subtitle,
+                            listEvent.data[index].subtitle,
                             style: TextStyle(fontSize: 16),
                           ),
                           children: <Widget>[
@@ -117,8 +117,8 @@ class _JoinState extends State<Join> {
                                   ),
                                   Text(
                                     DateFormat("dd-MM-yyyy").format(
-                                        DateTime.parse(snapshot
-                                            .data[index].date_time
+                                        DateTime.parse(listEvent
+                                            .data[index].dateTime
                                             .substring(0, 10))),
                                     style: TextStyle(fontSize: 18),
                                   ),
@@ -133,7 +133,7 @@ class _JoinState extends State<Join> {
                                     width: 10,
                                   ),
                                   Text(
-                                    snapshot.data[index].date_time
+                                    listEvent.data[index].dateTime
                                         .substring(11, 16),
                                     style: TextStyle(fontSize: 18),
                                   ),
@@ -148,9 +148,9 @@ class _JoinState extends State<Join> {
                                     width: 10,
                                   ),
                                   Text(
-                                    snapshot.data[index].act_people.toString() +
+                                    listEvent.data[index].actPeople.toString() +
                                         '/' +
-                                        snapshot.data[index].all_people
+                                        listEvent.data[index].allPeople
                                             .toString(),
                                     style: TextStyle(fontSize: 18),
                                   ),
@@ -172,7 +172,7 @@ class _JoinState extends State<Join> {
                                     width: 10,
                                   ),
                                   Text(
-                                    snapshot.data[index].address,
+                                    listEvent.data[index].address,
                                     style: TextStyle(
                                       fontSize: 18,
                                     ),
@@ -195,7 +195,7 @@ class _JoinState extends State<Join> {
                                   Expanded(
                                     child: Container(
                                       child: Text(
-                                        snapshot.data[index].desc,
+                                        listEvent.data[index].desc,
                                         maxLines: 3,
                                         style: TextStyle(fontSize: 18),
                                       ),

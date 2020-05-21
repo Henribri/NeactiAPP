@@ -7,14 +7,14 @@ class Event {
   int id;
   String title;
   String subtitle;
-  String date_time ;
+  String dateTime ;
   String address;
-  int act_people;
-  int all_people;
+  int actPeople;
+  int allPeople;
   String desc;
   int category;
 
-  Event(this.id, this.title, this.subtitle, this.date_time, this.address, this.act_people, this.all_people, this.desc, this.category);
+  Event(this.id, this.title, this.subtitle, this.dateTime, this.address, this.actPeople, this.allPeople, this.desc, this.category);
 
 
 }
