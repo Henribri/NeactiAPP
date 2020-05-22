@@ -31,12 +31,13 @@ class _JoinState extends State<Join> {
           event['description'],
           event['category']);
       ListEvent.add(_event);
+
     }
 
     return ListEvent;
   }
 
-  Future<IconData> _getIcon(int numCategory) async{
+  Future<IconData> _getIcon(String numCategory) async{
 
     Response response = await get('http://10.0.2.2:8000/category/$numCategory.json');
     Map category = jsonDecode(response.body);
@@ -148,7 +149,7 @@ class _JoinState extends State<Join> {
                                     width: 10,
                                   ),
                                   Text(
-                                    listEvent.data[index].actPeople.toString() +
+                                    listEvent.data[index].actPeople.length.toString() +
                                         '/' +
                                         listEvent.data[index].allPeople
                                             .toString(),
