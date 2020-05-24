@@ -14,52 +14,26 @@ class Join extends StatefulWidget {
 
 class _JoinState extends State<Join> {
 
+  //-- RETURN LIST OF ACTUAL EVENT --
   Future<List<Event>> _getData() async {
     Response response = await get('http://10.0.2.2:8000/events.json');
     List<dynamic> data = jsonDecode(response.body);
 
-    List<Event> ListEvent = [];
-    for (var event in data) {
-      Event _event = Event(
-          event['id'],
-          event['title'],
-          event['subtitle'],
-          event['date_time'],
-          event['address'],
-          event['act_people'],
-          event['all_people'],
-          event['description'],
-          event['category']);
-      ListEvent.add(_event);
-
-    }
-
-    return ListEvent;
-  }
-
-  Future<IconData> _getIcon(String numCategory) async{
-
-    Response response = await get('http://10.0.2.2:8000/category/$numCategory.json');
-    Map category = jsonDecode(response.body);
-
-    return IconData(category['iconId'], fontFamily: category['fontFamily'], fontPackage: category['fontPackage']);
-
-
+   return data.map((i)=>Event.fromJson(i)).toList();
 
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
+  //-- BUILD JOIN PAGE
   @override
   Widget build(BuildContext context) {
     return Container(
+      //-- GET THE DATA TO DISPLAY
       child: FutureBuilder(
           future: _getData(),
           builder: (BuildContext context, AsyncSnapshot listEvent) {
             if (listEvent.data == null) {
+              //-- IF NO DATA RETURN A CIRCLE WAIT
               return Center(
                   child: Container(
                       height: 80,
@@ -70,6 +44,7 @@ class _JoinState extends State<Join> {
                               Colors.deepPurpleAccent),
                           strokeWidth: 5)));
             } else {
+              //-- IF WE GET DATA THEN DISPLAY IT
               return ListView.builder(
                 itemCount: listEvent.data.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -77,24 +52,11 @@ class _JoinState extends State<Join> {
                     child: Column(
                       children: <Widget>[
                         ExpansionTile(
-                          leading: FutureBuilder(
-                            future: _getIcon(listEvent.data[index].category),
-                            builder: (BuildContext context, AsyncSnapshot category) {
-                              if (category.data == null) {
-                               return Icon(
-                                Icons.hourglass_empty,
-                                size: 40,
-                                color: Colors.red,
-                                );
-                              } else {
-                               return Icon(
-                                 category.data,
+                          leading: Icon(
+                            IconData(listEvent.data[index].category.iconId, fontFamily: listEvent.data[index].category.fontFamily, fontPackage: listEvent.data[index].category.fontPackage),
                                   size: 40,
                                   color: Colors.red,
-                                );
-                              }
-                            }
-                          ),
+                                ),
                           title: Text(
                             listEvent.data[index].title,
                             style: TextStyle(
