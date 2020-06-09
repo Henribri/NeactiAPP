@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "401834968244",
+    "firebase_url": "https://neacti.firebaseio.com",
+    "project_id": "neacti",
+    "storage_bucket": "neacti.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:401834968244:android:007d0acdda3eb21c9e43e1",
+        "android_client_info": {
+          "package_name": "com.pro.neacti"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "401834968244-if881hldhkv8oh0oicbqgk4djsheccm3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFSxs-cvHJfwKvc0Rv9W9nlPzdpWX5_G0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "401834968244-if881hldhkv8oh0oicbqgk4djsheccm3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

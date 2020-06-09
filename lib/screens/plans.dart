@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:neacti/composer.dart';
+import 'package:neacti/screens/composer.dart';
 class Plans extends StatefulWidget {
   @override
   _PlansState createState() => _PlansState();

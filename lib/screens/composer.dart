@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:neacti/join.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:neacti/screens/join.dart';
+import 'package:neacti/services/auth.dart';
 
 
 
@@ -91,6 +93,8 @@ class MainDrawer extends StatelessWidget {
 
   class MainAppBar extends StatelessWidget implements PreferredSizeWidget{
 
+  final AuthService _auth = AuthService();
+
   final BuildContext context;
   MainAppBar({this.context});
 
@@ -101,6 +105,14 @@ class MainDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
         elevation: 0,
+        actions: <Widget>[
+          IconButton(onPressed: () async{
+            await _auth.signOut();
+          },
+
+              icon: Icon(FontAwesomeIcons.signOutAlt, color: Colors.white, size: 30,),
+          )
+        ],
         flexibleSpace: Container(
                decoration: new BoxDecoration(
                   gradient: new LinearGradient(
@@ -116,7 +128,7 @@ class MainDrawer extends StatelessWidget {
                 ),
               ),
               title: Align(
-                alignment: Alignment.centerRight,
+                alignment: Alignment.centerLeft,
               child:Text('Neacti',
                 style: TextStyle(
                   color: Colors.white,

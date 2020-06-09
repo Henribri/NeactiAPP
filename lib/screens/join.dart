@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart';
 
 import 'package:flutter/cupertino.dart';
-import 'event.dart';
+import '../models/event.dart';
 import 'dart:convert';
 
 class Join extends StatefulWidget {
