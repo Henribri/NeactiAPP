@@ -3,6 +3,7 @@ import 'package:neacti/main.dart';
 import 'package:neacti/models/user.dart';
 import 'package:neacti/screens/authenticate/authenticate.dart';
 import 'package:neacti/screens/authenticate/sign_in.dart';
+import 'package:neacti/screens/home.dart';
 import 'package:provider/provider.dart';
 import 'package:neacti/main.dart';
 

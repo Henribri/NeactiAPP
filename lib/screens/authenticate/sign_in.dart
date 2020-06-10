@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:neacti/screens/loading.dart';
 import 'package:neacti/services/auth.dart';
 
 import '../composer.dart';
@@ -15,7 +16,7 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
 
-
+  bool loading = false;
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
@@ -25,7 +26,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       backgroundColor:  Colors.white,
       body: SingleChildScrollView(
           child: Form(
@@ -51,7 +52,7 @@ class _SignInState extends State<SignIn> {
                   Container(
                     width: 300,
                     child: TextFormField(
-                      cursorColor: Colors.red,
+                      cursorColor: Colors.pinkAccent[400],
                       decoration: InputDecoration(
                         labelStyle: TextStyle(color: Colors.black, fontSize: 16),
                         fillColor: Colors.white,
@@ -113,10 +114,13 @@ class _SignInState extends State<SignIn> {
                     onPressed: ()async{
                       if (_formKey.currentState.validate()) {
 
+                        setState(() =>loading=true);
                         dynamic result=await _auth.signInWithEmail(email, password);
+
                         if (result == null){
                           setState(() {
                             error="Pas bon frero";
+                            setState(() =>loading=false);
                           });
                         }
                       }

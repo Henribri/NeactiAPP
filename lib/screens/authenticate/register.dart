@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:neacti/screens/loading.dart';
 import 'package:neacti/services/auth.dart';
 
 import '../composer.dart';
@@ -20,7 +21,7 @@ class _RegisterState extends State<Register> {
 
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
-
+  bool loading = false;
 
   String email='';
   String password='';
@@ -28,7 +29,7 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       backgroundColor:  Colors.white,
       body: SingleChildScrollView(
           child: Form(
@@ -117,9 +118,15 @@ class _RegisterState extends State<Register> {
                       if (_formKey.currentState.validate()) {
 
                         dynamic result=await _auth.registerWithEmail(email, password);
+                        setState(() {
+                          loading=true;
+                        });
                         if (result == null){
                           setState(() {
                             error="Pas bon frero";
+                            setState(() {
+                              loading=false;
+                            });
                           });
                         }
                       }
