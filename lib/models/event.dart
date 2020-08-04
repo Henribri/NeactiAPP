@@ -12,8 +12,9 @@ class Event {
   int allPeople;
   String desc;
   Category category;
+  String categoryRef;
 
-  Event(this.id, this.title, this.subtitle, this.dateTime, this.address, this.actPeople, this.allPeople, this.desc, this.category);
+  Event(this.id, this.title, this.subtitle, this.dateTime, this.address, this.actPeople, this.allPeople, this.desc, this.category, this.categoryRef);
 
 
   //-- BUILD EVENT OBJECT BASED ON JSON
@@ -31,10 +32,27 @@ class Event {
         actPeopleList,
         parsedJson['all_people'],
         parsedJson['description'],
-        Category.fromJson(parsedJson['category'])
+        Category.fromJson(parsedJson['category']),
+        null
     );
 
   }
+
+  Map toMap() {
+    var map = new Map<String, dynamic>();
+    map["title"] = title;
+    map["subtitle"] = subtitle;
+    map["date_time"] = dateTime;
+    map["address"] = address;
+    map["act_people"] = actPeople;
+    map["all_people"] = allPeople;
+    map["description"] = desc;
+    map["category"] = categoryRef;
+
+    return map;
+  }
+
+
 
 
 }
