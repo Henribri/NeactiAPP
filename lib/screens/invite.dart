@@ -16,15 +16,21 @@ class Invite extends StatefulWidget {
 }
 
 class _InviteState extends State<Invite> {
+
+  // Define variables of the form
   final _formKey = GlobalKey<FormState>();
-  String _nbr = '0';
+  String _nbr = '2';
   String _date = "Non définie";
   String _time = "Non définie";
+  String _desc;
+  String _title;
+  String _message;
+  String _location;
+  String _category;
 
-  String _desc = 'Hello';
-  String _title = 'Title';
-  String _message = 'Message';
-  String _location = 'Location';
+  //Get the categories
+  Future<List<Category>> listCategory;
+
 
 // Post method
   _postEvent({Map body}) async {
@@ -35,7 +41,7 @@ class _InviteState extends State<Invite> {
     int statusCode = response.statusCode;
   }
 
-  //-- RETURN LIST OF CATEGORY --
+  // Get category
   Future<List<Category>> _getCategoryList() async {
     Response response = await get('http://10.0.2.2:8000/category.json');
     List<dynamic> data = jsonDecode(response.body);
@@ -43,37 +49,34 @@ class _InviteState extends State<Invite> {
     return data.map((i) => Category.fromJson(i)).toList();
   }
 
-  Future<List<Category>> listCategory;
-  String _category;
+
+  // initState to use Future Builder only one time
   @override
   void initState() {
     super.initState();
     listCategory = _getCategoryList();
-
-
   }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        child: FutureBuilder(
-            future: listCategory,
-            builder: (BuildContext context, AsyncSnapshot listCategory) {
-              if (listCategory.data == null) {
-                //-- IF NO DATA RETURN A CIRCLE WAIT
-                return Center(
-                    child: Container(
-                        height: 80,
-                        width: 80,
-                        child: CircularProgressIndicator(
-                            backgroundColor: Colors.redAccent,
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                                Colors.deepPurpleAccent),
-                            strokeWidth: 5)));
-              } else {
-
-                return Form(
+    return Container(
+      child: FutureBuilder(
+          future: listCategory,
+          builder: (BuildContext context, AsyncSnapshot listCategory) {
+            if (listCategory.data == null) {
+              //-- IF NO DATA RETURN A CIRCLE WAIT
+              return Center(
+                  child: Container(
+                      height: 80,
+                      width: 80,
+                      child: CircularProgressIndicator(
+                          backgroundColor: Colors.redAccent,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                              Colors.deepPurpleAccent),
+                          strokeWidth: 5)));
+            } else {
+              return SingleChildScrollView(
+                child: Form(
                   key: _formKey,
                   child: Column(
                     children: <Widget>[
@@ -83,20 +86,28 @@ class _InviteState extends State<Invite> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-
                           Container(
                             width: 200,
                             child: DropdownButtonFormField(
+                              elevation: 0,
+                              decoration: InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.redAccent, width: 2))),
+
                               //underline: Container(height: 2, color: Colors.red),
-                              hint: Text('Categories'),
+                              hint: Text('Categories',
+                                  style: TextStyle(color: Colors.black)),
 
                               value: _category,
 
                               icon: Icon(Icons.arrow_drop_down),
                               iconSize: 24,
-                              style: TextStyle(color: Colors.black, fontSize: 16),
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 16),
                               items: listCategory.data
-                                  .map<DropdownMenuItem<String>>((Category value) {
+                                  .map<DropdownMenuItem<String>>(
+                                      (Category value) {
                                 return DropdownMenuItem<String>(
                                   value: value.id,
                                   child: Text(value.name),
@@ -104,18 +115,16 @@ class _InviteState extends State<Invite> {
                               }).toList(),
                               onChanged: (value) {
                                 setState(() {
-                                  _category=value;
+                                  _category = value;
                                 });
                               },
-                                validator: (value) {
-                                  if (value == null) {
-                                    return "Please select an item";
-                                  }else{
-                                    return null;
-                                  }
-
-                                },
-
+                              validator: (value) {
+                                if (value == null) {
+                                  return "Please select an item";
+                                } else {
+                                  return null;
+                                }
+                              },
                             ),
                           ),
                           Container(
@@ -123,7 +132,7 @@ class _InviteState extends State<Invite> {
                             child: TextFormField(
                                 cursorColor: Colors.red,
                                 maxLines: 1,
-                                initialValue: '5',
+                                initialValue: _nbr,
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                     prefixIcon: Icon(
@@ -344,10 +353,10 @@ class _InviteState extends State<Invite> {
                       ),
                     ],
                   ),
-                );
-              }
-            }),
-      ),
+                ),
+              );
+            }
+          }),
     );
   }
 }
