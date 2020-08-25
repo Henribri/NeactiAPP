@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart';
-
+import 'package:neacti/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import '../models/event.dart';
 import 'dart:convert';
+import 'package:provider/provider.dart';
 
 class Join extends StatefulWidget {
   @override
@@ -23,6 +24,18 @@ class _JoinState extends State<Join> {
 
   }
 
+  // Put method to add people
+  _putEvent(String eventId, Map body) async {
+
+    String url = 'http://10.0.2.2:8000/events/$eventId/';
+    Map<String, String> headers = {"Content-type": "application/json"};
+    Response response = await put(url,headers: headers, body: json.encode(body));
+    int statusCode = response.statusCode;
+    print(statusCode);
+  }
+
+  // Variable to contain the list of User registered for th event
+  var putJoin = new Map<String, List<String>>();
 
   //-- BUILD JOIN PAGE
   @override
@@ -171,7 +184,16 @@ class _JoinState extends State<Join> {
                               FlatButton(
                                 color: Colors.red,
                                 child: Text('Join'),
-                                onPressed: () {},
+                                onPressed: () {
+
+                                  listEvent.data[index].actPeople.add(Provider.of<User>(context).uid);
+
+                                  putJoin["act_people"] = listEvent.data[index].actPeople;
+
+
+                                  _putEvent(listEvent.data[index].id ,putJoin);
+
+                                },
                               ),
                             ]),
                           ],
