@@ -16,8 +16,8 @@ class Join extends StatefulWidget {
 class _JoinState extends State<Join> {
 
   //-- RETURN LIST OF ACTUAL EVENT --
-  Future<List<Event>> _getData() async {
-    Response response = await get('http://10.0.2.2:8000/events.json');
+  Future<List<Event>> _getData(String userId) async {
+    Response response = await get('http://10.0.2.2:8000/events/user_not_registered/$userId.json');
     List<dynamic> data = jsonDecode(response.body);
 
    return data.map((i)=>Event.fromJson(i)).toList();
@@ -43,7 +43,7 @@ class _JoinState extends State<Join> {
     return Container(
       //-- GET THE DATA TO DISPLAY
       child: FutureBuilder(
-          future: _getData(),
+          future: _getData(Provider.of<User>(context).uid),
           builder: (BuildContext context, AsyncSnapshot listEvent) {
             if (listEvent.data == null) {
               //-- IF NO DATA RETURN A CIRCLE WAIT
