@@ -345,8 +345,23 @@ class _InviteState extends State<Invite> {
                             // Call the post method with a map of the object
                             _postEvent(body: newEvent.toMap());
 
-                            Scaffold.of(context).showSnackBar(
-                                SnackBar(content: Text('Processing Data')));
+
+                            setState(() {
+                              Scaffold.of(context)
+                                  .showSnackBar(SnackBar(
+                                backgroundColor: Colors.greenAccent,
+                                content: Text(
+                                  'Your event has been created.',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                duration: Duration(seconds: 1),
+                              ));
+                            });
+
+
                           }
                         },
                         child: Text('Submit'),

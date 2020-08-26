@@ -56,7 +56,15 @@ class _JoinState extends State<Join> {
                           valueColor: AlwaysStoppedAnimation<Color>(
                               Colors.deepPurpleAccent),
                           strokeWidth: 5)));
-            } else {
+            }
+            // IF there is no event display a message
+            else if(listEvent.data.length == 0){
+                return Container(
+                  child: Center(
+                    child: Text("Pas d'event pour le moment.", style: TextStyle(fontFamily: 'Fred', fontSize: 26),),
+                  ),
+                );
+              }else{
               //-- IF WE GET DATA THEN DISPLAY IT
               return ListView.builder(
                 itemCount: listEvent.data.length,
@@ -193,6 +201,12 @@ class _JoinState extends State<Join> {
 
                                   _putEvent(listEvent.data[index].id ,putJoin);
 
+
+                                    setState(() {
+                                      Scaffold.of(context).showSnackBar(
+                                          SnackBar(backgroundColor: Colors.greenAccent, content: Text('The event has been add to your plans', style: TextStyle(color: Colors.black, fontSize: 16),), duration: Duration(seconds: 1),));
+                                  });
+
                                 },
                               ),
                             ]),
@@ -202,9 +216,9 @@ class _JoinState extends State<Join> {
                     ),
                   );
                 },
-              );
+              );}
             }
-          }),
+          ),
     );
   }
 }

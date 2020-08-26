@@ -75,6 +75,15 @@ class _PlansState extends State<Plans> {
                               valueColor: AlwaysStoppedAnimation<Color>(
                                   Colors.deepPurpleAccent),
                               strokeWidth: 5)));
+                } else if (listEvent.data.length == 0) {
+                  return Container(
+                    child: Center(
+                      child: Text(
+                        "Vous n'avez pas d'event.",
+                        style: TextStyle(fontFamily: 'Fred', fontSize: 26),
+                      ),
+                    ),
+                  );
                 } else {
                   //-- IF WE GET DATA THEN DISPLAY IT
                   return ListView.builder(
@@ -210,13 +219,30 @@ class _PlansState extends State<Plans> {
                                     child: Text('Leave'),
                                     onPressed: () {
                                       listEvent.data[index].actPeople
-                                          .removeWhere((item) => item == Provider.of<User>(context).uid);
+                                          .removeWhere((item) =>
+                                              item ==
+                                              Provider.of<User>(context).uid);
 
                                       putJoin["act_people"] =
                                           listEvent.data[index].actPeople;
 
                                       _putEvent(
                                           listEvent.data[index].id, putJoin);
+
+                                      setState(() {
+                                        Scaffold.of(context)
+                                            .showSnackBar(SnackBar(
+                                          backgroundColor: Colors.greenAccent,
+                                          content: Text(
+                                            'The event has been removed from your plans',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          duration: Duration(seconds: 1),
+                                        ));
+                                      });
                                     },
                                   ),
                                 ]),
