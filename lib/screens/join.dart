@@ -14,28 +14,27 @@ class Join extends StatefulWidget {
 }
 
 class _JoinState extends State<Join> {
-
   //-- RETURN LIST OF ACTUAL EVENT --
   Future<List<Event>> _getData(String userId) async {
-    Response response = await get('http://10.0.2.2:8000/events/user_not_registered/$userId.json');
+    Response response = await get(
+        'http://10.0.2.2:8000/events/user_not_registered/$userId.json');
     List<dynamic> data = jsonDecode(response.body);
 
-   return data.map((i)=>Event.fromJson(i)).toList();
-
+    return data.map((i) => Event.fromJson(i)).toList();
   }
 
   // Put method to add people
-  _putEvent(String eventId, Map body) async {
-
+  _putJoinEvent(String eventId, Map body) async {
     String url = 'http://10.0.2.2:8000/events/$eventId/';
     Map<String, String> headers = {"Content-type": "application/json"};
-    Response response = await put(url,headers: headers, body: json.encode(body));
+    Response response =
+        await put(url, headers: headers, body: json.encode(body));
     int statusCode = response.statusCode;
     print(statusCode);
   }
 
-  // Variable to contain the list of User registered for th event
-  var putJoin = new Map<String, List<String>>();
+  // Variable to contain the list of User registered for the event
+  var registeredPeople = new Map<String, List<String>>();
 
   //-- BUILD JOIN PAGE
   @override
@@ -58,13 +57,16 @@ class _JoinState extends State<Join> {
                           strokeWidth: 5)));
             }
             // IF there is no event display a message
-            else if(listEvent.data.length == 0){
-                return Container(
-                  child: Center(
-                    child: Text("Pas d'event pour le moment.", style: TextStyle(fontFamily: 'Fred', fontSize: 26),),
+            else if (listEvent.data.length == 0) {
+              return Container(
+                child: Center(
+                  child: Text(
+                    "Pas d'event pour le moment.",
+                    style: TextStyle(fontFamily: 'Fred', fontSize: 26),
                   ),
-                );
-              }else{
+                ),
+              );
+            } else {
               //-- IF WE GET DATA THEN DISPLAY IT
               return ListView.builder(
                 itemCount: listEvent.data.length,
@@ -74,10 +76,14 @@ class _JoinState extends State<Join> {
                       children: <Widget>[
                         ExpansionTile(
                           leading: Icon(
-                            IconData(listEvent.data[index].category.iconId, fontFamily: listEvent.data[index].category.fontFamily, fontPackage: listEvent.data[index].category.fontPackage),
-                                  size: 40,
-                                  color: Colors.red,
-                                ),
+                            IconData(listEvent.data[index].category.iconId,
+                                fontFamily:
+                                    listEvent.data[index].category.fontFamily,
+                                fontPackage:
+                                    listEvent.data[index].category.fontPackage),
+                            size: 40,
+                            color: Colors.red,
+                          ),
                           title: Text(
                             listEvent.data[index].title,
                             style: TextStyle(
@@ -132,7 +138,8 @@ class _JoinState extends State<Join> {
                                     width: 10,
                                   ),
                                   Text(
-                                    listEvent.data[index].actPeople.length.toString() +
+                                    listEvent.data[index].actPeople.length
+                                            .toString() +
                                         '/' +
                                         listEvent.data[index].allPeople
                                             .toString(),
@@ -193,20 +200,30 @@ class _JoinState extends State<Join> {
                                 color: Colors.red,
                                 child: Text('Join'),
                                 onPressed: () {
+                                  // Add the user from the list of registered
+                                  listEvent.data[index].actPeople
+                                      .add(Provider.of<User>(context).uid);
 
-                                  listEvent.data[index].actPeople.add(Provider.of<User>(context).uid);
+                                  // Map it for the request
+                                  registeredPeople["act_people"] =
+                                      listEvent.data[index].actPeople;
 
-                                  putJoin["act_people"] = listEvent.data[index].actPeople;
+                                  // Call request ti update the new list of user
+                                  _putJoinEvent(listEvent.data[index].id,
+                                      registeredPeople);
 
-
-                                  _putEvent(listEvent.data[index].id ,putJoin);
-
-
-                                    setState(() {
-                                      Scaffold.of(context).showSnackBar(
-                                          SnackBar(backgroundColor: Colors.greenAccent, content: Text('The event has been add to your plans', style: TextStyle(color: Colors.black, fontSize: 16),), duration: Duration(seconds: 1),));
+                                  setState(() {
+                                    // Alert of joining an event
+                                    Scaffold.of(context).showSnackBar(SnackBar(
+                                      backgroundColor: Colors.greenAccent,
+                                      content: Text(
+                                        'The event has been add to your plans',
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 16),
+                                      ),
+                                      duration: Duration(seconds: 1),
+                                    ));
                                   });
-
                                 },
                               ),
                             ]),
@@ -216,9 +233,9 @@ class _JoinState extends State<Join> {
                     ),
                   );
                 },
-              );}
+              );
             }
-          ),
+          }),
     );
   }
 }

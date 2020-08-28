@@ -7,12 +7,10 @@ class Loading extends StatelessWidget {
     print("HEEEEY");
     return Container(
       color: Colors.white,
-
       child: SpinKitSquareCircle(
         color: Colors.redAccent[400],
         size: 50.0,
       ),
-
     );
   }
 }

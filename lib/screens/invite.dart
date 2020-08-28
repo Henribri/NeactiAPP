@@ -16,7 +16,6 @@ class Invite extends StatefulWidget {
 }
 
 class _InviteState extends State<Invite> {
-
   // Define variables of the form
   final _formKey = GlobalKey<FormState>();
   String _nbr = '2';
@@ -30,7 +29,6 @@ class _InviteState extends State<Invite> {
 
   //Get the categories
   Future<List<Category>> listCategory;
-
 
 // Post method
   _postEvent({Map body}) async {
@@ -48,7 +46,6 @@ class _InviteState extends State<Invite> {
 
     return data.map((i) => Category.fromJson(i)).toList();
   }
-
 
   // initState to use Future Builder only one time
   @override
@@ -76,6 +73,7 @@ class _InviteState extends State<Invite> {
                           strokeWidth: 5)));
             } else {
               return SingleChildScrollView(
+                // Use form to send data and validator to check it
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -345,10 +343,9 @@ class _InviteState extends State<Invite> {
                             // Call the post method with a map of the object
                             _postEvent(body: newEvent.toMap());
 
-
                             setState(() {
-                              Scaffold.of(context)
-                                  .showSnackBar(SnackBar(
+                              // Alert the creation of an event
+                              Scaffold.of(context).showSnackBar(SnackBar(
                                 backgroundColor: Colors.greenAccent,
                                 content: Text(
                                   'Your event has been created.',
@@ -360,8 +357,6 @@ class _InviteState extends State<Invite> {
                                 duration: Duration(seconds: 1),
                               ));
                             });
-
-
                           }
                         },
                         child: Text('Submit'),

@@ -14,7 +14,7 @@ class Plans extends StatefulWidget {
 }
 
 class _PlansState extends State<Plans> {
-  //-- RETURN LIST OF ACTUAL EVENT --
+  //-- RETURN LIST OF PLANS --
   Future<List<Event>> _getData(String userId) async {
     Response response =
         await get('http://10.0.2.2:8000/events/user_registered/$userId.json');
@@ -23,8 +23,8 @@ class _PlansState extends State<Plans> {
     return data.map((i) => Event.fromJson(i)).toList();
   }
 
-  // Put method to add people
-  _putEvent(String eventId, Map body) async {
+  // Put method to remove people
+  _putLeaveEvent(String eventId, Map body) async {
     String url = 'http://10.0.2.2:8000/events/$eventId/';
     Map<String, String> headers = {"Content-type": "application/json"};
     Response response =
@@ -33,10 +33,10 @@ class _PlansState extends State<Plans> {
     print(statusCode);
   }
 
-  // Variable to contain the list of User registered for th event
-  var putJoin = new Map<String, List<String>>();
+  // Variable to contain the list of User registered for the event
+  var registeredPeople = new Map<String, List<String>>();
 
-  //-- BUILD JOIN PAGE
+  //-- BUILD PLANS PAGE
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,13 +49,11 @@ class _PlansState extends State<Plans> {
           ),
           actions: <Widget>[
             IconButton(
-              icon: const Icon(
-                Icons.search,
-                size: 40,
-                color: Colors.white,
-              ),
-              tooltip: 'Add new entry',
-            ),
+                icon: const Icon(
+              Icons.search,
+              size: 40,
+              color: Colors.white,
+            )),
           ],
         ),
         backgroundColor: Colors.blueGrey[50],
@@ -218,18 +216,22 @@ class _PlansState extends State<Plans> {
                                     color: Colors.red,
                                     child: Text('Leave'),
                                     onPressed: () {
+                                      // Remove the user from the list of registered
                                       listEvent.data[index].actPeople
                                           .removeWhere((item) =>
                                               item ==
                                               Provider.of<User>(context).uid);
 
-                                      putJoin["act_people"] =
+                                      // Map it for the request
+                                      registeredPeople["act_people"] =
                                           listEvent.data[index].actPeople;
 
-                                      _putEvent(
-                                          listEvent.data[index].id, putJoin);
+                                      // Call request ti update the new list of user
+                                      _putLeaveEvent(listEvent.data[index].id,
+                                          registeredPeople);
 
                                       setState(() {
+                                        // Alert of leaving an event
                                         Scaffold.of(context)
                                             .showSnackBar(SnackBar(
                                           backgroundColor: Colors.greenAccent,

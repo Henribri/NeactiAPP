@@ -7,16 +7,17 @@ import 'donate.dart';
 import 'package:neacti/models/user.dart';
 import 'package:neacti/screens/home.dart';
 import 'package:neacti/screens/plans.dart';
+
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  int _selectedIndex = 0;
+  int selectedIndex = 0;
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      selectedIndex = index;
     });
   }
 
@@ -27,11 +28,11 @@ class _HomeState extends State<Home> {
     return Scaffold(
         appBar: MainAppBar(context: context),
         backgroundColor: Colors.blueGrey[50],
-        body: _children[_selectedIndex],
+        body: _children[selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
           unselectedItemColor: Colors.black87,
           selectedLabelStyle:
-          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
           fixedColor: Colors.red,
           iconSize: 30,
           items: const <BottomNavigationBarItem>[
@@ -52,7 +53,7 @@ class _HomeState extends State<Home> {
               title: Text('Donate'),
             ),
           ],
-          currentIndex: _selectedIndex,
+          currentIndex: selectedIndex,
           onTap: _onItemTapped,
         ));
   }
