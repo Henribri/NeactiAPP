@@ -50,6 +50,8 @@ class _InviteState extends State<Invite> {
     return data.map((i) => Category.fromJson(i)).toList();
   }
 
+
+  // Get the prediction of google place search and update the value of the location
   Future<Null> displayPrediction(Prediction p) async {
     if (p != null) {
       PlacesDetailsResponse detail = await GoogleMapsPlaces(
