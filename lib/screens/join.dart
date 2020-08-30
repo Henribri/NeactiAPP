@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import '../models/event.dart';
 import 'dart:convert';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Join extends StatefulWidget {
   @override
@@ -31,6 +32,16 @@ class _JoinState extends State<Join> {
         await put(url, headers: headers, body: json.encode(body));
     int statusCode = response.statusCode;
     print(statusCode);
+  }
+
+  // Load the address on google map
+  _launchURL() async {
+    const url = 'https://flutter.io';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   // Variable to contain the list of User registered for the event
@@ -162,10 +173,14 @@ class _JoinState extends State<Join> {
                                   SizedBox(
                                     width: 10,
                                   ),
-                                  Text(
-                                    listEvent.data[index].address,
-                                    style: TextStyle(
-                                      fontSize: 18,
+                                  FlatButton(
+                                    padding: EdgeInsets.all(0),
+                                    onPressed: _launchURL,
+                                    child: Text(
+                                      listEvent.data[index].address,
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
                                 ],

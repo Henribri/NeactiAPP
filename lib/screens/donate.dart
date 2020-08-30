@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'composer.dart';
 
+
+
 class Donate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,6 @@ class Donate extends StatelessWidget {
                 height: 150,
                 color: Colors.redAccent[400],
                 child: FlatButton(
-                  onPressed: () {},
                   child: Center(
                     child: Text(
                       'Publicité',

@@ -9,6 +9,9 @@ import 'composer.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:provider/provider.dart';
+import 'package:geocoder/geocoder.dart';
+import 'package:google_maps_webservice/places.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
 
 class Invite extends StatefulWidget {
   @override
@@ -19,8 +22,8 @@ class _InviteState extends State<Invite> {
   // Define variables of the form
   final _formKey = GlobalKey<FormState>();
   String _nbr = '2';
-  String _date = "Non définie";
-  String _time = "Non définie";
+  String _date;
+  String _time;
   String _desc;
   String _title;
   String _message;
@@ -45,6 +48,23 @@ class _InviteState extends State<Invite> {
     List<dynamic> data = jsonDecode(response.body);
 
     return data.map((i) => Category.fromJson(i)).toList();
+  }
+
+  Future<Null> displayPrediction(Prediction p) async {
+    if (p != null) {
+      PlacesDetailsResponse detail = await GoogleMapsPlaces(
+              apiKey: "AIzaSyBTVL32MeXqzbxxBRJjMjcpw13yz42Bzm0")
+          .getDetailsByPlaceId(p.placeId);
+
+      var placeId = p.placeId;
+      double lat = detail.result.geometry.location.lat;
+      double lng = detail.result.geometry.location.lng;
+      String name = detail.result.formattedAddress;
+
+      setState(() {
+        _location = name;
+      });
+    }
   }
 
   // initState to use Future Builder only one time
@@ -219,32 +239,59 @@ class _InviteState extends State<Invite> {
                           ),
                         ],
                       ),
-                      Container(
-                        width: 340,
-                        margin: EdgeInsets.all(10),
-                        child: TextFormField(
-                            cursorColor: Colors.red,
-                            decoration: InputDecoration(
-                                labelStyle: TextStyle(color: Colors.black),
-                                labelText: 'Lieu',
-                                prefixIcon: Icon(
-                                  Icons.location_on,
-                                  color: Colors.black,
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.red)),
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.red))),
-                            onChanged: (value) {
-                              setState(() => _location = value);
-                            },
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return "Please enter some text";
-                              }
-                              return null;
-                            }),
+                      FlatButton.icon(
+                        icon: Icon(
+                          Icons.location_on,
+                          color: Colors.black,
+                        ),
+                        onPressed: () async {
+                          // show input autocomplete with selected mode
+                          // then get the Prediction selected
+                          Prediction prediction = await PlacesAutocomplete.show(
+                              context: context,
+                              apiKey: "AIzaSyBTVL32MeXqzbxxBRJjMjcpw13yz42Bzm0",
+                              mode: Mode.fullscreen,
+                              // Mode.overlay
+                              language: "fr",
+                              components: [
+                                new Component(Component.country, "fr")
+                              ]);
+                          displayPrediction(prediction);
+                        },
+                        label: Text((() {
+                          if (_location == null) {
+                            return "Select an address";
+                          }
+
+                          return _location;
+                        })(), style: TextStyle(fontSize: 16)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(5.0),
+                            side: BorderSide(color: Colors.red)),
                       ),
+                      /*
+                              cursorColor: Colors.red,
+                              decoration: InputDecoration(
+                                  labelStyle: TextStyle(color: Colors.black),
+                                  labelText: 'Lieu',
+                                  prefixIcon: Icon(
+                                    Icons.location_on,
+                                    color: Colors.black,
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.red)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.red))),
+                              onChanged: (value) {
+                                setState(() => _location = value);
+                              },
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return "Please enter some text";
+                                }
+                                return null;
+                              }*/
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
@@ -264,7 +311,13 @@ class _InviteState extends State<Invite> {
                               });
                             },
                             icon: Icon(Icons.date_range),
-                            label: Text(_date, style: TextStyle(fontSize: 16)),
+                            label: Text((() {
+                              if (_date == null) {
+                                return "Not define";
+                              }
+
+                              return _date;
+                            })(), style: TextStyle(fontSize: 16)),
                             shape: RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(5.0),
                                 side: BorderSide(color: Colors.red)),
@@ -282,7 +335,13 @@ class _InviteState extends State<Invite> {
                             },
                             icon: Icon(Icons.access_time),
                             label: Text(
-                              _time,
+                              (() {
+                                if (_time == null) {
+                                  return "Not define";
+                                }
+
+                                return _time;
+                              })(),
                               style: TextStyle(fontSize: 16),
                             ),
                             shape: RoundedRectangleBorder(
@@ -326,7 +385,10 @@ class _InviteState extends State<Invite> {
                       RaisedButton(
                         onPressed: () {
                           // Validate returns true if the form is valid, otherwise false.
-                          if (_formKey.currentState.validate()) {
+                          if (_formKey.currentState.validate() &&
+                              _location != null &&
+                              _date != null &&
+                              _time != null) {
                             // Create event object to post
                             Event newEvent = Event(
                                 null,
@@ -357,6 +419,18 @@ class _InviteState extends State<Invite> {
                                 duration: Duration(seconds: 1),
                               ));
                             });
+                          } else {
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                              backgroundColor: Colors.pinkAccent,
+                              content: Text(
+                                'Error you missed a field',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              duration: Duration(seconds: 1),
+                            ));
                           }
                         },
                         child: Text('Submit'),
