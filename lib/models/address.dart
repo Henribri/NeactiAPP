@@ -3,10 +3,11 @@ class EventAddress {
   String name;
   double lat;
   double lon ;
+  String placeId;
 
 
 
-  EventAddress(this.name, this.lat, this.lon);
+  EventAddress(this.name, this.lat, this.lon, this.placeId);
 
   //-- BUILD ADDRESS OF EVENT OBJECT BASED ON JSON
 
@@ -15,7 +16,8 @@ class EventAddress {
     return EventAddress(
         parsedJson['name'],
         parsedJson['lat'],
-        parsedJson ['lon']
+        parsedJson ['lon'],
+        parsedJson ['placeId']
     );
   }
 
@@ -25,6 +27,7 @@ class EventAddress {
     map["name"] = name;
     map["lat"] = lat;
     map["lon"] = lon;
+    map["placeId"]=placeId;
 
     return map;
   }

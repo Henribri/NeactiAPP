@@ -58,14 +58,14 @@ class _InviteState extends State<Invite> {
               apiKey: "AIzaSyBTVL32MeXqzbxxBRJjMjcpw13yz42Bzm0")
           .getDetailsByPlaceId(p.placeId);
 
-      var placeId = p.placeId;
+      String placeId = p.placeId;
       double lat = detail.result.geometry.location.lat;
       double lng = detail.result.geometry.location.lng;
       String name = detail.result.formattedAddress;
 
 
       setState(() {
-        _location=EventAddress(name, lat, lng);
+        _location=EventAddress(name, lat, lng, placeId);
       });
     }
   }

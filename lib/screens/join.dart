@@ -24,6 +24,8 @@ class _JoinState extends State<Join> {
     return data.map((i) => Event.fromJson(i)).toList();
   }
 
+
+
   // Put method to add people
   _putJoinEvent(String eventId, Map body) async {
     String url = 'http://10.0.2.2:8000/events/$eventId/';
@@ -35,10 +37,10 @@ class _JoinState extends State<Join> {
   }
 
   // Load the address on google map
-  _launchURL() async {
-    const url = 'https://flutter.io';
+  _launchMap() async {
+    const String url = 'https://flutter.io';
     if (await canLaunch(url)) {
-      await launch(url);
+      launch(url);
     } else {
       throw 'Could not launch $url';
     }
@@ -175,7 +177,7 @@ class _JoinState extends State<Join> {
                                   ),
                                   FlatButton(
                                     padding: EdgeInsets.all(0),
-                                    onPressed: _launchURL,
+                                    onPressed: _launchMap(),
                                     child: Text(
                                       listEvent.data[index].address.name,
                                       style: TextStyle(
