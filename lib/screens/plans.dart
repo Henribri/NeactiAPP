@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import '../models/event.dart';
 import 'dart:convert';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Plans extends StatefulWidget {
   @override
@@ -178,10 +179,33 @@ class _PlansState extends State<Plans> {
                                       SizedBox(
                                         width: 10,
                                       ),
-                                      Text(
-                                        listEvent.data[index].address.name,
-                                        style: TextStyle(
-                                          fontSize: 18,
+                                      FlatButton(
+                                        padding: EdgeInsets.all(0),
+
+                                        // Launch google map url
+                                        onPressed: () async {
+                                          String lat = listEvent
+                                              .data[index].address.lat
+                                              .toString();
+                                          String lon = listEvent
+                                              .data[index].address.lon
+                                              .toString();
+                                          String placeId = listEvent
+                                              .data[index].address.placeId
+                                              .toString();
+                                          String url =
+                                              'https://www.google.com/maps/search/?api=1&query=$lat,$lon&query_place_id=$placeId';
+                                          if (await canLaunch(url)) {
+                                            launch(url);
+                                          } else {
+                                            throw 'Could not launch $url';
+                                          }
+                                        },
+                                        child: Text(
+                                          listEvent.data[index].address.name,
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                          ),
                                         ),
                                       ),
                                     ],

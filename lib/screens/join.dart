@@ -36,16 +36,6 @@ class _JoinState extends State<Join> {
     print(statusCode);
   }
 
-  // Load the address on google map
-  _launchMap() async {
-    const String url = 'https://flutter.io';
-    if (await canLaunch(url)) {
-      launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
   // Variable to contain the list of User registered for the event
   var registeredPeople = new Map<String, List<String>>();
 
@@ -177,7 +167,18 @@ class _JoinState extends State<Join> {
                                   ),
                                   FlatButton(
                                     padding: EdgeInsets.all(0),
-                                    onPressed: _launchMap(),
+                                    onPressed:() async {
+                                      // Launch google map url
+                                      String lat = listEvent.data[index].address.lat.toString();
+                                      String lon = listEvent.data[index].address.lon.toString();
+                                      String placeId = listEvent.data[index].address.placeId.toString();
+                                      String url = 'https://www.google.com/maps/search/?api=1&query=$lat,$lon&query_place_id=$placeId';
+                                      if (await canLaunch(url)) {
+                                      launch(url);
+                                      } else {
+                                      throw 'Could not launch $url';
+                                      }
+                                  },
                                     child: Text(
                                       listEvent.data[index].address.name,
                                       style: TextStyle(
