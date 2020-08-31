@@ -177,7 +177,7 @@ class _JoinState extends State<Join> {
                                     padding: EdgeInsets.all(0),
                                     onPressed: _launchURL,
                                     child: Text(
-                                      listEvent.data[index].address,
+                                      listEvent.data[index].address.name,
                                       style: TextStyle(
                                         fontSize: 18,
                                       ),

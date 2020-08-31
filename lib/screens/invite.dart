@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
-
+import 'package:neacti/models/address.dart';
 class Invite extends StatefulWidget {
   @override
   _InviteState createState() => _InviteState();
@@ -27,7 +27,7 @@ class _InviteState extends State<Invite> {
   String _desc;
   String _title;
   String _message;
-  String _location;
+  EventAddress _location;
   String _category;
 
   //Get the categories
@@ -63,8 +63,9 @@ class _InviteState extends State<Invite> {
       double lng = detail.result.geometry.location.lng;
       String name = detail.result.formattedAddress;
 
+
       setState(() {
-        _location = name;
+        _location=EventAddress(name, lat, lng);
       });
     }
   }
@@ -265,7 +266,7 @@ class _InviteState extends State<Invite> {
                             return "Select an address";
                           }
 
-                          return _location;
+                          return _location.name;
                         })(), style: TextStyle(fontSize: 16)),
                         shape: RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(5.0),

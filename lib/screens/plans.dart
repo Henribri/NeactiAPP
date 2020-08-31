@@ -179,7 +179,7 @@ class _PlansState extends State<Plans> {
                                         width: 10,
                                       ),
                                       Text(
-                                        listEvent.data[index].address,
+                                        listEvent.data[index].address.name,
                                         style: TextStyle(
                                           fontSize: 18,
                                         ),

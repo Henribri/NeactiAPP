@@ -1,4 +1,5 @@
 import 'category.dart';
+import 'address.dart';
 
 //-- EVENT MODEL CONTAIN INFORMATION ABOUT AN EVENT
 
@@ -7,7 +8,7 @@ class Event {
   String title;
   String subtitle;
   String dateTime ;
-  String address;
+  EventAddress address;
   List<String> actPeople;
   int allPeople;
   String desc;
@@ -28,7 +29,7 @@ class Event {
         parsedJson['title'],
         parsedJson['subtitle'],
         parsedJson['date_time'],
-        parsedJson['address'],
+        EventAddress.fromJson(parsedJson['address']),
         actPeopleList,
         parsedJson['all_people'],
         parsedJson['description'],
@@ -43,7 +44,7 @@ class Event {
     map["title"] = title;
     map["subtitle"] = subtitle;
     map["date_time"] = dateTime;
-    map["address"] = address;
+    map["address"] = address.toMap();
     map["act_people"] = actPeople;
     map["all_people"] = allPeople;
     map["description"] = desc;
