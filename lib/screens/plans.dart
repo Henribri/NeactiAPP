@@ -179,32 +179,34 @@ class _PlansState extends State<Plans> {
                                       SizedBox(
                                         width: 10,
                                       ),
-                                      FlatButton(
-                                        padding: EdgeInsets.all(0),
-
-                                        // Launch google map url
-                                        onPressed: () async {
-                                          String lat = listEvent
-                                              .data[index].address.lat
-                                              .toString();
-                                          String lon = listEvent
-                                              .data[index].address.lon
-                                              .toString();
-                                          String placeId = listEvent
-                                              .data[index].address.placeId
-                                              .toString();
-                                          String url =
-                                              'https://www.google.com/maps/search/?api=1&query=$lat,$lon&query_place_id=$placeId';
-                                          if (await canLaunch(url)) {
-                                            launch(url);
-                                          } else {
-                                            throw 'Could not launch $url';
-                                          }
-                                        },
-                                        child: Text(
-                                          listEvent.data[index].address.name,
-                                          style: TextStyle(
-                                            fontSize: 18,
+                                      Flexible(
+                                        child: FlatButton(
+                                          padding: EdgeInsets.all(0),
+                                          
+                                          // Launch google map url
+                                          onPressed: () async {
+                                            String lat = listEvent
+                                                .data[index].address.lat
+                                                .toString();
+                                            String lon = listEvent
+                                                .data[index].address.lon
+                                                .toString();
+                                            String placeId = listEvent
+                                                .data[index].address.placeId
+                                                .toString();
+                                            String url =
+                                                'https://www.google.com/maps/search/?api=1&query=$lat,$lon&query_place_id=$placeId';
+                                            if (await canLaunch(url)) {
+                                              launch(url);
+                                            } else {
+                                              throw 'Could not launch $url';
+                                            }
+                                          },
+                                          child: Text(
+                                            listEvent.data[index].address.name,
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -223,14 +225,15 @@ class _PlansState extends State<Plans> {
                                       SizedBox(
                                         width: 10,
                                       ),
-                                      Expanded(
-                                        child: Container(
-                                          child: Text(
-                                            listEvent.data[index].desc,
-                                            maxLines: 3,
-                                            style: TextStyle(fontSize: 18),
+                                      Flexible(
+                                          child: Container(
+                                            child: Text(
+                                              listEvent.data[index].desc,
+                                              maxLines: 3,
+                                              style: TextStyle(fontSize: 18),
+                                            ),
                                           ),
-                                        ),
+                                        
                                       ),
                                     ],
                                   ),

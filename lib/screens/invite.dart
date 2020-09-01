@@ -242,58 +242,42 @@ class _InviteState extends State<Invite> {
                           ),
                         ],
                       ),
-                      FlatButton.icon(
-                        icon: Icon(
-                          Icons.location_on,
-                          color: Colors.black,
-                        ),
-                        onPressed: () async {
-                          // show input autocomplete with selected mode
-                          // then get the Prediction selected
-                          Prediction prediction = await PlacesAutocomplete.show(
-                              context: context,
-                              apiKey: "AIzaSyBTVL32MeXqzbxxBRJjMjcpw13yz42Bzm0",
-                              mode: Mode.fullscreen,
-                              // Mode.overlay
-                              language: "fr",
-                              components: [
-                                new Component(Component.country, "fr")
-                              ]);
-                          displayPrediction(prediction);
-                        },
-                        label: Text((() {
-                          if (_location == null) {
-                            return "Select an address";
-                          }
+                      Container(
+                        width: 340,
+                        child: FlatButton.icon(
+                          padding: EdgeInsets.all(10),
+                          icon: Icon(
+                            Icons.location_on,
+                            color: Colors.black,
+                          ),
+                          onPressed: () async {
+                            // show input autocomplete with selected mode
+                            // then get the Prediction selected
+                            Prediction prediction = await PlacesAutocomplete.show(
+                                context: context,
+                                apiKey: "AIzaSyBTVL32MeXqzbxxBRJjMjcpw13yz42Bzm0",
+                                mode: Mode.fullscreen,
+                                // Mode.overlay
+                                language: "fr",
+                                components: [
+                                  new Component(Component.country, "fr")
+                                ]);
+                            displayPrediction(prediction);
+                          },
+                          label: Flexible(
+                            child: Text((() {
+                              if (_location == null) {
+                                return "Select an address";
+                              }
 
-                          return _location.name;
-                        })(), style: TextStyle(fontSize: 16)),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(5.0),
-                            side: BorderSide(color: Colors.red)),
+                              return _location.name;
+                            })(), style: TextStyle(fontSize: 16)),
+                          ),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(5.0),
+                              side: BorderSide(color: Colors.red)),
+                        ),
                       ),
-                      /*
-                              cursorColor: Colors.red,
-                              decoration: InputDecoration(
-                                  labelStyle: TextStyle(color: Colors.black),
-                                  labelText: 'Lieu',
-                                  prefixIcon: Icon(
-                                    Icons.location_on,
-                                    color: Colors.black,
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.red)),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.red))),
-                              onChanged: (value) {
-                                setState(() => _location = value);
-                              },
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return "Please enter some text";
-                                }
-                                return null;
-                              }*/
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
