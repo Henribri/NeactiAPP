@@ -54,9 +54,9 @@ class _JoinState extends State<Join> {
                       height: 80,
                       width: 80,
                       child: CircularProgressIndicator(
-                          backgroundColor: Colors.redAccent,
+                          backgroundColor: Color(0xffe8505b),
                           valueColor: AlwaysStoppedAnimation<Color>(
-                              Colors.deepPurpleAccent),
+                              Color(0xff14b1ab)),
                           strokeWidth: 5)));
             }
             // IF there is no event display a message

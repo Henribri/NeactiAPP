@@ -28,7 +28,7 @@ class Donate extends StatelessWidget {
               Container(
                 width: 150,
                 height: 150,
-                color: Colors.redAccent[400],
+                color: Color(0xff14b1ab),
                 child: FlatButton(
                   child: Center(
                     child: Text(
@@ -45,7 +45,7 @@ class Donate extends StatelessWidget {
               Container(
                 width: 150,
                 height: 150,
-                color: Colors.redAccent[400],
+                color: Color(0xff14b1ab),
                 child: FlatButton(
                   onPressed: () {},
                   child: Center(

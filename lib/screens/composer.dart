@@ -103,35 +103,36 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
           },
           icon: Icon(
             FontAwesomeIcons.signOutAlt,
-            color: Colors.white,
+            color: Color(0xffe8505b),
             size: 30,
+
           ),
         )
       ],
-      flexibleSpace: Container(
+      /*flexibleSpace: Container(
         decoration: new BoxDecoration(
           gradient: new LinearGradient(
               colors: [
-                Colors.pink,
-                Colors.redAccent[400],
+                Color(0xfff6f6f6),
+                Color(0xfff6f6f6),
               ],
               begin: const FractionalOffset(0.0, 0.0),
               end: const FractionalOffset(1.0, 0.0),
               stops: [0.0, 1.0],
               tileMode: TileMode.clamp),
         ),
-      ),
+      ),*/
       title: Align(
         alignment: Alignment.centerLeft,
         child: Text('Neacti',
             style: TextStyle(
-              color: Colors.white,
-              fontSize: 50.0,
+              color: Color(0xffe8505b),
+              fontSize: 35.0,
               letterSpacing: 5.0,
               fontFamily: 'Fred',
             )),
       ),
-      backgroundColor: Colors.red,
+      backgroundColor: Color(0xfff6f6f6),
     );
   }
 }

@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'composer.dart';
 
 class Profil extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
         children: <Widget>[
+          /*
           SizedBox(height: 20),
           Center(
               child: CircleAvatar(
@@ -145,6 +144,74 @@ class Profil extends StatelessWidget {
               ),
             ),
 
+          )*/
+
+          SizedBox(height: 40,),
+
+          Center(
+            child: FlatButton(
+              shape: CircleBorder(),
+              color: Color(0xff14b1ab),
+              padding: EdgeInsets.all(20),
+              onPressed: () {
+                Navigator.pushNamed(context, '/plans');
+              },
+              child: Icon(
+                Icons.favorite_border,
+                size: 40,
+                color: Color(0xfff6f6f6),
+              ),
+            ),
+          ),
+          Text('Mes plans', style: TextStyle(fontSize: 24, color: Color(0xff14b1ab), fontWeight: FontWeight.bold),),
+
+          SizedBox(height: 100,),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+
+              Column(
+                children: [
+                  FlatButton(
+                    shape: CircleBorder(),
+                    color: Color(0xff14b1ab),
+                    padding: EdgeInsets.all(20),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/plans');
+                    },
+                    child: Center(
+                      child: Icon(
+                        Icons.account_circle,
+                        size: 40,
+                        color: Color(0xfff6f6f6),
+                      ),
+                    ),
+                  ),
+                  Text('Profil', style: TextStyle(fontSize: 24, color: Color(0xff14b1ab), fontWeight: FontWeight.bold),),
+                ],
+              ),
+              Column(
+                children: [
+                  FlatButton(
+                    shape: CircleBorder(),
+                    color: Color(0xff14b1ab),
+                    padding: EdgeInsets.all(20),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/plans');
+                    },
+                    child: Center(
+                      child: Icon(
+                        Icons.settings,
+                        size: 40,
+                        color: Color(0xfff6f6f6),
+                      ),
+                    ),
+                  ),
+                  Text('Parametres', style: TextStyle(fontSize: 24, color: Color(0xff14b1ab), fontWeight: FontWeight.bold),),
+                ],
+              )
+            ],
           )
         ],
       ),

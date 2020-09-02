@@ -28,20 +28,20 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: MainAppBar(context: context),
-        backgroundColor: Colors.blueGrey[50],
+        backgroundColor: Color(0xfff6f6f6),
         body: _children[selectedIndex],
         bottomNavigationBar: CurvedNavigationBar(
           height: 50.0,
           items: <Widget>[
-            Icon(Icons.account_circle, color: Colors.white, size: 30),
+            Icon(Icons.home, color: Colors.white, size: 30),
             Icon(Icons.add_location, color: Colors.white, size: 30),
             Icon(Icons.group_add, color: Colors.white ,size: 30),
             Icon(Icons.monetization_on,  color: Colors.white,size: 30),
           ],
-          color: Colors.redAccent[400],
-          buttonBackgroundColor: Colors.redAccent[400],
-          backgroundColor: Colors.white,
-          animationDuration: Duration(milliseconds: 100),
+          color: Color(0xffe8505b),
+          buttonBackgroundColor: Color(0xffe8505b),
+          backgroundColor: Color(0xfff6f6f6),
+          animationDuration: Duration(milliseconds: 300),
 
 
           index: selectedIndex,
