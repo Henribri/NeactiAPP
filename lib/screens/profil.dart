@@ -146,75 +146,144 @@ class Profil extends StatelessWidget {
 
           )*/
 
-          SizedBox(height: 40,),
+      Card(
+      child: ExpansionTile(
+        initiallyExpanded: false,
+        leading: Icon(
+          Icons.library_music,
+          size: 40,
+          color: Color(0xffff4b5c),),
 
-          Center(
-            child: FlatButton(
-              shape: CircleBorder(),
-              color: Color(0xff14b1ab),
-              padding: EdgeInsets.all(20),
-              onPressed: () {
-                Navigator.pushNamed(context, '/plans');
-              },
-              child: Icon(
-                Icons.favorite_border,
-                size: 40,
-                color: Color(0xfff6f6f6),
+        title: Text(
+          'Sport aved Charles',
+          style: TextStyle(
+            fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xff056674),),
+
+        ),
+        subtitle: Text(
+          'Ceci est un test !!!',
+          style: TextStyle(fontSize: 16,color: Color(0xff056674),),
+
+        ),
+
+    children: <Widget>[
+    Padding(
+    padding: EdgeInsets.fromLTRB(15, 10, 0, 5),
+    child: Row(
+    children: <Widget>[
+    Icon(
+    Icons.date_range,
+    size: 30,
+    color: Color(0xffff4b5c),
+    ),
+    SizedBox(
+    width: 10,
+    ),
+    Text(
+    '02-02-2020',
+    style: TextStyle(fontSize: 18, color: Color(0xff056674)),
+    ),
+    SizedBox(
+    width: 30,
+    ),
+    Icon(
+    Icons.access_time,
+    size: 30,
+    color: Color(0xffff4b5c),
+    ),
+    SizedBox(
+    width: 10,
+    ),
+    Text(
+    '08:10',
+    style: TextStyle(fontSize: 18, color: Color(0xff056674)),
+    ),
+    SizedBox(
+    width: 30,
+    ),
+    Icon(
+    Icons.group,
+    size: 30,
+    color: Color(0xffff4b5c),
+    ),
+    SizedBox(
+    width: 10,
+    ),
+    Text(
+'5/10'
+        .toString(),
+    style: TextStyle(fontSize: 18, color: Color(0xff056674)),
+    ),
+    ],
+    ),
+    ),
+    SizedBox(
+    height: 10,
+    ),
+    Padding(
+    padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
+    child: Row(
+    children: <Widget>[
+    Icon(
+    Icons.location_on,
+    size: 30,
+    color: Color(0xffff4b5c),
+    ),
+    SizedBox(
+    width: 10,
+    ),
+    Flexible(
+    child: FlatButton(
+    padding: EdgeInsets.all(0),
+    child: Text(
+    'AMiens',
+    style: TextStyle(
+    fontSize: 18
+    , color: Color(0xff056674)
+    ),
+    ),
+    ),
+    ),
+    ],))
+
+
+      ,SizedBox(height: 10),
+      Padding(
+        padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
+        child: Row(
+          children: <Widget>[
+            Icon(
+              Icons.description,
+              size: 30,
+              color: Color(0xffff4b5c),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Flexible(
+              child: Container(
+                child: Text(
+                  'lala',
+                  maxLines: 3,
+                  style: TextStyle(fontSize: 18, color: Color(0xff056674)),
+                ),
               ),
             ),
-          ),
-          Text('Mes plans', style: TextStyle(fontSize: 24, color: Color(0xff14b1ab), fontWeight: FontWeight.bold),),
+          ],)),
+      ButtonBar(children: <Widget>[
+        FlatButton(
+          color: Color(0xff056674),
+          child: Text('Join'),
+          onPressed: (){
 
-          SizedBox(height: 100,),
+          },
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-
-              Column(
-                children: [
-                  FlatButton(
-                    shape: CircleBorder(),
-                    color: Color(0xff14b1ab),
-                    padding: EdgeInsets.all(20),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/plans');
-                    },
-                    child: Center(
-                      child: Icon(
-                        Icons.account_circle,
-                        size: 40,
-                        color: Color(0xfff6f6f6),
-                      ),
-                    ),
-                  ),
-                  Text('Profil', style: TextStyle(fontSize: 24, color: Color(0xff14b1ab), fontWeight: FontWeight.bold),),
-                ],
-              ),
-              Column(
-                children: [
-                  FlatButton(
-                    shape: CircleBorder(),
-                    color: Color(0xff14b1ab),
-                    padding: EdgeInsets.all(20),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/plans');
-                    },
-                    child: Center(
-                      child: Icon(
-                        Icons.settings,
-                        size: 40,
-                        color: Color(0xfff6f6f6),
-                      ),
-                    ),
-                  ),
-                  Text('Parametres', style: TextStyle(fontSize: 24, color: Color(0xff14b1ab), fontWeight: FontWeight.bold),),
-                ],
-              )
-            ],
-          )
+        ),
+      ]),
         ],
       ),
-    );
+    )
+      ]))
+    ;
   }
 }
