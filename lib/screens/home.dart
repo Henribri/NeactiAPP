@@ -25,14 +25,26 @@ class _HomeState extends State<Home> {
     });
   }
 
-  final List<Widget> _children = [Profil(), Plans(), Invite(), Join(), Donate()];
-  final List<String> _windowName = ['Neacti', 'Mes plans', 'Inviter', 'Rejoindre', 'Aider Neacti'];
+  final List<Widget> _children = [
+    Profil(),
+    Plans(),
+    Invite(),
+    Join(),
+    Donate()
+  ];
+  final List<String> _windowName = [
+    'Neacti',
+    'Mes plans',
+    'Inviter',
+    'Rejoindre',
+    'Aider Neacti'
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar:  AppBar(
-          elevation: 2,
+        appBar: AppBar(
+          elevation: 0,
           actions: <Widget>[
             IconButton(
               onPressed: () async {
@@ -42,20 +54,16 @@ class _HomeState extends State<Home> {
                 FontAwesomeIcons.signOutAlt,
                 color: Color(0xffff4b5c),
                 size: 30,
-
               ),
             )
           ],
-
           title: Align(
             alignment: Alignment.centerLeft,
             child: Text(_windowName[selectedIndex],
                 style: TextStyle(
-                  color: Color(0xffff4b5c),
-                  fontSize: 26.0,
-                  fontFamily: 'Fred'
-
-                )),
+                    color: Color(0xffff4b5c),
+                    fontSize: 26.0,
+                    fontFamily: 'Fred')),
           ),
           backgroundColor: Color(0xfff6f6f6),
         ),
@@ -67,17 +75,28 @@ class _HomeState extends State<Home> {
             Icon(Icons.home, color: Colors.white, size: 30),
             Icon(Icons.favorite, color: Colors.white, size: 30),
             Icon(Icons.add_location, color: Colors.white, size: 30),
-            Icon(Icons.group_add, color: Colors.white ,size: 30),
-            Icon(Icons.monetization_on,  color: Colors.white,size: 30),
+            Icon(Icons.group_add, color: Colors.white, size: 30),
+            Icon(Icons.monetization_on, color: Colors.white, size: 30),
           ],
           color: Color(0xffff4b5c),
           buttonBackgroundColor: Color(0xffff4b5c),
-          backgroundColor: Color(0xfff6f6f6),
+          backgroundColor: Color(0x00000000),
           animationDuration: Duration(milliseconds: 300),
-
-
           index: selectedIndex,
           onTap: _onItemTapped,
         ));
   }
 }
+
+class Title extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      '',
+      style: TextStyle(
+          color: Color(0xffff4b5c), fontSize: 26.0, fontFamily: 'Fred'),
+    );
+  }
+}
+
+
