@@ -8,7 +8,25 @@ class Profil extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
+
         children: [
+          SizedBox(height: 10,),
+
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: Align(
+
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Les News :',
+                style: TextStyle(
+                    color: Color(0xff056674),fontSize: 24, fontWeight: FontWeight.bold
+                ),
+
+
+              ),
+            ),
+          ),
           Center(
             child: Container(
               margin: EdgeInsets.only(bottom: 40, top: 20),
@@ -26,122 +44,132 @@ class Profil extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            child: ListView(
-              itemExtent: 50,
 
-
-              children: [
-
-
-
-                Card(
-                    margin: EdgeInsets.only(right: 200,bottom: 5),
-                    color: Colors.white,
-
-
-                    child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Row(
-
-                        children:[
-                          Icon(
-                            Icons.account_circle,
-                            color: Color(0xff056674),
-                          ),
-
-                          Center(child: Text('Profil',style: TextStyle(
-                              color: Color(0xff056674),fontSize: 18
-                          ),)),
-
-                        ],
-
+                      Divider(
+                        color: Color(0xffff4b5c),
+                        thickness: 2,
+                        endIndent: 100,
+                        indent: 100,
                       ),
-                    )
-                ),
-                Card(
-                    margin: EdgeInsets.only(right: 200,bottom: 5),
-                    color: Colors.white,
 
-                    child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Row(
-                        children:[
-                          Icon(
-                            Icons.settings,
-                            color: Color(0xff056674),
-                          ),
-
-                          Center(child: Text('Parametres',style: TextStyle(
-                              color: Color(0xff056674),fontSize: 18
-                          ),)),
-
-                        ],
-
+                      SizedBox(
+                        height: 40,
                       ),
-                    )
-                ),
 
-                Card(
-                    margin: EdgeInsets.only(right: 200,bottom: 5),
-                    color: Colors.white,
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: Align(
 
-
-                    child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Row(
-
-                        children:[
-                          Icon(
-                            Icons.announcement,
-                            color: Color(0xff056674),
-                          ),
-
-                          Center(child: Text('News',style: TextStyle(
-                              color: Color(0xff056674),fontSize: 18
-                          ),)),
-
-
-                        ],
-
-                      ),
-                    )
-                ),
-                Card(
-                    margin: EdgeInsets.only(right: 200,bottom: 5),
-                    color: Colors.white,
-
-
-                    child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Row(
-
-                        children:[
-                          Icon(
-                            Icons.monetization_on,
-                            color: Color(0xff056674),
-                          ),
-
-                          Center(child: Text('Aider Neacti',style: TextStyle(
-                              color: Color(0xff056674),fontSize: 18
-                          ),)),
-
-
-                        ],
-
-                      ),
-                    )
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Autres onglets :',
+                style: TextStyle(
+                    color: Color(0xff056674),fontSize: 24, fontWeight: FontWeight.bold
                 ),
 
 
-
-              ],
-
-
-
-
+              ),
             ),
           ),
+
+                SizedBox(height: 10,),
+
+                Expanded(
+                  child: Container(
+
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      itemExtent: 100,
+                      children: [
+                        Container(
+
+
+                          child: Column(
+                            children:[
+                              Icon(
+                                Icons.account_circle,
+                                color: Color(0xff056674),
+                                size: 32,
+                              ),
+
+                              Center(child: Text('Profil',style: TextStyle(
+                                  color: Color(0xff056674),fontSize: 18
+                              ),)),
+                            ]
+
+
+                          ),
+                        ),
+
+
+                        Container(
+
+                          child: Column(
+                            children: [
+                              Icon(
+                                Icons.announcement,
+                                color: Color(0xff056674),
+                                size: 32,
+                              ),
+
+                            Center(child: Text('News',style: TextStyle(
+                                color: Color(0xff056674),fontSize: 18
+                            ),)),
+
+                            ],
+                          ),
+                        ),
+
+                        Container(
+
+                          child:
+                          Column(
+                            children: [
+                              Icon(
+                                Icons.monetization_on,
+                                color: Color(0xff056674),
+                                size: 32,
+                              ),
+
+                              Center(child: Text('Don',style: TextStyle(
+                                  color: Color(0xff056674),fontSize: 18
+                              ),)),
+                            ],
+                          ),
+                        ),
+                        Container(
+
+                          child:
+                          Column(
+                            children: [
+                              Icon(
+                                Icons.settings,
+                                color: Color(0xff056674),
+                                size: 32,
+                              ),
+
+                              Center(child: Text('Parametres',style: TextStyle(
+                                  color: Color(0xff056674),fontSize: 18
+                              ),)),
+                            ],
+                          ),
+                        )
+
+                      ],
+
+                    ),
+
+                  ),
+                ),
+
+
+
+
+
+
+
+
+
 
         ],
 

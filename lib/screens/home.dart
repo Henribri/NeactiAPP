@@ -30,14 +30,14 @@ class _HomeState extends State<Home> {
     Plans(),
     Invite(),
     Join(),
-    Donate()
+    //Donate()
   ];
   final List<String> _windowName = [
     'Neacti',
     'Mes plans',
     'Inviter',
     'Rejoindre',
-    'Aider Neacti'
+    //'Aider Neacti'
   ];
 
   @override
@@ -45,8 +45,9 @@ class _HomeState extends State<Home> {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
+
           actions: <Widget>[
-            IconButton(
+           /* IconButton(
               onPressed: () async {
                 await _auth.signOut();
               },
@@ -55,7 +56,7 @@ class _HomeState extends State<Home> {
                 color: Color(0xffff4b5c),
                 size: 30,
               ),
-            )
+            )*/
           ],
           title: Align(
             alignment: Alignment.centerLeft,
@@ -76,7 +77,7 @@ class _HomeState extends State<Home> {
             Icon(Icons.favorite, color: Colors.white, size: 30),
             Icon(Icons.add_location, color: Colors.white, size: 30),
             Icon(Icons.group_add, color: Colors.white, size: 30),
-            Icon(Icons.monetization_on, color: Colors.white, size: 30),
+            //Icon(Icons.monetization_on, color: Colors.white, size: 30),
           ],
           color: Color(0xffff4b5c),
           buttonBackgroundColor: Color(0xffff4b5c),
