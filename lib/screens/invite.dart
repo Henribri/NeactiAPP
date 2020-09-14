@@ -121,16 +121,18 @@ class _InviteState extends State<Invite> {
                           width: 340,
                           margin: EdgeInsets.all(10),
                           child: TextFormField(
+                            style: TextStyle(fontSize: 20),
+
+
                               cursorColor: Colors.red,
                               decoration: InputDecoration(
-                                  labelStyle: TextStyle(color: Colors.black),
+
+                                  labelStyle: TextStyle(color: Color(0xff056674), ),
                                   labelText: 'Titre',
-                                  focusedBorder: OutlineInputBorder(
+                                  filled: true,
+                                  focusedBorder: UnderlineInputBorder(
                                       borderSide:
-                                      BorderSide(color: Colors.red)),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderSide:
-                                      BorderSide(color: Colors.red))),
+                                      BorderSide(color: Colors.red)),),
                               onChanged: (value) {
                                 setState(() => _title = value);
                               },
@@ -161,6 +163,7 @@ class _InviteState extends State<Invite> {
                           width: 340,
                           height: 100,
                           child: TextFormField(
+                              style: TextStyle(fontSize: 20),
                               cursorColor: Colors.red,
                               maxLines: 3,
                               decoration: InputDecoration(
@@ -170,13 +173,11 @@ class _InviteState extends State<Invite> {
                                   ),
                                   labelText: 'Description',
                                   labelStyle: TextStyle(
-                                      color: Colors.black, fontSize: 14, fontFamily: 'Rob'),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                      BorderSide(color: Colors.red)),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderSide:
-                                      BorderSide(color: Colors.red))),
+                                      color: Color(0xff056674)),
+                                filled: true,
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Colors.red)),),
                               onChanged: (value) {
                                 setState(() => _desc = value);
                               },
@@ -207,8 +208,9 @@ class _InviteState extends State<Invite> {
                           height: 20,
                         ),
                         Container(
-                          width: 100,
+                          width: 200,
                           child: TextFormField(
+                              style: TextStyle(fontSize: 20),
                               cursorColor: Colors.red,
                               maxLines: 1,
                               initialValue: _nbr,
@@ -218,14 +220,13 @@ class _InviteState extends State<Invite> {
                                     Icons.group_add,
                                     color: Colors.black,
                                   ),
-                                  labelStyle: TextStyle(
-                                      color: Colors.black, fontSize: 14),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.red)),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.red))),
+                                labelText: 'Participants',
+                                labelStyle: TextStyle(
+                                    color: Color(0xff056674)),
+                                filled: true,
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Colors.red)),),
                               onChanged: (value) {
                                 setState(() => _nbr = value);
                               },
@@ -249,15 +250,19 @@ class _InviteState extends State<Invite> {
                             child: Text(
                               'Le point de rendez-vous :',
                               style: TextStyle(
-                                  color: Color(0xff056674), fontSize: 26, fontFamily: 'Rob'),
+                                  color: Color(0xff056674), fontSize: 20, fontFamily: 'Rob'),
                             )),
                         Container(
-                          width: 340,
+                          width: 260,
+
+
+
                           child: FlatButton.icon(
                             padding: EdgeInsets.all(10),
                             icon: Icon(
                               Icons.location_on,
-                              color: Colors.black,
+                              color: Colors.white,
+                              size: 28,
                             ),
                             onPressed: () async {
                               // show input autocomplete with selected mode
@@ -282,12 +287,14 @@ class _InviteState extends State<Invite> {
                                 }
 
                                 return _location.name;
-                              })(), style: TextStyle(fontSize: 16)),
+                              })(), style: TextStyle(fontSize: 20, color: Colors.white)),
                             ),
                             shape: RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(5.0),
-                                side: BorderSide(color: Colors.red)),
+                                side: BorderSide(color: Color(0xff056674))),
+                            color: Color(0xff056674),
                           ),
+
                         ),
                         SwipeFooterPage()
                       ],
@@ -319,17 +326,18 @@ class _InviteState extends State<Invite> {
                               });
                             });
                           },
-                          icon: Icon(Icons.date_range),
+                          icon: Icon(Icons.date_range, color:Colors.white),
                           label: Text((() {
                             if (_date == null) {
                               return "Not define";
                             }
 
                             return _date;
-                          })(), style: TextStyle(fontSize: 16)),
+                          })(), style: TextStyle(fontSize: 20, color: Colors.white)),
                           shape: RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(5.0),
-                              side: BorderSide(color: Colors.red)),
+                              side: BorderSide(color: Color(0xff056674))),
+                          color: Color(0xff056674),
                         ),
                         Padding(
                             padding: EdgeInsets.all(15),
@@ -349,7 +357,7 @@ class _InviteState extends State<Invite> {
                               });
                             });
                           },
-                          icon: Icon(Icons.access_time),
+                          icon: Icon(Icons.access_time, color: Colors.white,),
                           label: Text(
                             (() {
                               if (_time == null) {
@@ -358,11 +366,12 @@ class _InviteState extends State<Invite> {
 
                               return _time;
                             })(),
-                            style: TextStyle(fontSize: 16),
+                            style: TextStyle(fontSize: 20, color: Colors.white),
                           ),
                           shape: RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(5.0),
-                              side: BorderSide(color: Colors.red)),
+                              side: BorderSide(color: Color(0xff056674))),
+                          color: Color(0xff056674),
                         ),
                         SwipeFooterPage()
                       ],
@@ -392,13 +401,13 @@ class _InviteState extends State<Invite> {
 
                             //underline: Container(height: 2, color: Colors.red),
                             hint: Text('Categories',
-                                style: TextStyle(color: Colors.black)),
+                                style: TextStyle(color: Color(0xff056674))),
 
                             value: _category,
 
                             icon: Icon(Icons.arrow_drop_down),
                             iconSize: 24,
-                            style: TextStyle(color: Colors.black, fontSize: 16),
+                            style: TextStyle(color: Colors.black, fontSize: 20),
                             items: listCategory.data
                                 .map<DropdownMenuItem<Category>>(
                                     (Category value) {
@@ -701,7 +710,7 @@ class _InviteState extends State<Invite> {
                                 content: Text(
                                   'Error you missed a field',
                                   style: TextStyle(
-                                    color: Colors.black,
+                                    color: Colors.white,
                                     fontSize: 16,
                                   ),
                                 ),
@@ -709,7 +718,11 @@ class _InviteState extends State<Invite> {
                               ));
                             }
                           },
-                          child: Text("Publier l'activité"),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(5.0),
+                              side: BorderSide(color: Color(0xffff4b5c))),
+                          color: Color(0xffff4b5c),
+                          child: Text("Publier l'activité",style: TextStyle(fontSize: 20, color: Colors.white),),
                         ),
                       ],
                     ),
@@ -720,339 +733,7 @@ class _InviteState extends State<Invite> {
                   ],
                 ),
               );
-
-              /*SingleChildScrollView(
-                // Use form to send data and validator to check it
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Container(
-                            width: 200,
-                            child: DropdownButtonFormField(
-                              elevation: 0,
-                              decoration: InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.redAccent, width: 2))),
-
-                              //underline: Container(height: 2, color: Colors.red),
-                              hint: Text('Categories',
-                                  style: TextStyle(color: Colors.black)),
-
-                              value: _category,
-
-                              icon: Icon(Icons.arrow_drop_down),
-                              iconSize: 24,
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 16),
-                              items: listCategory.data
-                                  .map<DropdownMenuItem<String>>(
-                                      (Category value) {
-                                return DropdownMenuItem<String>(
-                                  value: value.id,
-                                  child: Text(value.name),
-                                );
-                              }).toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  _category = value;
-                                });
-                              },
-                              validator: (value) {
-                                if (value == null) {
-                                  return "Please select an item";
-                                } else {
-                                  return null;
-                                }
-                              },
-                            ),
-                          ),
-                          Container(
-                            width: 100,
-                            child: TextFormField(
-                                cursorColor: Colors.red,
-                                maxLines: 1,
-                                initialValue: _nbr,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                    prefixIcon: Icon(
-                                      Icons.group_add,
-                                      color: Colors.black,
-                                    ),
-                                    labelStyle: TextStyle(
-                                        color: Colors.black, fontSize: 14),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.red)),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.red))),
-                                onChanged: (value) {
-                                  setState(() => _nbr = value);
-                                },
-                                validator: (value) {
-                                  if (value.isEmpty || value == '0') {
-                                    return "Please enter some text";
-                                  }
-                                  _nbr = value;
-                                  return null;
-                                }),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            width: 340,
-                            margin: EdgeInsets.all(10),
-                            child: TextFormField(
-                                cursorColor: Colors.red,
-                                decoration: InputDecoration(
-                                    labelStyle: TextStyle(color: Colors.black),
-                                    labelText: 'Titre',
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.red)),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.red))),
-                                onChanged: (value) {
-                                  setState(() => _title = value);
-                                },
-                                validator: (value) {
-                                  if (value.isEmpty) {
-                                    return "Please enter some text";
-                                  }
-                                  return null;
-                                }),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            width: 340,
-                            margin: EdgeInsets.all(10),
-                            child: TextFormField(
-                                cursorColor: Colors.red,
-                                decoration: InputDecoration(
-                                    labelStyle: TextStyle(color: Colors.black),
-                                    labelText: 'Message',
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.red)),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.red))),
-                                onChanged: (value) {
-                                  setState(() => _message = value);
-                                },
-                                validator: (value) {
-                                  if (value.isEmpty) {
-                                    return "Please enter some text";
-                                  }
-                                  return null;
-                                }),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        width: 340,
-                        child: FlatButton.icon(
-                          padding: EdgeInsets.all(10),
-                          icon: Icon(
-                            Icons.location_on,
-                            color: Colors.black,
-                          ),
-                          onPressed: () async {
-                            // show input autocomplete with selected mode
-                            // then get the Prediction selected
-                            Prediction prediction = await PlacesAutocomplete.show(
-                                context: context,
-                                apiKey: "AIzaSyBTVL32MeXqzbxxBRJjMjcpw13yz42Bzm0",
-                                mode: Mode.fullscreen,
-                                // Mode.overlay
-                                language: "fr",
-                                components: [
-                                  new Component(Component.country, "fr")
-                                ]);
-                            displayPrediction(prediction);
-                          },
-                          label: Flexible(
-                            child: Text((() {
-                              if (_location == null) {
-                                return "Select an address";
-                              }
-
-                              return _location.name;
-                            })(), style: TextStyle(fontSize: 16)),
-                          ),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(5.0),
-                              side: BorderSide(color: Colors.red)),
-                        ),
-                      ),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          FlatButton.icon(
-                            onPressed: () {
-                              showDatePicker(
-                                      context: context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime(2020),
-                                      lastDate: DateTime(3000))
-                                  .then((date) {
-                                setState(() {
-                                  _date = DateFormat("yyyy-MM-dd")
-                                      .format(date)
-                                      .toString();
-                                });
-                              });
-                            },
-                            icon: Icon(Icons.date_range),
-                            label: Text((() {
-                              if (_date == null) {
-                                return "Not define";
-                              }
-
-                              return _date;
-                            })(), style: TextStyle(fontSize: 16)),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(5.0),
-                                side: BorderSide(color: Colors.red)),
-                          ),
-                          FlatButton.icon(
-                            onPressed: () {
-                              showTimePicker(
-                                      context: context,
-                                      initialTime: TimeOfDay.now())
-                                  .then((time) {
-                                setState(() {
-                                  _time = '${time.hour} : ${time.minute}';
-                                });
-                              });
-                            },
-                            icon: Icon(Icons.access_time),
-                            label: Text(
-                              (() {
-                                if (_time == null) {
-                                  return "Not define";
-                                }
-
-                                return _time;
-                              })(),
-                              style: TextStyle(fontSize: 16),
-                            ),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(5.0),
-                                side: BorderSide(color: Colors.red)),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        width: 340,
-                        height: 100,
-                        child: TextFormField(
-                            cursorColor: Colors.red,
-                            maxLines: 3,
-                            decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.description,
-                                  color: Colors.black,
-                                ),
-                                labelText: 'Description',
-                                labelStyle: TextStyle(
-                                    color: Colors.black, fontSize: 14),
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.red)),
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.red))),
-                            onChanged: (value) {
-                              setState(() => _desc = value);
-                            },
-                            validator: (value) {
-                              if (value.isEmpty || value == '0') {
-                                return "Please enter some text";
-                              }
-
-                              return null;
-                            }),
-                      ),
-                      RaisedButton(
-                        onPressed: () {
-                          // Validate returns true if the form is valid, otherwise false.
-                          if (_formKey.currentState.validate() &&
-                              _location != null &&
-                              _date != null &&
-                              _time != null) {
-                            // Create event object to post
-                            Event newEvent = Event(
-                                null,
-                                _title,
-                                _message,
-                                _date + ' ' + _time.replaceAll(' ', ''),
-                                _location,
-                                [Provider.of<User>(context).uid],
-                                int.parse(_nbr),
-                                _desc,
-                                null,
-                                _category);
-
-                            // Call the post method with a map of the object
-                            _postEvent(body: newEvent.toMap());
-
-                            setState(() {
-                              // Alert the creation of an event
-                              Scaffold.of(context).showSnackBar(SnackBar(
-                                backgroundColor: Colors.greenAccent,
-                                content: Text(
-                                  'Your event has been created.',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                duration: Duration(seconds: 1),
-                              ));
-                            });
-                          } else {
-                            Scaffold.of(context).showSnackBar(SnackBar(
-                              backgroundColor: Colors.pinkAccent,
-                              content: Text(
-                                'Error you missed a field',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              duration: Duration(seconds: 1),
-                            ));
-                          }
-                        },
-                        child: Text('Submit'),
-                      ),
-                    ],
-                  ),
-                ),
-              );*/
-            }
+           }
           }),
     );
   }

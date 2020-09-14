@@ -73,6 +73,7 @@ flutter:
   # example:
   fonts:
 
+
   - family: Fred
     fonts:
       - asset: fonts/FredokaOne-Regular.ttf

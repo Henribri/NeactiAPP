@@ -47,7 +47,7 @@ class _HomeState extends State<Home> {
           elevation: 0,
 
           actions: <Widget>[
-           /* IconButton(
+           IconButton(
               onPressed: () async {
                 await _auth.signOut();
               },
@@ -56,7 +56,7 @@ class _HomeState extends State<Home> {
                 color: Color(0xffff4b5c),
                 size: 30,
               ),
-            )*/
+            )
           ],
           title: Align(
             alignment: Alignment.centerLeft,
