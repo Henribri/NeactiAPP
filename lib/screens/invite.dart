@@ -13,6 +13,7 @@ import 'package:geocoder/geocoder.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:neacti/models/address.dart';
+import 'package:neacti/models/apiUrl.dart';
 
 class Invite extends StatefulWidget {
   @override
@@ -39,16 +40,17 @@ class _InviteState extends State<Invite> {
 
 // Post method
   _postEvent({Map body}) async {
-    String url = 'http://10.0.2.2:8000/events/';
+    String apiUrl = ApiUrl().apiUrl;
+    String url = 'http://$apiUrl/events/';
     Map<String, String> headers = {"Content-type": "application/json"};
     Response response =
         await post(url, headers: headers, body: json.encode(body));
-    int statusCode = response.statusCode;
   }
 
   // Get category
   Future<List<Category>> _getCategoryList() async {
-    Response response = await get('http://10.0.2.2:8000/category.json');
+    String apiUrl = ApiUrl().apiUrl;
+    Response response = await get('http://$apiUrl/category.json');
     List<dynamic> data = jsonDecode(response.body);
 
     return data.map((i) => Category.fromJson(i)).toList();
@@ -250,7 +252,7 @@ class _InviteState extends State<Invite> {
                             child: Text(
                               'Le point de rendez-vous :',
                               style: TextStyle(
-                                  color: Color(0xff056674), fontSize: 20, fontFamily: 'Rob'),
+                                  color: Color(0xff056674), fontSize: 26, fontFamily: 'Rob'),
                             )),
                         Container(
                           width: 260,

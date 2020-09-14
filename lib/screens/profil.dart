@@ -34,7 +34,7 @@ class Profil extends StatelessWidget {
               height: 200,
               child: Carousel(
                 images: [
-                  NetworkImage('https://viacesifr-my.sharepoint.com/personal/henri_briaux_viacesi_fr/Documents/1.jpg'),
+                  NetworkImage('https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),
                   NetworkImage('https://cdn-images-1.medium.com/max/2000/1*wnIEgP1gNMrK5gZU7QS0-A.jpeg'),
                 ],
                 showIndicator: true,

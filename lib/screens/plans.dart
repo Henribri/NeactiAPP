@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart';
+import 'package:neacti/models/apiUrl.dart';
 import 'package:neacti/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import '../models/event.dart';
@@ -17,8 +18,9 @@ class Plans extends StatefulWidget {
 class _PlansState extends State<Plans> {
   //-- RETURN LIST OF PLANS --
   Future<List<Event>> _getData(String userId) async {
+    String apiUrl = ApiUrl().apiUrl;
     Response response =
-        await get('http://10.0.2.2:8000/events/user_registered/$userId.json');
+        await get('http://$apiUrl/events/user_registered/$userId.json');
     List<dynamic> data = jsonDecode(response.body);
 
     return data.map((i) => Event.fromJson(i)).toList();
@@ -26,12 +28,11 @@ class _PlansState extends State<Plans> {
 
   // Put method to remove people
   _putLeaveEvent(String eventId, Map body) async {
-    String url = 'http://10.0.2.2:8000/events/$eventId/';
+    String apiUrl = ApiUrl().apiUrl;
+    String url = 'http://$apiUrl/events/$eventId/';
     Map<String, String> headers = {"Content-type": "application/json"};
     Response response =
         await put(url, headers: headers, body: json.encode(body));
-    int statusCode = response.statusCode;
-    print(statusCode);
   }
 
   // Variable to contain the list of User registered for the event
