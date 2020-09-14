@@ -29,7 +29,8 @@ class _InviteState extends State<Invite> {
   String _title;
   String _message;
   EventAddress _location;
-  String _category;
+  Category _category;
+
 
   final controllerP = PageController(initialPage: 0);
 
@@ -111,7 +112,7 @@ class _InviteState extends State<Invite> {
                             child: Text(
                               'Nommons votre activité :',
                               style: TextStyle(
-                                  color: Color(0xff056674), fontSize: 26),
+                                  color: Color(0xff056674), fontSize: 26, fontFamily: 'Rob'),
                             )),
                         SizedBox(
                           height: 20,
@@ -144,29 +145,6 @@ class _InviteState extends State<Invite> {
                       ],
                     ),
 
-                    //##### PAGE Message
-                    Container(
-                      width: 340,
-                      margin: EdgeInsets.all(10),
-                      child: TextFormField(
-                          cursorColor: Colors.red,
-                          decoration: InputDecoration(
-                              labelStyle: TextStyle(color: Colors.black),
-                              labelText: 'Message',
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.red)),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.red))),
-                          onChanged: (value) {
-                            setState(() => _message = value);
-                          },
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return "Please enter some text";
-                            }
-                            return null;
-                          }),
-                    ),
 
 
                     // ##### PAGE Description
@@ -177,7 +155,7 @@ class _InviteState extends State<Invite> {
                             child: Text(
                               "En quoi consiste l'activité : ",
                               style: TextStyle(
-                                  color: Color(0xff056674), fontSize: 26),
+                                  color: Color(0xff056674), fontSize: 26, fontFamily: 'Rob'),
                             )),
                         Container(
                           width: 340,
@@ -192,7 +170,7 @@ class _InviteState extends State<Invite> {
                                   ),
                                   labelText: 'Description',
                                   labelStyle: TextStyle(
-                                      color: Colors.black, fontSize: 14),
+                                      color: Colors.black, fontSize: 14, fontFamily: 'Rob'),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide:
                                       BorderSide(color: Colors.red)),
@@ -223,7 +201,7 @@ class _InviteState extends State<Invite> {
                             child: Text(
                               'Combien de personne au total :',
                               style: TextStyle(
-                                  color: Color(0xff056674), fontSize: 26),
+                                  color: Color(0xff056674), fontSize: 26, fontFamily: 'Rob'),
                             )),
                         SizedBox(
                           height: 20,
@@ -271,7 +249,7 @@ class _InviteState extends State<Invite> {
                             child: Text(
                               'Le point de rendez-vous :',
                               style: TextStyle(
-                                  color: Color(0xff056674), fontSize: 26),
+                                  color: Color(0xff056674), fontSize: 26, fontFamily: 'Rob'),
                             )),
                         Container(
                           width: 340,
@@ -323,7 +301,7 @@ class _InviteState extends State<Invite> {
                             child: Text(
                               'Le jour :',
                               style: TextStyle(
-                                  color: Color(0xff056674), fontSize: 26),
+                                  color: Color(0xff056674), fontSize: 26, fontFamily: 'Rob'),
                             )),
                         FlatButton.icon(
                           onPressed: () {
@@ -358,7 +336,7 @@ class _InviteState extends State<Invite> {
                             child: Text(
                               "Et l'heure:",
                               style: TextStyle(
-                                  color: Color(0xff056674), fontSize: 26),
+                                  color: Color(0xff056674), fontSize: 26, fontFamily: 'Rob'),
                             )),
                         FlatButton.icon(
                           onPressed: () {
@@ -398,7 +376,7 @@ class _InviteState extends State<Invite> {
                             child: Text(
                               'Choisir une catégorie :',
                               style: TextStyle(
-                                  color: Color(0xff056674), fontSize: 26),
+                                  color: Color(0xff056674), fontSize: 26, fontFamily: 'Rob'),
                             )),
                         SizedBox(
                           height: 20,
@@ -422,10 +400,10 @@ class _InviteState extends State<Invite> {
                             iconSize: 24,
                             style: TextStyle(color: Colors.black, fontSize: 16),
                             items: listCategory.data
-                                .map<DropdownMenuItem<String>>(
+                                .map<DropdownMenuItem<Category>>(
                                     (Category value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value.id,
+                                  return DropdownMenuItem<Category>(
+                                    value: value,
                                     child: Text(value.name),
                                   );
                                 }).toList(),
@@ -459,13 +437,18 @@ class _InviteState extends State<Invite> {
                             child: Text(
                               "Voici le rendu : ",
                               style: TextStyle(
-                                  color: Color(0xff056674), fontSize: 26),
+                                  color: Color(0xff056674), fontSize: 26, fontFamily: 'Rob'),
                             )),
                         Card(
                           child: ExpansionTile(
                             initiallyExpanded: false,
-                            leading: Icon(
-                              Icons.collections,
+                            leading: _category==null ? Icon(
+                              Icons.close, size: 40,
+                              color: Color(0xffff4b5c),
+                            ):Icon(
+                              IconData(_category.iconId,
+                                  fontFamily: _category.fontFamily,
+                                  fontPackage: _category.fontPackage),
                               size: 40,
                               color: Color(0xffff4b5c),
                             ),
@@ -486,7 +469,7 @@ class _InviteState extends State<Invite> {
                                       color: Color(0xff056674),
                                     ),
                                   ),
-                            subtitle: _message == null
+                            subtitle: _category == null
                                 ? Text(
                                     'Error',
                                     style: TextStyle(
@@ -495,7 +478,7 @@ class _InviteState extends State<Invite> {
                                     ),
                                   )
                                 : Text(
-                                    _message,
+                                    _category.name,
                                     style: TextStyle(
                                       fontSize: 16,
                                       color: Color(0xff056674),
@@ -672,7 +655,7 @@ class _InviteState extends State<Invite> {
                             child: Text(
                               "Il ne vous reste plus qu'à le publier : ",
                               style: TextStyle(
-                                  color: Color(0xff056674), fontSize: 26),
+                                  color: Color(0xff056674), fontSize: 26, fontFamily: 'Rob'),
                             )),
                         RaisedButton(
 
@@ -686,14 +669,14 @@ class _InviteState extends State<Invite> {
                               Event newEvent = Event(
                                   null,
                                   _title,
-                                  _message,
+
                                   _date + ' ' + _time.replaceAll(' ', ''),
                                   _location,
                                   [Provider.of<User>(context).uid],
                                   int.parse(_nbr),
                                   _desc,
                                   null,
-                                  _category);
+                                  _category.id);
 
                               // Call the post method with a map of the object
                               _postEvent(body: newEvent.toMap());

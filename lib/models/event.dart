@@ -6,7 +6,7 @@ import 'address.dart';
 class Event {
   String id;
   String title;
-  String subtitle;
+  //String subtitle;
   String dateTime ;
   EventAddress address;
   List<String> actPeople;
@@ -15,7 +15,7 @@ class Event {
   Category category;
   String categoryRef;
 
-  Event(this.id, this.title, this.subtitle, this.dateTime, this.address, this.actPeople, this.allPeople, this.desc, this.category, this.categoryRef);
+  Event(this.id, this.title, /*this.subtitle,*/ this.dateTime, this.address, this.actPeople, this.allPeople, this.desc, this.category, this.categoryRef);
 
 
   //-- BUILD EVENT OBJECT BASED ON JSON
@@ -27,7 +27,7 @@ class Event {
     return Event(
         parsedJson['id'],
         parsedJson['title'],
-        parsedJson['subtitle'],
+        //parsedJson['subtitle'],
         parsedJson['date_time'],
         EventAddress.fromJson(parsedJson['address']),
         actPeopleList,
@@ -42,7 +42,7 @@ class Event {
   Map toMap() {
     var map = new Map<String, dynamic>();
     map["title"] = title;
-    map["subtitle"] = subtitle;
+    //map["subtitle"] = subtitle;
     map["date_time"] = dateTime;
     map["address"] = address.toMap();
     map["act_people"] = actPeople;

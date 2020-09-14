@@ -92,7 +92,7 @@ class _JoinState extends State<Join> {
                             fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xff056674),),
                       ),
                       subtitle: Text(
-                        listEvent.data[index].subtitle,
+                        listEvent.data[index].category.name,
                         style: TextStyle(fontSize: 16, color: Color(0xff056674)),
                       ),
                       children: <Widget>[
