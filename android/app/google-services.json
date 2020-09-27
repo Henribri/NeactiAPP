@@ -42,35 +42,6 @@
           ]
         }
       }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:401834968244:android:47974aec36852ba49e43e1",
-        "android_client_info": {
-          "package_name": "com.neacti.pro"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "401834968244-if881hldhkv8oh0oicbqgk4djsheccm3.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCIrRqwH1h6pj4bR4Hq8sd0Y_Aj-Go6iSE"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "401834968244-if881hldhkv8oh0oicbqgk4djsheccm3.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
     }
   ],
   "configuration_version": "1"
