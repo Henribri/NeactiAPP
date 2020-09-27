@@ -8,9 +8,46 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:401834968244:android:007d0acdda3eb21c9e43e1",
+        "mobilesdk_app_id": "1:401834968244:android:c3478a5eb5dac6ff9e43e1",
         "android_client_info": {
-          "package_name": "com.pro.neacti"
+          "package_name": "com.neacti.neacti"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "401834968244-jp3e4s94639hjlmgtoflb7nm9n8vvgmm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.neacti.neacti",
+            "certificate_hash": "78f0ef0748be4e06d8c904f2af544e3db9c17e29"
+          }
+        },
+        {
+          "client_id": "401834968244-if881hldhkv8oh0oicbqgk4djsheccm3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIrRqwH1h6pj4bR4Hq8sd0Y_Aj-Go6iSE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "401834968244-if881hldhkv8oh0oicbqgk4djsheccm3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:401834968244:android:47974aec36852ba49e43e1",
+        "android_client_info": {
+          "package_name": "com.neacti.pro"
         }
       },
       "oauth_client": [
@@ -21,7 +58,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCMIMoQmuiDowO8QPsDLoiRH9rCayE_14w"
+          "current_key": "AIzaSyCIrRqwH1h6pj4bR4Hq8sd0Y_Aj-Go6iSE"
         }
       ],
       "services": {

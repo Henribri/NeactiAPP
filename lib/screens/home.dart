@@ -81,7 +81,7 @@ class _HomeState extends State<Home> {
           ],
           color: Color(0xffff4b5c),
           buttonBackgroundColor: Color(0xffff4b5c),
-          backgroundColor: Color(0x00000000),
+          backgroundColor:  Colors.transparent,
           animationDuration: Duration(milliseconds: 300),
           index: selectedIndex,
           onTap: _onItemTapped,
