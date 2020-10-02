@@ -18,7 +18,7 @@ class Join extends StatefulWidget {
 class _JoinState extends State<Join> {
   //-- RETURN LIST OF ACTUAL EVENT --
   Future<List<Event>> _getData(String userId) async {
-    String apiUrl = ApiUrl().apiUrl;
+    String apiUrl = ApiUrl.apiUrl;
     Response response = await get(
         'http://$apiUrl/events/user_not_registered/$userId.json');
     List<dynamic> data = jsonDecode(response.body);
@@ -30,11 +30,12 @@ class _JoinState extends State<Join> {
 
   // Put method to add people
   _putJoinEvent(String eventId, Map body) async {
-    String apiUrl = ApiUrl().apiUrl;
+    String apiUrl = ApiUrl.apiUrl;
     String url = 'http://$apiUrl/events/$eventId/';
+
     Map<String, String> headers = {"Content-type": "application/json"};
     Response response =
-        await put(url, headers: headers, body: json.encode(body));
+        await patch(url, headers: headers, body: json.encode(body));
   }
 
   // Variable to contain the list of User registered for the event
@@ -237,6 +238,7 @@ class _JoinState extends State<Join> {
                               // Call request ti update the new list of user
                               _putJoinEvent(listEvent.data[index].id,
                                   registeredPeople);
+
 
                               setState(() {
                                 // Alert of joining an event

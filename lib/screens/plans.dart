@@ -18,7 +18,7 @@ class Plans extends StatefulWidget {
 class _PlansState extends State<Plans> {
   //-- RETURN LIST OF PLANS --
   Future<List<Event>> _getData(String userId) async {
-    String apiUrl = ApiUrl().apiUrl;
+    String apiUrl = ApiUrl.apiUrl;
     Response response =
         await get('http://$apiUrl/events/user_registered/$userId.json');
     List<dynamic> data = jsonDecode(response.body);
@@ -28,11 +28,11 @@ class _PlansState extends State<Plans> {
 
   // Put method to remove people
   _putLeaveEvent(String eventId, Map body) async {
-    String apiUrl = ApiUrl().apiUrl;
+    String apiUrl = ApiUrl.apiUrl;
     String url = 'http://$apiUrl/events/$eventId/';
     Map<String, String> headers = {"Content-type": "application/json"};
     Response response =
-        await put(url, headers: headers, body: json.encode(body));
+        await patch(url, headers: headers, body: json.encode(body));
   }
 
   // Variable to contain the list of User registered for the event
@@ -242,9 +242,11 @@ class _PlansState extends State<Plans> {
                                   registeredPeople["act_people"] =
                                       listEvent.data[index].actPeople;
 
+
                                   // Call request ti update the new list of user
                                   _putLeaveEvent(listEvent.data[index].id,
                                       registeredPeople);
+
 
                                   setState(() {
                                     // Alert of leaving an event

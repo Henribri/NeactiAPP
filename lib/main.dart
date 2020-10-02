@@ -4,6 +4,7 @@ import 'package:neacti/screens/composer.dart';
 import 'package:neacti/models/user.dart';
 import 'package:neacti/screens/home.dart';
 import 'package:neacti/screens/plans.dart';
+import 'package:neacti/screens/settings.dart';
 import 'package:neacti/screens/wrapper.dart';
 import 'package:neacti/services/auth.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +28,7 @@ class Neacti extends StatelessWidget {
           '/wrapper': (context) => Wrapper(),
           '/home': (context) => Home(),
           '/plans': (context) => Plans(),
+          '/profil/settings':(context)=>Settings(),
         },
       ),
     );

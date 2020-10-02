@@ -40,7 +40,7 @@ class _InviteState extends State<Invite> {
 
 // Post method
   _postEvent({Map body}) async {
-    String apiUrl = ApiUrl().apiUrl;
+    String apiUrl = ApiUrl.apiUrl;
     String url = 'http://$apiUrl/events/';
     Map<String, String> headers = {"Content-type": "application/json"};
     Response response =
@@ -49,7 +49,7 @@ class _InviteState extends State<Invite> {
 
   // Get category
   Future<List<Category>> _getCategoryList() async {
-    String apiUrl = ApiUrl().apiUrl;
+    String apiUrl = ApiUrl.apiUrl;
     Response response = await get('http://$apiUrl/category.json');
     List<dynamic> data = jsonDecode(response.body);
 
