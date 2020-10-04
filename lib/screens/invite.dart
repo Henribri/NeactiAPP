@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'package:neacti/components/flushbar.dart';
 import 'package:neacti/models/category.dart';
 import 'package:neacti/models/user.dart';
 import 'package:flutter/cupertino.dart';
@@ -94,9 +95,9 @@ class _InviteState extends State<Invite> {
                       height: 80,
                       width: 80,
                       child: CircularProgressIndicator(
-                          backgroundColor: Color(0xffe8505b),
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Color(0xff14b1ab)),
+                          backgroundColor: Color(0xffff4b5c),
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                              Color(0xff056674)),
                           strokeWidth: 5)));
             } else {
               return Form(
@@ -692,7 +693,8 @@ class _InviteState extends State<Invite> {
                               // Call the post method with a map of the object
                               _postEvent(body: newEvent.toMap());
 
-                              setState(() {
+                              NeaFlushBar(flushTitle:"Votre activit\é a bien \ét\é cr\é\ée", flushMessage:"Elle est disponible dans vos plans").getNeaFlushbar().show(context);
+                              setState(() {/*
                                 // Alert the creation of an event
                                 Scaffold.of(context).showSnackBar(SnackBar(
                                   backgroundColor: Colors.greenAccent,
@@ -704,7 +706,7 @@ class _InviteState extends State<Invite> {
                                     ),
                                   ),
                                   duration: Duration(seconds: 1),
-                                ));
+                                ));*/
                               });
                             } else {
                               Scaffold.of(context).showSnackBar(SnackBar(
