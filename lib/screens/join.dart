@@ -44,6 +44,15 @@ class _JoinState extends State<Join> {
     Map<String, String> headers = {"Content-type": "application/json"};
     Response response =
         await patch(url, headers: headers, body: json.encode(body));
+
+    if (response.statusCode < 200 || response.statusCode > 400 || json == null) {
+      /// Alert error
+      NeaFlushBar(flushTitle:"Erreur lors de l'envoi", flushMessage:"~~~~~~~", isError: true).getNeaFlushbar().show(context);
+    }else{
+      /// Alert the creation of an event
+      NeaFlushBar(flushTitle:"Vous avez rejoint une activit\é", flushMessage:"Elle est disponible dans Mes plans", isError: false).getNeaFlushbar().show(context);
+      _getRefresh();
+    }
   }
 
   /// Variable to contain the list of User registered for the event
@@ -266,8 +275,8 @@ class _JoinState extends State<Join> {
                                 _putJoinEvent(listEvent.data[index].id,
                                     registeredPeople);
 
-                                NeaFlushBar(flushTitle:"Vous avez rejoint une activit\é", flushMessage:"Elle est disponible dans Mes plans").getNeaFlushbar().show(context);
-                                _getRefresh();
+
+
                               },
                             ),
                           ]),

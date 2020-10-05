@@ -7,9 +7,10 @@ class NeaFlushBar {
   /// Define parameters
   final String flushTitle;
   final String flushMessage;
+  final bool isError;
 
   /// Constructor
-  NeaFlushBar({this.flushTitle, this.flushMessage});
+  NeaFlushBar({this.flushTitle, this.flushMessage, this.isError});
 
 
   /// Return the Flushbar
@@ -17,7 +18,7 @@ class NeaFlushBar {
     return Flushbar(
       title:  flushTitle,
       message:  flushMessage,
-      backgroundColor: Color(0xff056674),
+      backgroundColor: isError==false?Color(0xff056674):Color(0xff056674),
       duration:  Duration(seconds: 2, milliseconds: 40),
       animationDuration: Duration(seconds: 1),
       margin: EdgeInsets.fromLTRB(5,0,5,70),
@@ -26,7 +27,7 @@ class NeaFlushBar {
       icon: Icon(
           Icons.info_outline,
           size: 28.0,
-          color: Colors.greenAccent
+          color: isError==false ? Colors.greenAccent :Color(0xffff4b5c),
       ),
     );
 

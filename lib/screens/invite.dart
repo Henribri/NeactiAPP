@@ -29,7 +29,6 @@ class _InviteState extends State<Invite> {
   String _time;
   String _desc;
   String _title;
-  String _message;
   EventAddress _location;
   Category _category;
 
@@ -40,12 +39,21 @@ class _InviteState extends State<Invite> {
   Future<List<Category>> listCategory;
 
   /// Post method
-  _postEvent({Map body}) async {
+  Future<Widget> _postEvent({Map body}) async {
     String apiUrl = ApiUrl.apiUrl;
     String url = 'http://$apiUrl/events/';
     Map<String, String> headers = {"Content-type": "application/json"};
     Response response =
         await post(url, headers: headers, body: json.encode(body));
+
+    if (response.statusCode < 200 || response.statusCode > 400 || json == null) {
+      /// Alert error
+      NeaFlushBar(flushTitle:"Erreur lors de l'envoi", flushMessage:"~~~~~~~", isError: true).getNeaFlushbar().show(context);
+    }else{
+      /// Alert the creation of an event
+      NeaFlushBar(flushTitle:"Votre activit\é a bien \ét\é cr\é\ée", flushMessage:"Elle est disponible dans vos plans", isError: false).getNeaFlushbar().show(context);
+
+    }
   }
 
   /// Get category
@@ -592,8 +600,7 @@ class _InviteState extends State<Invite> {
                                       child: FlatButton(
                                         padding: EdgeInsets.all(0),
 
-                                        // Launch google map url
-
+                                        /// Launch google map url
                                         child: _location == null
                                             ? Text(
                                                 'Error',
@@ -695,9 +702,6 @@ class _InviteState extends State<Invite> {
 
                               /// Call the post method with a map of the object
                               _postEvent(body: newEvent.toMap());
-
-                              /// Alert the creation of an event
-                              NeaFlushBar(flushTitle:"Votre activit\é a bien \ét\é cr\é\ée", flushMessage:"Elle est disponible dans vos plans").getNeaFlushbar().show(context);
                               setState(() {
 
                               });

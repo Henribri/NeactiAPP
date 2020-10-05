@@ -36,6 +36,14 @@ class _PlansState extends State<Plans> {
     Map<String, String> headers = {"Content-type": "application/json"};
     Response response =
         await patch(url, headers: headers, body: json.encode(body));
+    if (response.statusCode < 200 || response.statusCode > 400 || json == null) {
+      /// Alert error
+      NeaFlushBar(flushTitle:"Erreur lors de l'envoi", flushMessage:"~~~~~~~", isError: false).getNeaFlushbar().show(context);
+    }else{
+      /// Alert the creation of an event
+      NeaFlushBar(flushTitle:"Votre plan \à \ét\é retir\é", flushMessage:"Il est toujours disponible dans Rejoindre", isError: false).getNeaFlushbar().show(context);
+      _getRefresh();
+    }
   }
 
   Future<void> _getRefresh() async {
@@ -276,11 +284,7 @@ class _PlansState extends State<Plans> {
                                         registeredPeople);
 
 
-                                    NeaFlushBar(flushTitle:"Votre plan \à \ét\é retir\é", flushMessage:"Il est toujours disponible dans Rejoindre").getNeaFlushbar().show(context);
 
-                                    setState(() {
-
-                                    });
                                   },
                                 ),
                               ]),
