@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:neacti/models/apiUrl.dart';
-import 'composer.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 
 class Profil extends StatelessWidget {
@@ -79,94 +78,7 @@ class Profil extends StatelessWidget {
 
 
           )
-/*
-                  Expanded(
-                    child: Container(
 
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        itemExtent: 100,
-                        children: [
-                          Container(
-
-
-                            child: Column(
-                              children:[
-                                Icon(
-                                  Icons.account_circle,
-                                  color: Color(0xff056674),
-                                  size: 32,
-                                ),
-
-                                Center(child: Text('Profil',style: TextStyle(
-                                    color: Color(0xff056674),fontSize: 18
-                                ),)),
-                              ]
-
-
-                            ),
-                          ),
-
-
-                          Container(
-
-                            child: Column(
-                              children: [
-                                Icon(
-                                  Icons.announcement,
-                                  color: Color(0xff056674),
-                                  size: 32,
-                                ),
-
-                              Center(child: Text('News',style: TextStyle(
-                                  color: Color(0xff056674),fontSize: 18
-                              ),)),
-
-                              ],
-                            ),
-                          ),
-
-                          Container(
-
-                            child:
-                            Column(
-                              children: [
-                                Icon(
-                                  Icons.monetization_on,
-                                  color: Color(0xff056674),
-                                  size: 32,
-                                ),
-
-                                Center(child: Text('Don',style: TextStyle(
-                                    color: Color(0xff056674),fontSize: 18
-                                ),)),
-                              ],
-                            ),
-                          ),
-                          Container(
-
-                            child:
-                            Column(
-                              children: [
-                                Icon(
-                                  Icons.settings,
-                                  color: Color(0xff056674),
-                                  size: 32,
-                                ),
-
-                                Center(child: Text('Parametres',style: TextStyle(
-                                    color: Color(0xff056674),fontSize: 18
-                                ),)),
-                              ],
-                            ),
-                          )
-
-                        ],
-
-                      ),
-
-                    ),
-                  ),*/
         ],
       ),
     ));

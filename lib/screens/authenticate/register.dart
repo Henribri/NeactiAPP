@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:neacti/screens/loading.dart';
 import 'package:neacti/services/auth.dart';
 
-import '../composer.dart';
 
 class Register extends StatefulWidget {
   final Function toggleView;
@@ -13,29 +12,32 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  // Get the auth service
+
+  /// Get the auth service
   final AuthService _auth = AuthService();
 
-  // Get an id for for the form
+  /// Get an id for for the form
   final _formKey = GlobalKey<FormState>();
 
-  // Var to state of the loading
+  /// Var to state of the loading
   bool loading = false;
 
-  // Values of the form
+  /// Values of the form
   String email = '';
   String password = '';
   String error = '';
 
   @override
   Widget build(BuildContext context) {
-    // Display loading page or not
+
+    /// Display loading page or not
     return loading
         ? Loading()
         : Scaffold(
             backgroundColor: Colors.white,
             body: SingleChildScrollView(
-                // Use form to send data and validator to check it
+
+                /// Use form to send data and validator to check it
                 child: Form(
               key: _formKey,
               child: Center(
@@ -138,20 +140,23 @@ class _RegisterState extends State<Register> {
                           style: TextStyle(color: Colors.white)),
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
-                          // Register the user with the auth service
+
+                          /// Register the user with the auth service
                           dynamic result =
                               await _auth.registerWithEmail(email, password);
                           setState(() {
-                            // Set loading page during the request
+                            /// Set loading page during the request
                             loading = true;
                           });
 
                           if (result == null) {
                             setState(() {
-                              // Display error message
+
+                              /// Display error message
                               error = "Error";
                               setState(() {
-                                // Cancel the loading page
+
+                                /// Cancel the loading page
                                 loading = false;
                               });
                             });
@@ -169,7 +174,7 @@ class _RegisterState extends State<Register> {
                       height: 40,
                     ),
 
-                    // Change the page to display
+                    /// Change the page to display
                     FlatButton(
                       child: Text("Already an account ?",
                           style: TextStyle(color: Colors.pink, fontSize: 15)),

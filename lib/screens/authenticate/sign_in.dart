@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:neacti/screens/loading.dart';
 import 'package:neacti/services/auth.dart';
 
-import '../composer.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
@@ -13,30 +12,31 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  // Get the auth service
+  /// Get the auth service
   final AuthService _auth = AuthService();
 
-  // Get an id for for the form
+  /// Get an id for for the form
   final _formKey = GlobalKey<FormState>();
 
-  // Var to state of the loading
+  /// Var to state of the loading
   bool loading = false;
 
-  // Values of the form
+  /// Values of the form
   String email = '';
   String password = '';
   String error = '';
 
   @override
   Widget build(BuildContext context) {
-    // Display loading page or not
+
+    /// Display loading page or not
     return loading
         ? Loading()
         : Scaffold(
             backgroundColor: Colors.white,
             body: SingleChildScrollView(
 
-                // Use form to send data and validator to check it
+                /// Use form to send data and validator to check it
                 child: Form(
               key: _formKey,
               child: Center(
@@ -139,19 +139,21 @@ class _SignInState extends State<SignIn> {
                           Text("Login", style: TextStyle(color: Colors.white)),
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
-                          // SignIn the user with the auth service
+
+                          /// SignIn the user with the auth service
                           dynamic result =
                               await _auth.signInWithEmail(email, password);
 
-                          // Set loading page during the request
+                          /// Set loading page during the request
                           setState(() => loading = true);
 
                           if (result == null) {
                             setState(() {
-                              // Display error message
+
+                              /// Display error message
                               error = "Error";
 
-                              // Cancel the loading page
+                              /// Cancel the loading page
                               setState(() => loading = false);
                             });
                           }
@@ -168,7 +170,7 @@ class _SignInState extends State<SignIn> {
                       height: 40,
                     ),
 
-                    // Change the page to display
+                    /// Change the page to display
                     FlatButton(
                       child: Text("No account ?",
                           style: TextStyle(color: Colors.pink, fontSize: 15)),

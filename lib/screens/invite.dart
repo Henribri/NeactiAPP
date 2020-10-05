@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:neacti/models/event.dart';
-import 'composer.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:provider/provider.dart';
@@ -22,7 +21,8 @@ class Invite extends StatefulWidget {
 }
 
 class _InviteState extends State<Invite> {
-  // Define variables of the form
+
+  /// Define variables of the form
   final _formKey = GlobalKey<FormState>();
   String _nbr = '2';
   String _date;
@@ -33,13 +33,13 @@ class _InviteState extends State<Invite> {
   EventAddress _location;
   Category _category;
 
-
+  /// Controller for PageView
   final controllerP = PageController(initialPage: 0);
 
-  //Get the categories
+  ///Get the categories
   Future<List<Category>> listCategory;
 
-// Post method
+  /// Post method
   _postEvent({Map body}) async {
     String apiUrl = ApiUrl.apiUrl;
     String url = 'http://$apiUrl/events/';
@@ -48,7 +48,7 @@ class _InviteState extends State<Invite> {
         await post(url, headers: headers, body: json.encode(body));
   }
 
-  // Get category
+  /// Get category
   Future<List<Category>> _getCategoryList() async {
     String apiUrl = ApiUrl.apiUrl;
     Response response = await get('http://$apiUrl/category.json');
@@ -57,7 +57,7 @@ class _InviteState extends State<Invite> {
     return data.map((i) => Category.fromJson(i)).toList();
   }
 
-  // Get the prediction of google place search and update the value of the location
+  /// Get the prediction of google place search and update the value of the location
   Future<Null> displayPrediction(Prediction p) async {
     if (p != null) {
       PlacesDetailsResponse detail = await GoogleMapsPlaces(
@@ -75,7 +75,7 @@ class _InviteState extends State<Invite> {
     }
   }
 
-  // initState to use Future Builder only one time
+  /// initState to use Future Builder only one time
   @override
   void initState() {
     super.initState();
@@ -89,7 +89,8 @@ class _InviteState extends State<Invite> {
           future: listCategory,
           builder: (BuildContext context, AsyncSnapshot listCategory) {
             if (listCategory.data == null) {
-              //-- IF NO DATA RETURN A CIRCLE WAIT
+
+              /// If no data return a circle wait
               return Center(
                   child: Container(
                       height: 80,
@@ -107,7 +108,8 @@ class _InviteState extends State<Invite> {
                   controller: controllerP,
                   scrollDirection: Axis.vertical,
                   children: [
-                    // ######### PAGE Titre
+
+                    /// Title page
                     Column(
                       children: [
                         Padding(
@@ -152,7 +154,7 @@ class _InviteState extends State<Invite> {
 
 
 
-                    // ##### PAGE Description
+                    /// Description page
                     Column(
                       children: [
                         Padding(
@@ -197,7 +199,7 @@ class _InviteState extends State<Invite> {
                     ),
 
 
-                    // ######### PAGE Nombre
+                    /// Participant page
                     Column(
                       children: [
                         Padding(
@@ -245,7 +247,7 @@ class _InviteState extends State<Invite> {
                       ],
                     ),
 
-                    // ### PAGE Rdv
+                    /// Place page
                     Column(
                       children: [
                         Padding(
@@ -268,15 +270,14 @@ class _InviteState extends State<Invite> {
                               size: 28,
                             ),
                             onPressed: () async {
-                              // show input autocomplete with selected mode
-                              // then get the Prediction selected
+                              /// show input autocomplete with selected mode
+                              /// then get the Prediction selected
                               Prediction prediction =
                               await PlacesAutocomplete.show(
                                   context: context,
                                   apiKey:
                                   "AIzaSyBTVL32MeXqzbxxBRJjMjcpw13yz42Bzm0",
                                   mode: Mode.fullscreen,
-                                  // Mode.overlay
                                   language: "fr",
                                   components: [
                                     new Component(Component.country, "fr")
@@ -303,7 +304,7 @@ class _InviteState extends State<Invite> {
                       ],
                     ),
 
-                    // ##### PAGE Date Heure
+                    /// Date and time page
                     Column(
                       children: [
                         Padding(
@@ -380,7 +381,7 @@ class _InviteState extends State<Invite> {
                       ],
                     ),
 
-                    //##### PAGE Categorie
+                    /// Category page
                     Column(
                       children: [
                         Padding(
@@ -402,7 +403,6 @@ class _InviteState extends State<Invite> {
                                     borderSide: BorderSide(
                                         color: Colors.redAccent, width: 2))),
 
-                            //underline: Container(height: 2, color: Colors.red),
                             hint: Text('Categories',
                                 style: TextStyle(color: Color(0xff056674))),
 
@@ -442,6 +442,7 @@ class _InviteState extends State<Invite> {
 
 
 
+                    /// Send page
                     Column(
                       children: [
                         Padding(
@@ -672,12 +673,14 @@ class _InviteState extends State<Invite> {
                         RaisedButton(
 
                           onPressed: () {
-                            // Validate returns true if the form is valid, otherwise false.
+
+                            /// Validate returns true if the form is valid, otherwise false.
                             if (_formKey.currentState.validate() &&
                                 _location != null &&
                                 _date != null &&
                                 _time != null) {
-                              // Create event object to post
+
+                              /// Create event object to post
                               Event newEvent = Event(
                                   null,
                                   _title,
@@ -690,23 +693,13 @@ class _InviteState extends State<Invite> {
                                   null,
                                   _category.id);
 
-                              // Call the post method with a map of the object
+                              /// Call the post method with a map of the object
                               _postEvent(body: newEvent.toMap());
 
+                              /// Alert the creation of an event
                               NeaFlushBar(flushTitle:"Votre activit\é a bien \ét\é cr\é\ée", flushMessage:"Elle est disponible dans vos plans").getNeaFlushbar().show(context);
-                              setState(() {/*
-                                // Alert the creation of an event
-                                Scaffold.of(context).showSnackBar(SnackBar(
-                                  backgroundColor: Colors.greenAccent,
-                                  content: Text(
-                                    'Your event has been created.',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  duration: Duration(seconds: 1),
-                                ));*/
+                              setState(() {
+
                               });
                             } else {
                               Scaffold.of(context).showSnackBar(SnackBar(

@@ -1,5 +1,5 @@
-//-- CATEGORY SPECIFY THE TYPE OF AN EVENT
-//-- IT ALSO CONTAINS INFORMATION TO DISPLAY
+/// Category specify type of event
+/// It also contain information to display
 
 class Category {
   String id;
@@ -11,8 +11,7 @@ class Category {
 
   Category(this.id, this.name, this.iconId, this.fontFamily, this.fontPackage);
 
-  //-- BUILD CATEGORY OBJECT BASED ON JSON
-
+  /// Build category based on Json
   factory Category.fromJson(Map<String, dynamic> parsedJson){
 
     return Category(

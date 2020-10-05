@@ -18,7 +18,8 @@ class Plans extends StatefulWidget {
 }
 
 class _PlansState extends State<Plans> {
-  //-- RETURN LIST OF PLANS --
+
+  /// Return list of plans
   Future<List<Event>> _getData(String userId) async {
     String apiUrl = ApiUrl.apiUrl;
     Response response =
@@ -28,7 +29,7 @@ class _PlansState extends State<Plans> {
     return data.map((i) => Event.fromJson(i)).toList();
   }
 
-  // Put method to remove people
+  /// Put method to remove people
   _putLeaveEvent(String eventId, Map body) async {
     String apiUrl = ApiUrl.apiUrl;
     String url = 'http://$apiUrl/events/$eventId/';
@@ -43,19 +44,21 @@ class _PlansState extends State<Plans> {
     });
   }
 
-  // Variable to contain the list of User registered for the event
+  /// Variable to contain the list of User registered for the event
   var registeredPeople = new Map<String, List<String>>();
 
-  //-- BUILD PLANS PAGE
+  /// Build plans page
   @override
   Widget build(BuildContext context) {
     return Container(
-          //-- GET THE DATA TO DISPLAY
+
+          /// Get the data to display
           child: FutureBuilder(
               future: _getData(Provider.of<User>(context).uid),
               builder: (BuildContext context, AsyncSnapshot listEvent) {
                 if (listEvent.data == null) {
-                  //-- IF NO DATA RETURN A CIRCLE WAIT
+
+                  /// If no data return a circle wait
                   return Center(
                       child: Container(
                           height: 80,
@@ -86,7 +89,8 @@ class _PlansState extends State<Plans> {
                     ),
                   );
                 } else {
-                  //-- IF WE GET DATA THEN DISPLAY IT
+
+                  /// If we get data then display it
                   return RefreshIndicator(
                     onRefresh: _getRefresh,
                     backgroundColor: Color(0xff056674),
@@ -194,7 +198,7 @@ class _PlansState extends State<Plans> {
                                       child: FlatButton(
                                         padding: EdgeInsets.all(0),
 
-                                        // Launch google map url
+                                        /// Launch google map url
                                         onPressed: () async {
                                           String lat = listEvent
                                               .data[index].address.lat
@@ -255,18 +259,19 @@ class _PlansState extends State<Plans> {
                         color: Color(0xff056674),
                                   child: Text('Leave'),
                                   onPressed: () {
-                                    // Remove the user from the list of registered
+
+                                    /// Remove the user from the list of registered
                                     listEvent.data[index].actPeople
                                         .removeWhere((item) =>
                                             item ==
                                             Provider.of<User>(context).uid);
 
-                                    // Map it for the request
+                                    /// Map it for the request
                                     registeredPeople["act_people"] =
                                         listEvent.data[index].actPeople;
 
 
-                                    // Call request ti update the new list of user
+                                    /// Call request ti update the new list of user
                                     _putLeaveEvent(listEvent.data[index].id,
                                         registeredPeople);
 
@@ -274,7 +279,6 @@ class _PlansState extends State<Plans> {
                                     NeaFlushBar(flushTitle:"Votre plan \à \ét\é retir\é", flushMessage:"Il est toujours disponible dans Rejoindre").getNeaFlushbar().show(context);
 
                                     setState(() {
-
 
                                     });
                                   },

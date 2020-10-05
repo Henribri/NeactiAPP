@@ -19,7 +19,8 @@ class Join extends StatefulWidget {
 }
 
 class _JoinState extends State<Join> {
-  //-- RETURN LIST OF ACTUAL EVENT --
+
+  /// Return list of actual event
   Future<List<Event>> _getData(String userId) async {
     String apiUrl = ApiUrl.apiUrl;
     Response response = await get(
@@ -35,7 +36,7 @@ class _JoinState extends State<Join> {
     });
   }
 
-  // Put method to add people
+  /// Put method to add people
   _putJoinEvent(String eventId, Map body) async {
     String apiUrl = ApiUrl.apiUrl;
     String url = 'http://$apiUrl/events/$eventId/';
@@ -45,19 +46,19 @@ class _JoinState extends State<Join> {
         await patch(url, headers: headers, body: json.encode(body));
   }
 
-  // Variable to contain the list of User registered for the event
+  /// Variable to contain the list of User registered for the event
   var registeredPeople = new Map<String, List<String>>();
 
-  //-- BUILD JOIN PAGE
+  /// Build join page
   @override
   Widget build(BuildContext context) {
     return Container(
-      //-- GET THE DATA TO DISPLAY
+      /// Get the data to display
       child: FutureBuilder(
           future: _getData(Provider.of<User>(context).uid),
           builder: (BuildContext context, AsyncSnapshot listEvent) {
             if (listEvent.data == null) {
-              //-- IF NO DATA RETURN A CIRCLE WAIT
+              /// If no data return circle
               return Center(
                   child: Container(
                       height: 80,
@@ -67,9 +68,9 @@ class _JoinState extends State<Join> {
                           valueColor: AlwaysStoppedAnimation<Color>(
                               Color(0xff056674)),
                           strokeWidth: 5)));
-
             }
-            // IF there is no event display a message
+
+            /// If there is no event display a message
             else if (listEvent.data.length == 0) {
               return RefreshIndicator(
                 backgroundColor: Color(0xff056674),
@@ -91,7 +92,8 @@ class _JoinState extends State<Join> {
                   ),
               );
             } else {
-              //-- IF WE GET DATA THEN DISPLAY IT
+
+              /// If we get data then display it
               return RefreshIndicator(
                 backgroundColor: Color(0xff056674),
                 color: Colors.white,
@@ -197,7 +199,8 @@ class _JoinState extends State<Join> {
                                   child: FlatButton(
                                     padding: EdgeInsets.all(0),
                                     onPressed:() async {
-                                      // Launch google map url
+
+                                      /// Launch google map url
                                       String lat = listEvent.data[index].address.lat.toString();
                                       String lon = listEvent.data[index].address.lon.toString();
                                       String placeId = listEvent.data[index].address.placeId.toString();
@@ -250,15 +253,16 @@ class _JoinState extends State<Join> {
                               color: Color(0xff056674),
                               child: Text('Join'),
                               onPressed: () {
-                                // Add the user from the list of registered
+
+                                /// Add the user from the list of registered
                                 listEvent.data[index].actPeople
                                     .add(Provider.of<User>(context).uid);
 
-                                // Map it for the request
+                                /// Map it for the request
                                 registeredPeople["act_people"] =
                                     listEvent.data[index].actPeople;
 
-                                // Call request ti update the new list of user
+                                /// Call request to update the new list of user
                                 _putJoinEvent(listEvent.data[index].id,
                                     registeredPeople);
 

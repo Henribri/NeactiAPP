@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'composer.dart';
-
 
 
 class Donate extends StatelessWidget {

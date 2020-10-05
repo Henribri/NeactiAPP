@@ -9,8 +9,7 @@ class EventAddress {
 
   EventAddress(this.name, this.lat, this.lon, this.placeId);
 
-  //-- BUILD ADDRESS OF EVENT OBJECT BASED ON JSON
-
+  /// Build address of event object based on Json
   factory EventAddress.fromJson(Map<String, dynamic> parsedJson){
 
     return EventAddress(
@@ -21,7 +20,7 @@ class EventAddress {
     );
   }
 
-
+  /// Convert address object to Json
   Map toMap() {
     var map = new Map<String, dynamic>();
     map["name"] = name;
