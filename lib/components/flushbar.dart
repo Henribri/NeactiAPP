@@ -20,7 +20,7 @@ class NeaFlushBar {
       message:  flushMessage,
       backgroundColor: isError==false?Color(0xff056674):Color(0xff056674),
       duration:  Duration(seconds: 2, milliseconds: 40),
-      animationDuration: Duration(seconds: 1),
+      animationDuration: Duration(seconds: 1,),
       margin: EdgeInsets.fromLTRB(5,0,5,70),
       isDismissible: true,
       borderRadius: 5,

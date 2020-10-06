@@ -12,6 +12,7 @@ class EventAddress {
   /// Build address of event object based on Json
   factory EventAddress.fromJson(Map<String, dynamic> parsedJson){
 
+
     return EventAddress(
         parsedJson['name'],
         parsedJson['lat'],

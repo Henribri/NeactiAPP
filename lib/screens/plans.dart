@@ -24,7 +24,7 @@ class _PlansState extends State<Plans> {
     String apiUrl = ApiUrl.apiUrl;
     Response response =
         await get('http://$apiUrl/events/user_registered/$userId.json');
-    List<dynamic> data = jsonDecode(response.body);
+    List<dynamic> data = jsonDecode(utf8.decode(response.bodyBytes));
 
     return data.map((i) => Event.fromJson(i)).toList();
   }
@@ -53,7 +53,10 @@ class _PlansState extends State<Plans> {
   }
 
   /// Variable to contain the list of User registered for the event
-  var registeredPeople = new Map<String, List<String>>();
+  Map<String, List<String>> registeredPeople = new Map<String, List<String>>();
+
+  /// List to contain actPeople from gotten data
+  List<String> newActPeople;
 
   /// Build plans page
   @override
@@ -87,7 +90,7 @@ class _PlansState extends State<Plans> {
                         Center(
                           child: Text(
                             "Vous n'avez pas d'event.",
-                            style: TextStyle(fontFamily: 'Fred', fontSize: 26),
+                            style: TextStyle(fontFamily: 'Fred', fontSize: 26, color: Color(0xff056674)),
                           ),
                         ),
 
@@ -268,16 +271,19 @@ class _PlansState extends State<Plans> {
                                   child: Text('Leave'),
                                   onPressed: () {
 
+                                    /// Get the data and manage it
+                                    newActPeople =
+                                    new List<String>.from(listEvent.data[index].actPeople);
+
                                     /// Remove the user from the list of registered
-                                    listEvent.data[index].actPeople
+                                    newActPeople
                                         .removeWhere((item) =>
                                             item ==
                                             Provider.of<User>(context).uid);
 
                                     /// Map it for the request
                                     registeredPeople["act_people"] =
-                                        listEvent.data[index].actPeople;
-
+                                        newActPeople;
 
                                     /// Call request ti update the new list of user
                                     _putLeaveEvent(listEvent.data[index].id,

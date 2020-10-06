@@ -25,7 +25,7 @@ class _JoinState extends State<Join> {
     String apiUrl = ApiUrl.apiUrl;
     Response response = await get(
         'http://$apiUrl/events/user_not_registered/$userId.json');
-    List<dynamic> data = jsonDecode(response.body);
+    List<dynamic> data = jsonDecode(utf8.decode(response.bodyBytes));
 
     return data.map((i) => Event.fromJson(i)).toList();
   }
@@ -56,7 +56,10 @@ class _JoinState extends State<Join> {
   }
 
   /// Variable to contain the list of User registered for the event
-  var registeredPeople = new Map<String, List<String>>();
+  Map<String, List<String>> registeredPeople = new Map<String, List<String>>();
+
+  /// List to contain actPeople from gotten data
+  List<String> newActPeople;
 
   /// Build join page
   @override
@@ -263,13 +266,17 @@ class _JoinState extends State<Join> {
                               child: Text('Join'),
                               onPressed: () {
 
+                                /// Get the data and manage it
+                                newActPeople =
+                                new List<String>.from(listEvent.data[index].actPeople);
+
                                 /// Add the user from the list of registered
-                                listEvent.data[index].actPeople
+                                newActPeople
                                     .add(Provider.of<User>(context).uid);
 
                                 /// Map it for the request
                                 registeredPeople["act_people"] =
-                                    listEvent.data[index].actPeople;
+                                    newActPeople;
 
                                 /// Call request to update the new list of user
                                 _putJoinEvent(listEvent.data[index].id,
