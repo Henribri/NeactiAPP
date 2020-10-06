@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -41,14 +42,15 @@ class _PlansState extends State<Plans> {
       NeaFlushBar(flushTitle:"Erreur lors de l'envoi", flushMessage:"~~~~~~~", isError: false).getNeaFlushbar().show(context);
     }else{
       /// Alert the creation of an event
-      NeaFlushBar(flushTitle:"Votre plan \à \ét\é retir\é", flushMessage:"Il est toujours disponible dans Rejoindre", isError: false).getNeaFlushbar().show(context);
       _getRefresh();
+      NeaFlushBar(flushTitle:"Votre plan \à \ét\é retir\é", flushMessage:"Il est toujours disponible dans Rejoindre", isError: false).getNeaFlushbar().show(context);
+
     }
   }
 
+  /// Refresh page
   Future<void> _getRefresh() async {
     setState(() {
-
     });
   }
 
@@ -57,6 +59,20 @@ class _PlansState extends State<Plans> {
 
   /// List to contain actPeople from gotten data
   List<String> newActPeople;
+
+  /// Boolean to test connection
+  bool isConnected = true;
+
+  /// Test the connection and update the bool
+  _getConnection() async{
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult==ConnectivityResult.none){
+      isConnected=false;
+    }
+    else if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+      isConnected=true;
+    }
+  }
 
   /// Build plans page
   @override
@@ -67,9 +83,13 @@ class _PlansState extends State<Plans> {
           child: FutureBuilder(
               future: _getData(Provider.of<User>(context).uid),
               builder: (BuildContext context, AsyncSnapshot listEvent) {
-                if (listEvent.data == null) {
 
-                  /// If no data return a circle wait
+                /// Test the connection
+                _getConnection();
+
+                /// If no data but connected return circle to wait
+                if (listEvent.data == null&& isConnected) {
+
                   return Center(
                       child: Container(
                           height: 80,
@@ -79,7 +99,33 @@ class _PlansState extends State<Plans> {
                               valueColor: AlwaysStoppedAnimation<Color>(
                                   Color(0xff056674)),
                               strokeWidth: 5)));
-                } else if (listEvent.data.length == 0) {
+                }
+
+                /// If no data and no connection then return error
+                else if(listEvent.data == null && isConnected==false){
+                  return RefreshIndicator(
+                    backgroundColor: Color(0xff056674),
+                    color: Colors.white,
+                    onRefresh: _getRefresh,
+                    child: ListView(
+                      children: [
+                        SizedBox(height: 200,),
+                        Center(
+                          child: Text(
+                            "Erreur de connection",
+                            style: TextStyle(fontFamily: 'Fred', fontSize: 26, color: Color(0xff056674)),
+                          ),
+                        ),
+
+
+                      ],
+
+                    ),
+                  );
+                }
+
+                /// If there is no event display a message
+                else if (listEvent.data.length == 0) {
                   return  RefreshIndicator(
                     backgroundColor: Color(0xff056674),
                     color: Colors.white,
@@ -268,7 +314,7 @@ class _PlansState extends State<Plans> {
                               ButtonBar(children: <Widget>[
                                 FlatButton(
                         color: Color(0xff056674),
-                                  child: Text('Leave'),
+                                  child: Text('Quitter'),
                                   onPressed: () {
 
                                     /// Get the data and manage it

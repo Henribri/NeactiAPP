@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'package:connectivity/connectivity.dart';
 import 'package:neacti/components/flushbar.dart';
 import 'package:neacti/models/category.dart';
 import 'package:neacti/models/user.dart';
@@ -83,6 +84,27 @@ class _InviteState extends State<Invite> {
     }
   }
 
+  /// Boolean to test connection
+  bool isConnected = true;
+
+  /// Test the connection and update the bool
+  _getConnection() async{
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult==ConnectivityResult.none){
+      isConnected=false;
+    }
+    else if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+      isConnected=true;
+    }
+  }
+
+  /// Refresh page
+  Future<void> _getRefresh() async {
+    setState(() {
+
+    });
+  }
+
   /// initState to use Future Builder only one time
   @override
   void initState() {
@@ -96,7 +118,12 @@ class _InviteState extends State<Invite> {
       child: FutureBuilder(
           future: listCategory,
           builder: (BuildContext context, AsyncSnapshot listCategory) {
-            if (listCategory.data == null) {
+
+            /// Test the connection
+            _getConnection();
+
+            /// If no data but connected return circle to wait
+            if (listCategory.data == null&& isConnected) {
 
               /// If no data return a circle wait
               return Center(
@@ -108,7 +135,32 @@ class _InviteState extends State<Invite> {
                           valueColor: AlwaysStoppedAnimation<Color>(
                               Color(0xff056674)),
                           strokeWidth: 5)));
-            } else {
+            }
+
+            /// If no data and no connection then return error
+            else if(listCategory.data == null && isConnected==false){
+              return RefreshIndicator(
+                backgroundColor: Color(0xff056674),
+                color: Colors.white,
+                onRefresh: _getRefresh,
+                child: ListView(
+                  children: [
+                    SizedBox(height: 200,),
+                    Center(
+                      child: Text(
+                        "Erreur de connection",
+                        style: TextStyle(fontFamily: 'Fred', fontSize: 26, color: Color(0xff056674)),
+                      ),
+                    ),
+
+
+                  ],
+
+                ),
+              );
+            }
+
+            else {
               return Form(
                 key: _formKey,
                 child: PageView(
@@ -673,7 +725,7 @@ class _InviteState extends State<Invite> {
                         Padding(
                             padding: EdgeInsets.all(15),
                             child: Text(
-                              "Il ne vous reste plus qu'à le publier : ",
+                              "Il ne vous reste plus qu'à la publier : ",
                               style: TextStyle(
                                   color: Color(0xff056674), fontSize: 26, fontFamily: 'Rob'),
                             )),

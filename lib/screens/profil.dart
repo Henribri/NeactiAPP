@@ -18,11 +18,11 @@ class Profil extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'Les News :',
+                'Les News',
                 style: TextStyle(
                     color: Color(0xff056674),
                     fontSize: 24,
-                    fontWeight: FontWeight.bold),
+                    fontWeight: FontWeight.bold,fontFamily: 'Rob'),
               ),
             ),
           ),
@@ -62,7 +62,7 @@ class Profil extends StatelessWidget {
                 style: TextStyle(
                     color: Color(0xff056674),
                     fontSize: 24,
-                    fontWeight: FontWeight.bold),
+                    fontWeight: FontWeight.bold,fontFamily: 'Rob'),
               ),
             ),
           ),

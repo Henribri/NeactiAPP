@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,6 +11,7 @@ import '../models/event.dart';
 import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:connectivity/connectivity.dart';
 
 class Join extends StatefulWidget {
   @override
@@ -50,8 +50,8 @@ class _JoinState extends State<Join> {
       NeaFlushBar(flushTitle:"Erreur lors de l'envoi", flushMessage:"~~~~~~~", isError: true).getNeaFlushbar().show(context);
     }else{
       /// Alert the creation of an event
-      NeaFlushBar(flushTitle:"Vous avez rejoint une activit\é", flushMessage:"Elle est disponible dans Mes plans", isError: false).getNeaFlushbar().show(context);
       _getRefresh();
+      NeaFlushBar(flushTitle:"Vous avez rejoint une activit\é", flushMessage:"Elle est disponible dans Mes plans", isError: false).getNeaFlushbar().show(context);
     }
   }
 
@@ -61,6 +61,20 @@ class _JoinState extends State<Join> {
   /// List to contain actPeople from gotten data
   List<String> newActPeople;
 
+  /// Boolean to test connection
+  bool isConnected = true;
+
+  /// Test the connection and update the bool
+  _getConnection() async{
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult==ConnectivityResult.none){
+      isConnected=false;
+    }
+    else if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+      isConnected=true;
+    }
+    }
+
   /// Build join page
   @override
   Widget build(BuildContext context) {
@@ -69,8 +83,12 @@ class _JoinState extends State<Join> {
       child: FutureBuilder(
           future: _getData(Provider.of<User>(context).uid),
           builder: (BuildContext context, AsyncSnapshot listEvent) {
-            if (listEvent.data == null) {
-              /// If no data return circle
+
+            /// Test the connection
+            _getConnection();
+
+            /// If no data but connected return circle to wait
+            if (listEvent.data == null && isConnected) {
               return Center(
                   child: Container(
                       height: 80,
@@ -80,6 +98,29 @@ class _JoinState extends State<Join> {
                           valueColor: AlwaysStoppedAnimation<Color>(
                               Color(0xff056674)),
                           strokeWidth: 5)));
+            }
+
+            /// If no data and no connection then return error
+            else if(listEvent.data == null && isConnected==false){
+              return RefreshIndicator(
+                backgroundColor: Color(0xff056674),
+                color: Colors.white,
+                onRefresh: _getRefresh,
+                child: ListView(
+                  children: [
+                    SizedBox(height: 200,),
+                    Center(
+                      child: Text(
+                        "Erreur de connection",
+                        style: TextStyle(fontFamily: 'Fred', fontSize: 26, color: Color(0xff056674)),
+                      ),
+                    ),
+
+
+                  ],
+
+                ),
+              );
             }
 
             /// If there is no event display a message
@@ -263,7 +304,7 @@ class _JoinState extends State<Join> {
                           ButtonBar(children: <Widget>[
                             FlatButton(
                               color: Color(0xff056674),
-                              child: Text('Join'),
+                              child: Text('Rejoindre'),
                               onPressed: () {
 
                                 /// Get the data and manage it
