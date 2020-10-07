@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:neacti/models/apiUrl.dart';
 import 'package:carousel_pro/carousel_pro.dart';
-import 'package:neacti/services/auth.dart';
+
 
 class Home extends StatelessWidget {
 
-  final AuthService _auth = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -55,7 +55,7 @@ class Home extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Aider Neacti', style: TextStyle(fontSize: 18, fontFamily: 'Rob',color: Color(0xff056674)),),
+                    Text('Nous soutenir', style: TextStyle(fontSize: 18, fontFamily: 'Rob',color: Color(0xff056674)),),
                     Icon(FontAwesomeIcons.thumbsUp, size: 20, color: Color(0xff056674),)
                   ],
                 ),
@@ -86,26 +86,6 @@ class Home extends StatelessWidget {
           ),
           SizedBox(height:5),
 
-          FlatButton(
-              onPressed: () async {
-                await _auth.signOut();
-              },
-            child: Container(
-              width: MediaQuery.of(context).size.width-50,
-              child: Card(
-                child: Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Se déconnecter', style: TextStyle(fontSize: 18, fontFamily: 'Rob',color: Color(0xff056674)),),
-                      Icon(FontAwesomeIcons.signOutAlt, size: 20, color: Color(0xff056674),)
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
           SizedBox(height:5),
 
           Divider(
