@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:neacti/screens/invite.dart';
 import 'package:neacti/screens/join.dart';
 import 'package:neacti/screens/plans.dart';
-import 'package:neacti/screens/profil.dart';
+import 'package:neacti/screens/home.dart';
 class NeaNavBar extends StatelessWidget {
 
   /// Index of page
@@ -18,7 +18,7 @@ class NeaNavBar extends StatelessWidget {
 
   /// List of screen
   final List<Widget> _children = [
-    Profil(),
+    Home(),
     Plans(),
     Invite(),
     Join(),
@@ -47,7 +47,7 @@ class NeaNavBar extends StatelessWidget {
       ],
       color: Color(0xffff4b5c),
       buttonBackgroundColor: Color(0xffff4b5c),
-      backgroundColor:  Colors.transparent,
+      backgroundColor:  Color(0xfff6f6f6),
       animationDuration: Duration(milliseconds: 300),
       index: selectedIndex,
       onTap: _onItemTapped,

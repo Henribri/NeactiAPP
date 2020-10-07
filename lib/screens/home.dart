@@ -1,44 +1,165 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:neacti/components/appbar.dart';
-import 'package:neacti/components/navbar.dart';
-import 'profil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:neacti/models/apiUrl.dart';
+import 'package:carousel_pro/carousel_pro.dart';
+import 'package:neacti/services/auth.dart';
 
+class Home extends StatelessWidget {
 
-class Home extends StatefulWidget {
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-
-  /// Index and page
-  int selectedIndex =0;
-  Widget currentPage=Profil();
-
-
-
+  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Color(0xfff6f6f6),
+    return SafeArea(
+        child: SingleChildScrollView(
+      child: Column(
+        children: [
 
-        appBar: NeaAppBar(selectedIndex: selectedIndex),
+          /// Different tab
+          Padding(
+            padding: EdgeInsets.only(top:10, left: 20, bottom: 10),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Bienvenue !',
+                style: TextStyle(
+                    color: Color(0xff056674),
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,fontFamily: 'Rob', fontStyle: FontStyle.italic),
+              ),
+            ),
+          ),
 
-        body: currentPage,
+          Container(
+            width: MediaQuery.of(context).size.width-50,
+            child: Card(
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Profil', style: TextStyle(fontSize: 18, fontFamily: 'Rob',color: Color(0xff056674)),),
+                    Icon(Icons.account_circle, size: 20, color: Color(0xff056674),)
+                  ],
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height:5),
 
-        bottomNavigationBar: NeaNavBar(
-          selectedIndex: selectedIndex,
-          selectedPage: (int newIndex, Widget newPage){
-            setState(() {
-              currentPage=newPage;
-              selectedIndex=newIndex;
-            });
-          },
-        )
-    );
+          Container(
+            width: MediaQuery.of(context).size.width-50,
+            child: Card(
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Aider Neacti', style: TextStyle(fontSize: 18, fontFamily: 'Rob',color: Color(0xff056674)),),
+                    Icon(FontAwesomeIcons.thumbsUp, size: 20, color: Color(0xff056674),)
+                  ],
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height:5),
 
+          FlatButton(
+            onPressed: (){
+              Navigator.pushNamed(context, '/profil/settings');
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width-50,
+              child: Card(
+                child: Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Paramètres', style: TextStyle(fontSize: 18, fontFamily: 'Rob',color: Color(0xff056674)),),
+                      Icon(Icons.settings, size: 20, color: Color(0xff056674),)
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height:5),
+
+          FlatButton(
+              onPressed: () async {
+                await _auth.signOut();
+              },
+            child: Container(
+              width: MediaQuery.of(context).size.width-50,
+              child: Card(
+                child: Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Se déconnecter', style: TextStyle(fontSize: 18, fontFamily: 'Rob',color: Color(0xff056674)),),
+                      Icon(FontAwesomeIcons.signOutAlt, size: 20, color: Color(0xff056674),)
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height:5),
+
+          Divider(
+            color: Color(0xffff4b5c),
+            thickness: 2,
+            endIndent: 100,
+            indent: 100,
+          ),
+
+
+
+          /// Neacti TV
+          Padding(
+            padding: EdgeInsets.only(top:10, left: 20, bottom: 5),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'NeactiTV',
+                style: TextStyle(
+                    color: Color(0xff056674),
+                    fontSize: 20,
+                    fontFamily: 'Rob',),
+              ),
+            ),
+          ),
+
+          Center(
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(8.0))),
+              margin: EdgeInsets.fromLTRB(10,2,10,0 ),
+              width: MediaQuery.of(context).size.width,
+              height: 200,
+              child: Carousel(
+              borderRadius: true,
+                images: [
+                  NetworkImage(
+                      'https://i.ibb.co/rmnYzFS/79480485-2550935611671223-9103336282276233216-n.png'),
+                  NetworkImage(
+                      'https://i.ibb.co/rmnYzFS/79480485-2550935611671223-9103336282276233216-n.png'),
+                  NetworkImage(
+                      'https://i.ibb.co/rmnYzFS/79480485-2550935611671223-9103336282276233216-n.png'),
+                ],
+                showIndicator: true,
+                autoplay: true,
+                autoplayDuration: Duration(seconds: 4),
+                indicatorBgPadding: 1,
+              ),
+            ),
+          ),
+
+
+        ],
+      ),
+    ));
   }
 }
-
-
-

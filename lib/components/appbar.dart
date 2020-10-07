@@ -27,9 +27,6 @@ class NeaAppBar extends StatelessWidget implements PreferredSizeWidget{
 
       actions: <Widget>[
         IconButton(
-          onPressed: () async {
-            await _auth.signOut();
-          },
           icon: Icon(
             FontAwesomeIcons.commentDots,
             color: Color(0xffff4b5c),

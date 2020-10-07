@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:neacti/screens/donate.dart';
 import 'package:neacti/models/user.dart';
-import 'package:neacti/screens/home.dart';
+import 'package:neacti/screens/pageBasis.dart';
 import 'package:neacti/screens/plans.dart';
 import 'package:neacti/screens/settings.dart';
 import 'package:neacti/screens/wrapper.dart';
@@ -25,7 +25,7 @@ class Neacti extends StatelessWidget {
         initialRoute: '/wrapper',
         routes: {
           '/wrapper': (context) => Wrapper(),
-          '/home': (context) => Home(),
+          '/home': (context) => PageBasis(),
           '/plans': (context) => Plans(),
           '/profil/settings':(context)=>Settings(),
         },

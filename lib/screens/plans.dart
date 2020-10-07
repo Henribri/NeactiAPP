@@ -153,198 +153,201 @@ class _PlansState extends State<Plans> {
                     backgroundColor: Color(0xff056674),
                     color: Colors.white,
                     child: ListView.builder(
-                      itemCount: listEvent.data.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Card(
-                          child: ExpansionTile(
-                            initiallyExpanded: false,
-                            leading: Icon(
-                              IconData(listEvent.data[index].category.iconId,
-                                  fontFamily: listEvent
-                                      .data[index].category.fontFamily,
-                                  fontPackage: listEvent
-                                      .data[index].category.fontPackage),
-                              size: 40,
-                              color: Color(0xffff4b5c),
-                            ),
-                            title: Text(
-                              listEvent.data[index].title,
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xff056674),),
+                            itemCount: listEvent.data.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Card(
+                                child: ExpansionTile(
+                                  initiallyExpanded: false,
+                                  leading: Icon(
+                                    IconData(listEvent.data[index].category.iconId,
+                                        fontFamily: listEvent
+                                            .data[index].category.fontFamily,
+                                        fontPackage: listEvent
+                                            .data[index].category.fontPackage),
+                                    size: 40,
+                                    color: Color(0xffff4b5c),
+                                  ),
+                                  title: Text(
+                                    listEvent.data[index].title,
+                                    style: TextStyle(
+                                        fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xff056674),),
 
-                            ),
-                            subtitle: Text(
-                              listEvent.data[index].category.name,
-                              style: TextStyle(fontSize: 16,color: Color(0xff056674),),
+                                  ),
+                                  subtitle: Text(
+                                    listEvent.data[index].category.name,
+                                    style: TextStyle(fontSize: 16,color: Color(0xff056674),),
 
-                            ),
-                            children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(15, 10, 0, 5),
-                                child: Row(
+                                  ),
                                   children: <Widget>[
-                                    Icon(
-                                      Icons.date_range,
-                                      size: 30,
-                                      color: Color(0xffff4b5c),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      DateFormat("dd-MM-yyyy").format(
-                                          DateTime.parse(listEvent
-                                              .data[index].dateTime
-                                              .substring(0, 10))),
-                                      style: TextStyle(fontSize: 18,color: Color(0xff056674),),
-                                    ),
-                                    SizedBox(
-                                      width: 30,
-                                    ),
-                                    Icon(
-                                      Icons.access_time,
-                                      size: 30,
-                                      color: Color(0xffff4b5c),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      listEvent.data[index].dateTime
-                                          .substring(11, 16),
-                                      style: TextStyle(fontSize: 18, color: Color(0xff056674),),
-                                    ),
-                                    SizedBox(
-                                      width: 30,
-                                    ),
-                                    Icon(
-                                      Icons.group,
-                                      size: 30,
-                                      color: Color(0xffff4b5c),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      listEvent.data[index].actPeople.length
-                                              .toString() +
-                                          '/' +
-                                          listEvent.data[index].allPeople
-                                              .toString(),
-                                      style: TextStyle(fontSize: 18,color: Color(0xff056674),),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.location_on,
-                                      size: 30,
-                                      color: Color(0xffff4b5c),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Flexible(
-                                      child: FlatButton(
-                                        padding: EdgeInsets.all(0),
-
-                                        /// Launch google map url
-                                        onPressed: () async {
-                                          String lat = listEvent
-                                              .data[index].address.lat
-                                              .toString();
-                                          String lon = listEvent
-                                              .data[index].address.lon
-                                              .toString();
-                                          String placeId = listEvent
-                                              .data[index].address.placeId
-                                              .toString();
-                                          String url =
-                                              'https://www.google.com/maps/search/?api=1&query=$lat,$lon&query_place_id=$placeId';
-                                          if (await canLaunch(url)) {
-                                            launch(url);
-                                          } else {
-                                            throw 'Could not launch $url';
-                                          }
-                                        },
-                                        child: Text(
-                                          listEvent.data[index].address.name,
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            color: Color(0xff056674),
+                                    Padding(
+                                      padding: EdgeInsets.fromLTRB(15, 10, 0, 5),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.date_range,
+                                            size: 30,
+                                            color: Color(0xffff4b5c),
                                           ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.description,
-                                      size: 30,
-                                      color: Color(0xffff4b5c),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Flexible(
-                                        child: Container(
-                                          child: Text(
-                                            listEvent.data[index].desc,
-                                            maxLines: 3,
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            DateFormat("dd-MM-yyyy").format(
+                                                DateTime.parse(listEvent
+                                                    .data[index].dateTime
+                                                    .substring(0, 10))),
                                             style: TextStyle(fontSize: 18,color: Color(0xff056674),),
                                           ),
-                                        ),
+                                          SizedBox(
+                                            width: 30,
+                                          ),
+                                          Icon(
+                                            Icons.access_time,
+                                            size: 30,
+                                            color: Color(0xffff4b5c),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            listEvent.data[index].dateTime
+                                                .substring(11, 16),
+                                            style: TextStyle(fontSize: 18, color: Color(0xff056674),),
+                                          ),
+                                          SizedBox(
+                                            width: 30,
+                                          ),
+                                          Icon(
+                                            Icons.group,
+                                            size: 30,
+                                            color: Color(0xffff4b5c),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            listEvent.data[index].actPeople.length
+                                                    .toString() +
+                                                '/' +
+                                                listEvent.data[index].allPeople
+                                                    .toString(),
+                                            style: TextStyle(fontSize: 18,color: Color(0xff056674),),
+                                          ),
+                                        ],
+                                      ),
                                     ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.location_on,
+                                            size: 30,
+                                            color: Color(0xffff4b5c),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Flexible(
+                                            child: FlatButton(
+                                              padding: EdgeInsets.all(0),
+
+                                              /// Launch google map url
+                                              onPressed: () async {
+                                                String lat = listEvent
+                                                    .data[index].address.lat
+                                                    .toString();
+                                                String lon = listEvent
+                                                    .data[index].address.lon
+                                                    .toString();
+                                                String placeId = listEvent
+                                                    .data[index].address.placeId
+                                                    .toString();
+                                                String url =
+                                                    'https://www.google.com/maps/search/?api=1&query=$lat,$lon&query_place_id=$placeId';
+                                                if (await canLaunch(url)) {
+                                                  launch(url);
+                                                } else {
+                                                  throw 'Could not launch $url';
+                                                }
+                                              },
+                                              child: Text(
+                                                listEvent.data[index].address.name,
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: Color(0xff056674),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 10),
+                                    Padding(
+                                      padding: EdgeInsets.fromLTRB(15, 0, 0, 5),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.description,
+                                            size: 30,
+                                            color: Color(0xffff4b5c),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Flexible(
+                                              child: Container(
+                                                child: Text(
+                                                  listEvent.data[index].desc,
+                                                  maxLines: 3,
+                                                  style: TextStyle(fontSize: 18,color: Color(0xff056674),),
+                                                ),
+                                              ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    ButtonBar(children: <Widget>[
+                                      FlatButton(
+                              color: Color(0xff056674),
+                                        child: Text('Quitter'),
+                                        onPressed: () {
+
+                                          /// Get the data and manage it
+                                          newActPeople =
+                                          new List<String>.from(listEvent.data[index].actPeople);
+
+                                          /// Remove the user from the list of registered
+                                          newActPeople
+                                              .removeWhere((item) =>
+                                                  item ==
+                                                  Provider.of<User>(context).uid);
+
+                                          /// Map it for the request
+                                          registeredPeople["act_people"] =
+                                              newActPeople;
+
+                                          /// Call request ti update the new list of user
+                                          _putLeaveEvent(listEvent.data[index].id,
+                                              registeredPeople);
+
+
+
+                                        },
+                                      ),
+                                    ]),
                                   ],
                                 ),
-                              ),
-                              ButtonBar(children: <Widget>[
-                                FlatButton(
-                        color: Color(0xff056674),
-                                  child: Text('Quitter'),
-                                  onPressed: () {
-
-                                    /// Get the data and manage it
-                                    newActPeople =
-                                    new List<String>.from(listEvent.data[index].actPeople);
-
-                                    /// Remove the user from the list of registered
-                                    newActPeople
-                                        .removeWhere((item) =>
-                                            item ==
-                                            Provider.of<User>(context).uid);
-
-                                    /// Map it for the request
-                                    registeredPeople["act_people"] =
-                                        newActPeople;
-
-                                    /// Call request ti update the new list of user
-                                    _putLeaveEvent(listEvent.data[index].id,
-                                        registeredPeople);
+                              );
+                            },
+                      ),
 
 
 
-                                  },
-                                ),
-                              ]),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
                   );
                 }
               }),
