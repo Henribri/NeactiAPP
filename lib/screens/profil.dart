@@ -13,7 +13,7 @@ class Profil extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          Padding(
+          /*Padding(
             padding: EdgeInsets.all(10),
             child: Align(
               alignment: Alignment.centerLeft,
@@ -25,21 +25,26 @@ class Profil extends StatelessWidget {
                     fontWeight: FontWeight.bold,fontFamily: 'Rob'),
               ),
             ),
-          ),
+          ),*/
           Center(
             child: Container(
-              margin: EdgeInsets.only(bottom: 40, top: 20),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(8.0))),
+              margin: EdgeInsets.fromLTRB(10,10,10,40 ),
               width: MediaQuery.of(context).size.width,
               height: 200,
               child: Carousel(
+              borderRadius: true,
                 images: [
                   NetworkImage(
                       'https://cdn-images-1.medium.com/max/2000/1*GqdzzfB_BHorv7V2NV7Jgg.jpeg'),
                   NetworkImage(
                       'https://cdn-images-1.medium.com/max/2000/1*wnIEgP1gNMrK5gZU7QS0-A.jpeg'),
+
                 ],
                 showIndicator: true,
-                autoplay: false,
+                autoplay: true,
+                autoplayDuration: Duration(seconds: 5),
                 indicatorBgPadding: 1,
               ),
             ),

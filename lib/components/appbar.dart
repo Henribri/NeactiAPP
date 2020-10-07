@@ -31,8 +31,9 @@ class NeaAppBar extends StatelessWidget implements PreferredSizeWidget{
             await _auth.signOut();
           },
           icon: Icon(
-            FontAwesomeIcons.signOutAlt,
+            FontAwesomeIcons.commentDots,
             color: Color(0xffff4b5c),
+
             size: 30,
           ),
         )
