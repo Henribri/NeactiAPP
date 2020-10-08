@@ -47,11 +47,11 @@ class _JoinState extends State<Join> {
 
     if (response.statusCode < 200 || response.statusCode > 400 || json == null) {
       /// Alert error
-      NeaFlushBar(flushTitle:"Erreur lors de l'envoi", flushMessage:"~~~~~~~", isError: true, context: context).getNeaFlushbar().show(context);
+      NeaFlushBar(flushTitle:"Erreur lors de l'envoi", flushMessage:"~~~~~~~", isError: true, context: context, isDismissible: true).getNeaFlushbar().show(context);
     }else{
       /// Alert the creation of an event
       _getRefresh();
-      NeaFlushBar(flushTitle:"Vous avez rejoint une activit\é", flushMessage:"Elle est disponible dans Mes plans", isError: false, context: context).getNeaFlushbar().show(context);
+      NeaFlushBar(flushTitle:"Vous avez rejoint une activit\é", flushMessage:"Elle est disponible dans Mes plans", isError: false, context: context, isDismissible: true).getNeaFlushbar().show(context);
     }
   }
 
@@ -303,7 +303,7 @@ class _JoinState extends State<Join> {
                           ),
                           ButtonBar(children: <Widget>[
                             FlatButton(
-                              color: Theme.of(context).buttonColor,
+                              color: Theme.of(context).primaryColorDark,
                               child: Text('Rejoindre'),
                               onPressed: () {
 

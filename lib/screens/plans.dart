@@ -39,11 +39,11 @@ class _PlansState extends State<Plans> {
         await patch(url, headers: headers, body: json.encode(body));
     if (response.statusCode < 200 || response.statusCode > 400 || json == null) {
       /// Alert error
-      NeaFlushBar(flushTitle:"Erreur lors de l'envoi", flushMessage:"~~~~~~~", isError: false, context: context).getNeaFlushbar().show(context);
+      NeaFlushBar(flushTitle:"Erreur lors de l'envoi", flushMessage:"~~~~~~~", isError: false, context: context, isDismissible: true).getNeaFlushbar().show(context);
     }else{
       /// Alert the creation of an event
       _getRefresh();
-      NeaFlushBar(flushTitle:"Votre plan \à \ét\é retir\é", flushMessage:"Il est toujours disponible dans Rejoindre", isError: false, context: context).getNeaFlushbar().show(context);
+      NeaFlushBar(flushTitle:"Votre plan \à \ét\é retir\é", flushMessage:"Il est toujours disponible dans Rejoindre", isError: false, context: context, isDismissible: true).getNeaFlushbar().show(context);
 
     }
   }

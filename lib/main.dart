@@ -14,7 +14,7 @@ void main() => runApp(Neacti());
 class Neacti extends StatelessWidget {
 
 
-  bool isDark = false;
+  bool isDark = true;
 
 
   @override

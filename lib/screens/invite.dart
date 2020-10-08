@@ -1,5 +1,6 @@
 import 'dart:ffi';
 import 'package:connectivity/connectivity.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:neacti/components/flushbar.dart';
 import 'package:neacti/models/category.dart';
 import 'package:neacti/models/user.dart';
@@ -34,7 +35,7 @@ class _InviteState extends State<Invite> {
   Category _category;
 
   /// Controller for PageView
-  final controllerP = PageController(initialPage: 0);
+  final _controllerP = PageController(initialPage: 0);
 
   ///Get the categories
   Future<List<Category>> listCategory;
@@ -49,11 +50,17 @@ class _InviteState extends State<Invite> {
 
     if (response.statusCode < 200 || response.statusCode > 400 || json == null) {
       /// Alert error
-      NeaFlushBar(flushTitle:"Erreur lors de l'envoi", flushMessage:"~~~~~~~", isError: true, context: context).getNeaFlushbar().show(context);
+      NeaFlushBar(flushTitle:"Erreur lors de l'envoi", flushMessage:"~~~~~~~", isError: true, context: context, isDismissible: true).getNeaFlushbar().show(context);
     }else{
       /// Alert the creation of an event
-      NeaFlushBar(flushTitle:"Votre activit\é a bien \ét\é cr\é\ée", flushMessage:"Elle est disponible dans vos plans", isError: false, context: context).getNeaFlushbar().show(context);
+      NeaFlushBar(flushTitle:"Votre activit\é a bien \ét\é cr\é\ée", flushMessage:"Elle est disponible dans vos plans", isError: false, context: context, isDismissible: true).getNeaFlushbar().show(context);
 
+      setState(() {
+
+        /// Return to the page one if successful
+        _controllerP.jumpTo(0);
+      });
+      //flush.dismiss(true);
     }
   }
 
@@ -165,7 +172,7 @@ class _InviteState extends State<Invite> {
                 key: _formKey,
                 child: PageView(
 
-                  controller: controllerP,
+                  controller: _controllerP,
                   scrollDirection: Axis.vertical,
                   children: [
 
@@ -461,6 +468,7 @@ class _InviteState extends State<Invite> {
 
                             value: _category,
 
+                            dropdownColor: Theme.of(context).buttonColor,
                             icon: Icon(Icons.arrow_drop_down),
                             iconSize: 24,
                             style: TextStyle(color: Colors.black, fontSize: 20),
@@ -743,13 +751,16 @@ class _InviteState extends State<Invite> {
                                   null,
                                   _category.id);
 
+
+                              //Flushbar flush = NeaFlushBar(flushTitle:"Veuillez patienter", flushMessage:"Nous ajoutons votre activité", isError: false, context: context, isDismissible: false).getNeaFlushbar();
+
+                              //flush.show(context);
                               /// Call the post method with a map of the object
                               _postEvent(body: newEvent.toMap());
-                              setState(() {
 
-                              });
+
                             } else{
-                              NeaFlushBar(flushTitle:"Erreur", flushMessage:"~~~~~~~", isError: true, context: context).getNeaFlushbar().show(context);
+                              NeaFlushBar(flushTitle:"Erreur", flushMessage:"~~~~~~~", isError: true, context: context, isDismissible: true).getNeaFlushbar().show(context);
                             }
                           },
                           shape: RoundedRectangleBorder(

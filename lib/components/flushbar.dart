@@ -5,13 +5,15 @@ import 'package:flutter/material.dart';
 class NeaFlushBar {
 
   /// Define parameters
-  final String flushTitle;
-  final String flushMessage;
-  final bool isError;
-  final BuildContext context;
+   String flushTitle;
+   String flushMessage;
+   bool isError;
+   BuildContext context;
+   bool isDismissible;
+
 
   /// Constructor
-  NeaFlushBar({this.flushTitle, this.flushMessage, this.isError, this.context});
+  NeaFlushBar({this.flushTitle, this.flushMessage, this.isError, this.context, this.isDismissible});
 
 
   /// Return the Flushbar
@@ -23,7 +25,7 @@ class NeaFlushBar {
       duration:  Duration(seconds: 2, milliseconds: 40),
       animationDuration: Duration(seconds: 1,),
       margin: EdgeInsets.fromLTRB(5,0,5,70),
-      isDismissible: true,
+      isDismissible: isDismissible,
       borderRadius: 5,
       icon: Icon(
           Icons.info_outline,
