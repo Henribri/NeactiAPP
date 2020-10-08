@@ -39,11 +39,11 @@ class _PlansState extends State<Plans> {
         await patch(url, headers: headers, body: json.encode(body));
     if (response.statusCode < 200 || response.statusCode > 400 || json == null) {
       /// Alert error
-      NeaFlushBar(flushTitle:"Erreur lors de l'envoi", flushMessage:"~~~~~~~", isError: false).getNeaFlushbar().show(context);
+      NeaFlushBar(flushTitle:"Erreur lors de l'envoi", flushMessage:"~~~~~~~", isError: false, context: context).getNeaFlushbar().show(context);
     }else{
       /// Alert the creation of an event
       _getRefresh();
-      NeaFlushBar(flushTitle:"Votre plan \à \ét\é retir\é", flushMessage:"Il est toujours disponible dans Rejoindre", isError: false).getNeaFlushbar().show(context);
+      NeaFlushBar(flushTitle:"Votre plan \à \ét\é retir\é", flushMessage:"Il est toujours disponible dans Rejoindre", isError: false, context: context).getNeaFlushbar().show(context);
 
     }
   }
@@ -97,14 +97,14 @@ class _PlansState extends State<Plans> {
                           child: CircularProgressIndicator(
                               backgroundColor: Color(0xffff4b5c),
                               valueColor: AlwaysStoppedAnimation<Color>(
-                                  Color(0xff056674)),
+                                  Theme.of(context).primaryColorDark),
                               strokeWidth: 5)));
                 }
 
                 /// If no data and no connection then return error
                 else if(listEvent.data == null && isConnected==false){
                   return RefreshIndicator(
-                    backgroundColor: Color(0xff056674),
+                    backgroundColor: Theme.of(context).primaryColor,
                     color: Colors.white,
                     onRefresh: _getRefresh,
                     child: ListView(
@@ -113,7 +113,7 @@ class _PlansState extends State<Plans> {
                         Center(
                           child: Text(
                             "Erreur de connection",
-                            style: TextStyle(fontFamily: 'Fred', fontSize: 26, color: Color(0xff056674)),
+                            style: TextStyle(fontFamily: 'Fred', fontSize: 26, color: Theme.of(context).primaryColorLight),
                           ),
                         ),
 
@@ -127,7 +127,7 @@ class _PlansState extends State<Plans> {
                 /// If there is no event display a message
                 else if (listEvent.data.length == 0) {
                   return  RefreshIndicator(
-                    backgroundColor: Color(0xff056674),
+                    backgroundColor: Theme.of(context).primaryColor,
                     color: Colors.white,
                     onRefresh: _getRefresh,
                     child: ListView(
@@ -136,7 +136,7 @@ class _PlansState extends State<Plans> {
                         Center(
                           child: Text(
                             "Vous n'avez pas d'event.",
-                            style: TextStyle(fontFamily: 'Fred', fontSize: 26, color: Color(0xff056674)),
+                            style: TextStyle(fontFamily: 'Fred', fontSize: 26, color: Theme.of(context).primaryColorLight),
                           ),
                         ),
 
@@ -150,7 +150,7 @@ class _PlansState extends State<Plans> {
                   /// If we get data then display it
                   return RefreshIndicator(
                     onRefresh: _getRefresh,
-                    backgroundColor: Color(0xff056674),
+                    backgroundColor: Theme.of(context).primaryColor,
                     color: Colors.white,
                     child: ListView.builder(
                             itemCount: listEvent.data.length,
@@ -170,12 +170,12 @@ class _PlansState extends State<Plans> {
                                   title: Text(
                                     listEvent.data[index].title,
                                     style: TextStyle(
-                                        fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xff056674),),
+                                        fontSize: 20, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorDark,),
 
                                   ),
                                   subtitle: Text(
                                     listEvent.data[index].category.name,
-                                    style: TextStyle(fontSize: 16,color: Color(0xff056674),),
+                                    style: TextStyle(fontSize: 16,color: Theme.of(context).primaryColorDark,),
 
                                   ),
                                   children: <Widget>[
@@ -196,7 +196,7 @@ class _PlansState extends State<Plans> {
                                                 DateTime.parse(listEvent
                                                     .data[index].dateTime
                                                     .substring(0, 10))),
-                                            style: TextStyle(fontSize: 18,color: Color(0xff056674),),
+                                            style: TextStyle(fontSize: 18,color: Theme.of(context).primaryColorDark,),
                                           ),
                                           SizedBox(
                                             width: 30,
@@ -212,7 +212,7 @@ class _PlansState extends State<Plans> {
                                           Text(
                                             listEvent.data[index].dateTime
                                                 .substring(11, 16),
-                                            style: TextStyle(fontSize: 18, color: Color(0xff056674),),
+                                            style: TextStyle(fontSize: 18,color: Theme.of(context).primaryColorDark,),
                                           ),
                                           SizedBox(
                                             width: 30,
@@ -231,7 +231,7 @@ class _PlansState extends State<Plans> {
                                                 '/' +
                                                 listEvent.data[index].allPeople
                                                     .toString(),
-                                            style: TextStyle(fontSize: 18,color: Color(0xff056674),),
+                                            style: TextStyle(fontSize: 18,color: Theme.of(context).primaryColorDark,),
                                           ),
                                         ],
                                       ),
@@ -278,7 +278,7 @@ class _PlansState extends State<Plans> {
                                                 listEvent.data[index].address.name,
                                                 style: TextStyle(
                                                   fontSize: 18,
-                                                  color: Color(0xff056674),
+                                                  color: Theme.of(context).primaryColorDark,
                                                 ),
                                               ),
                                             ),
@@ -304,7 +304,7 @@ class _PlansState extends State<Plans> {
                                                 child: Text(
                                                   listEvent.data[index].desc,
                                                   maxLines: 3,
-                                                  style: TextStyle(fontSize: 18,color: Color(0xff056674),),
+                                                  style: TextStyle(fontSize: 18,color: Theme.of(context).primaryColorDark,),
                                                 ),
                                               ),
                                           ),
@@ -313,7 +313,7 @@ class _PlansState extends State<Plans> {
                                     ),
                                     ButtonBar(children: <Widget>[
                                       FlatButton(
-                              color: Color(0xff056674),
+                              color: Theme.of(context).primaryColorDark,
                                         child: Text('Quitter'),
                                         onPressed: () {
 

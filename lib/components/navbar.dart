@@ -47,7 +47,7 @@ class NeaNavBar extends StatelessWidget {
       ],
       color: Color(0xffff4b5c),
       buttonBackgroundColor: Color(0xffff4b5c),
-      backgroundColor:  Color(0xfff6f6f6),
+      backgroundColor:  Colors.transparent,
       animationDuration: Duration(milliseconds: 300),
       index: selectedIndex,
       onTap: _onItemTapped,

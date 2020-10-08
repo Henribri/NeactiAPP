@@ -49,10 +49,10 @@ class _InviteState extends State<Invite> {
 
     if (response.statusCode < 200 || response.statusCode > 400 || json == null) {
       /// Alert error
-      NeaFlushBar(flushTitle:"Erreur lors de l'envoi", flushMessage:"~~~~~~~", isError: true).getNeaFlushbar().show(context);
+      NeaFlushBar(flushTitle:"Erreur lors de l'envoi", flushMessage:"~~~~~~~", isError: true, context: context).getNeaFlushbar().show(context);
     }else{
       /// Alert the creation of an event
-      NeaFlushBar(flushTitle:"Votre activit\é a bien \ét\é cr\é\ée", flushMessage:"Elle est disponible dans vos plans", isError: false).getNeaFlushbar().show(context);
+      NeaFlushBar(flushTitle:"Votre activit\é a bien \ét\é cr\é\ée", flushMessage:"Elle est disponible dans vos plans", isError: false, context: context).getNeaFlushbar().show(context);
 
     }
   }
@@ -133,14 +133,14 @@ class _InviteState extends State<Invite> {
                       child: CircularProgressIndicator(
                           backgroundColor: Color(0xffff4b5c),
                           valueColor: AlwaysStoppedAnimation<Color>(
-                              Color(0xff056674)),
+                              Theme.of(context).primaryColorDark),
                           strokeWidth: 5)));
             }
 
             /// If no data and no connection then return error
             else if(listCategory.data == null && isConnected==false){
               return RefreshIndicator(
-                backgroundColor: Color(0xff056674),
+                backgroundColor: Theme.of(context).primaryColor,
                 color: Colors.white,
                 onRefresh: _getRefresh,
                 child: ListView(
@@ -149,9 +149,9 @@ class _InviteState extends State<Invite> {
                     Center(
                       child: Text(
                         "Erreur de connection",
-                        style: TextStyle(fontFamily: 'Fred', fontSize: 26, color: Color(0xff056674)),
+                        style: TextStyle(fontFamily: 'Fred', fontSize: 26, color: Theme.of(context).primaryColorLight)),
                       ),
-                    ),
+
 
 
                   ],
@@ -176,8 +176,7 @@ class _InviteState extends State<Invite> {
                             padding: EdgeInsets.all(15),
                             child: Text(
                               'Nommons votre activité :',
-                              style: TextStyle(
-                                  color: Color(0xff056674), fontSize: 26, fontFamily: 'Rob'),
+                              style: Theme.of(context).textTheme.headline2
                             )),
                         SizedBox(
                           height: 20,
@@ -186,13 +185,13 @@ class _InviteState extends State<Invite> {
                           width: 340,
                           margin: EdgeInsets.all(10),
                           child: TextFormField(
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 20, color: Theme.of(context).primaryColorLight),
 
 
                               cursorColor: Colors.red,
                               decoration: InputDecoration(
 
-                                  labelStyle: TextStyle(color: Color(0xff056674), ),
+                                  labelStyle: TextStyle(color: Theme.of(context).primaryColorLight, ),
                                   labelText: 'Titre',
                                   filled: true,
                                   focusedBorder: UnderlineInputBorder(
@@ -221,24 +220,23 @@ class _InviteState extends State<Invite> {
                             padding: EdgeInsets.all(15),
                             child: Text(
                               "En quoi consiste l'activité : ",
-                              style: TextStyle(
-                                  color: Color(0xff056674), fontSize: 26, fontFamily: 'Rob'),
+                                style: Theme.of(context).textTheme.headline2
                             )),
                         Container(
                           width: 340,
                           height: 100,
                           child: TextFormField(
-                              style: TextStyle(fontSize: 20),
+                              style: TextStyle(fontSize: 20, color: Theme.of(context).primaryColorLight),
                               cursorColor: Colors.red,
                               maxLines: 3,
                               decoration: InputDecoration(
                                   prefixIcon: Icon(
                                     Icons.description,
-                                    color: Colors.black,
+                                    color: Theme.of(context).primaryColor
                                   ),
                                   labelText: 'Description',
                                   labelStyle: TextStyle(
-                                      color: Color(0xff056674)),
+                                    color: Theme.of(context).primaryColorLight, ),
                                 filled: true,
                                 focusedBorder: UnderlineInputBorder(
                                     borderSide:
@@ -266,8 +264,7 @@ class _InviteState extends State<Invite> {
                             padding: EdgeInsets.all(15),
                             child: Text(
                               'Combien de personne au total :',
-                              style: TextStyle(
-                                  color: Color(0xff056674), fontSize: 26, fontFamily: 'Rob'),
+                                style: Theme.of(context).textTheme.headline2
                             )),
                         SizedBox(
                           height: 20,
@@ -275,7 +272,7 @@ class _InviteState extends State<Invite> {
                         Container(
                           width: 200,
                           child: TextFormField(
-                              style: TextStyle(fontSize: 20),
+                              style: TextStyle(fontSize: 20,color: Theme.of(context).primaryColorLight),
                               cursorColor: Colors.red,
                               maxLines: 1,
                               initialValue: _nbr,
@@ -283,11 +280,11 @@ class _InviteState extends State<Invite> {
                               decoration: InputDecoration(
                                   prefixIcon: Icon(
                                     Icons.group_add,
-                                    color: Colors.black,
+                                    color: Theme.of(context).primaryColor,
                                   ),
                                 labelText: 'Participants',
                                 labelStyle: TextStyle(
-                                    color: Color(0xff056674)),
+                                  color: Theme.of(context).primaryColorLight,),
                                 filled: true,
                                 focusedBorder: UnderlineInputBorder(
                                     borderSide:
@@ -314,8 +311,7 @@ class _InviteState extends State<Invite> {
                             padding: EdgeInsets.all(15),
                             child: Text(
                               'Le point de rendez-vous :',
-                              style: TextStyle(
-                                  color: Color(0xff056674), fontSize: 26, fontFamily: 'Rob'),
+                                style: Theme.of(context).textTheme.headline2
                             )),
                         Container(
                           width: 260,
@@ -326,7 +322,7 @@ class _InviteState extends State<Invite> {
                             padding: EdgeInsets.all(10),
                             icon: Icon(
                               Icons.location_on,
-                              color: Colors.white,
+                              color: Theme.of(context).primaryColor,
                               size: 28,
                             ),
                             onPressed: () async {
@@ -351,12 +347,12 @@ class _InviteState extends State<Invite> {
                                 }
 
                                 return _location.name;
-                              })(), style: TextStyle(fontSize: 20, color: Colors.white)),
+                              })(), style: Theme.of(context).textTheme.headline4),
                             ),
                             shape: RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(5.0),
-                                side: BorderSide(color: Color(0xff056674))),
-                            color: Color(0xff056674),
+                                side: BorderSide(color: Theme.of(context).buttonColor),),
+                            color: Theme.of(context).buttonColor,
                           ),
 
                         ),
@@ -371,8 +367,7 @@ class _InviteState extends State<Invite> {
                             padding: EdgeInsets.all(15),
                             child: Text(
                               'Le jour :',
-                              style: TextStyle(
-                                  color: Color(0xff056674), fontSize: 26, fontFamily: 'Rob'),
+                                style: Theme.of(context).textTheme.headline2
                             )),
                         FlatButton.icon(
                           onPressed: () {
@@ -390,25 +385,24 @@ class _InviteState extends State<Invite> {
                               });
                             });
                           },
-                          icon: Icon(Icons.date_range, color:Colors.white),
+                          icon: Icon(Icons.date_range, color: Theme.of(context).primaryColor),
                           label: Text((() {
                             if (_date == null) {
                               return "Not define";
                             }
 
                             return _date;
-                          })(), style: TextStyle(fontSize: 20, color: Colors.white)),
+                          })(),  style: Theme.of(context).textTheme.headline4),
                           shape: RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(5.0),
-                              side: BorderSide(color: Color(0xff056674))),
-                          color: Color(0xff056674),
+                            side: BorderSide(color: Theme.of(context).buttonColor),),
+                          color: Theme.of(context).buttonColor,
                         ),
                         Padding(
                             padding: EdgeInsets.all(15),
                             child: Text(
                               "Et l'heure:",
-                              style: TextStyle(
-                                  color: Color(0xff056674), fontSize: 26, fontFamily: 'Rob'),
+                                style: Theme.of(context).textTheme.headline2
                             )),
                         FlatButton.icon(
                           onPressed: () {
@@ -421,7 +415,7 @@ class _InviteState extends State<Invite> {
                               });
                             });
                           },
-                          icon: Icon(Icons.access_time, color: Colors.white,),
+                          icon: Icon(Icons.access_time, color: Theme.of(context).primaryColor,),
                           label: Text(
                             (() {
                               if (_time == null) {
@@ -430,12 +424,12 @@ class _InviteState extends State<Invite> {
 
                               return _time;
                             })(),
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                              style: Theme.of(context).textTheme.headline4
                           ),
                           shape: RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(5.0),
-                              side: BorderSide(color: Color(0xff056674))),
-                          color: Color(0xff056674),
+                            side: BorderSide(color: Theme.of(context).buttonColor),),
+                          color: Theme.of(context).buttonColor,
                         ),
                         SwipeFooterPage()
                       ],
@@ -448,8 +442,7 @@ class _InviteState extends State<Invite> {
                             padding: EdgeInsets.all(15),
                             child: Text(
                               'Choisir une catégorie :',
-                              style: TextStyle(
-                                  color: Color(0xff056674), fontSize: 26, fontFamily: 'Rob'),
+                                style: Theme.of(context).textTheme.headline2
                             )),
                         SizedBox(
                           height: 20,
@@ -464,7 +457,7 @@ class _InviteState extends State<Invite> {
                                         color: Colors.redAccent, width: 2))),
 
                             hint: Text('Categories',
-                                style: TextStyle(color: Color(0xff056674))),
+                                style: TextStyle(color: Theme.of(context).primaryColorLight,)),
 
                             value: _category,
 
@@ -476,7 +469,7 @@ class _InviteState extends State<Invite> {
                                     (Category value) {
                                   return DropdownMenuItem<Category>(
                                     value: value,
-                                    child: Text(value.name),
+                                    child: Text(value.name, style: TextStyle(color: Theme.of(context).primaryColorLight),),
                                   );
                                 }).toList(),
                             onChanged: (value) {
@@ -509,8 +502,7 @@ class _InviteState extends State<Invite> {
                             padding: EdgeInsets.all(15),
                             child: Text(
                               "Voici le rendu : ",
-                              style: TextStyle(
-                                  color: Color(0xff056674), fontSize: 26, fontFamily: 'Rob'),
+                                style: Theme.of(context).textTheme.headline2
                             )),
                         Card(
                           child: ExpansionTile(
@@ -531,7 +523,7 @@ class _InviteState extends State<Invite> {
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
-                                      color: Color(0xff056674),
+                                        color: Theme.of(context).primaryColorDark,
                                     ),
                                   )
                                 : Text(
@@ -539,7 +531,7 @@ class _InviteState extends State<Invite> {
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
-                                      color: Color(0xff056674),
+                                      color: Theme.of(context).primaryColorDark,
                                     ),
                                   ),
                             subtitle: _category == null
@@ -547,14 +539,14 @@ class _InviteState extends State<Invite> {
                                     'Error',
                                     style: TextStyle(
                                       fontSize: 16,
-                                      color: Color(0xff056674),
+                                      color: Theme.of(context).primaryColorDark,
                                     ),
                                   )
                                 : Text(
                                     _category.name,
                                     style: TextStyle(
                                       fontSize: 16,
-                                      color: Color(0xff056674),
+                                      color: Theme.of(context).primaryColorDark,
                                     ),
                                   ),
                             children: <Widget>[
@@ -575,7 +567,7 @@ class _InviteState extends State<Invite> {
                                             'Error',
                                             style: TextStyle(
                                               fontSize: 18,
-                                              color: Color(0xff056674),
+                                              color: Theme.of(context).primaryColorDark,
                                             ),
                                           )
                                         : Text(
@@ -583,7 +575,7 @@ class _InviteState extends State<Invite> {
                                                 .format(DateTime.parse(_date)),
                                             style: TextStyle(
                                               fontSize: 18,
-                                              color: Color(0xff056674),
+                                              color: Theme.of(context).primaryColorDark,
                                             ),
                                           ),
                                     SizedBox(
@@ -602,14 +594,14 @@ class _InviteState extends State<Invite> {
                                             'Error',
                                             style: TextStyle(
                                               fontSize: 18,
-                                              color: Color(0xff056674),
+                                              color: Theme.of(context).primaryColorDark,
                                             ),
                                           )
                                         : Text(
                                             _time,
                                             style: TextStyle(
                                               fontSize: 18,
-                                              color: Color(0xff056674),
+                                              color: Theme.of(context).primaryColorDark,
                                             ),
                                           ),
                                     SizedBox(
@@ -627,7 +619,7 @@ class _InviteState extends State<Invite> {
                                       '0' + '/' + _nbr.toString(),
                                       style: TextStyle(
                                         fontSize: 18,
-                                        color: Color(0xff056674),
+                                        color: Theme.of(context).primaryColorDark,
                                       ),
                                     ),
                                   ],
@@ -658,14 +650,14 @@ class _InviteState extends State<Invite> {
                                                 'Error',
                                                 style: TextStyle(
                                                   fontSize: 18,
-                                                  color: Color(0xff056674),
+                                                  color: Theme.of(context).primaryColorDark,
                                                 ),
                                               )
                                             : Text(
                                                 _location.name,
                                                 style: TextStyle(
                                                   fontSize: 18,
-                                                  color: Color(0xff056674),
+                                                  color: Theme.of(context).primaryColorDark,
                                                 ),
                                               ),
                                       ),
@@ -694,7 +686,7 @@ class _InviteState extends State<Invite> {
                                                 maxLines: 3,
                                                 style: TextStyle(
                                                   fontSize: 18,
-                                                  color: Color(0xff056674),
+                                                  color: Theme.of(context).primaryColorDark,
                                                 ),
                                               )
                                             : Text(
@@ -702,7 +694,7 @@ class _InviteState extends State<Invite> {
                                                 maxLines: 3,
                                                 style: TextStyle(
                                                   fontSize: 18,
-                                                  color: Color(0xff056674),
+                                                  color: Theme.of(context).primaryColorDark,
                                                 ),
                                               ),
                                       ),
@@ -712,7 +704,7 @@ class _InviteState extends State<Invite> {
                               ),
                               ButtonBar(children: <Widget>[
                                 FlatButton(
-                                  color: Color(0xff056674),
+                                  color: Theme.of(context).primaryColorDark,
                                   child: Text('Join'),
                                   onPressed: () {},
                                 ),
@@ -726,8 +718,7 @@ class _InviteState extends State<Invite> {
                             padding: EdgeInsets.all(15),
                             child: Text(
                               "Il ne vous reste plus qu'à la publier : ",
-                              style: TextStyle(
-                                  color: Color(0xff056674), fontSize: 26, fontFamily: 'Rob'),
+                                style: Theme.of(context).textTheme.headline2
                             )),
                         RaisedButton(
 
@@ -757,18 +748,8 @@ class _InviteState extends State<Invite> {
                               setState(() {
 
                               });
-                            } else {
-                              Scaffold.of(context).showSnackBar(SnackBar(
-                                backgroundColor: Colors.pinkAccent,
-                                content: Text(
-                                  'Error you missed a field',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                duration: Duration(seconds: 1),
-                              ));
+                            } else{
+                              NeaFlushBar(flushTitle:"Erreur", flushMessage:"~~~~~~~", isError: true, context: context).getNeaFlushbar().show(context);
                             }
                           },
                           shape: RoundedRectangleBorder(
@@ -800,10 +781,10 @@ class SwipeFooterPage extends StatelessWidget {
         SizedBox(
           height: 200,
         ),
-        Text('Swiper pour continuer le formulaire'),
+        Text('Swiper pour continuer le formulaire', style: TextStyle(color: Theme.of(context).primaryColorLight,),),
         Icon(
           Icons.arrow_downward,
-          color: Color(0xff056674),
+          color: Theme.of(context).primaryColorLight,
           size: 64,
         )
       ],

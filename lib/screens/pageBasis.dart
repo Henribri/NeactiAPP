@@ -20,7 +20,7 @@ class _PageBasisState extends State<PageBasis> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xfff6f6f6),
+        backgroundColor: Theme.of(context).backgroundColor,
 
         appBar: NeaAppBar(selectedIndex: selectedIndex),
 

@@ -47,11 +47,11 @@ class _JoinState extends State<Join> {
 
     if (response.statusCode < 200 || response.statusCode > 400 || json == null) {
       /// Alert error
-      NeaFlushBar(flushTitle:"Erreur lors de l'envoi", flushMessage:"~~~~~~~", isError: true).getNeaFlushbar().show(context);
+      NeaFlushBar(flushTitle:"Erreur lors de l'envoi", flushMessage:"~~~~~~~", isError: true, context: context).getNeaFlushbar().show(context);
     }else{
       /// Alert the creation of an event
       _getRefresh();
-      NeaFlushBar(flushTitle:"Vous avez rejoint une activit\é", flushMessage:"Elle est disponible dans Mes plans", isError: false).getNeaFlushbar().show(context);
+      NeaFlushBar(flushTitle:"Vous avez rejoint une activit\é", flushMessage:"Elle est disponible dans Mes plans", isError: false, context: context).getNeaFlushbar().show(context);
     }
   }
 
@@ -96,14 +96,14 @@ class _JoinState extends State<Join> {
                       child: CircularProgressIndicator(
                           backgroundColor: Color(0xffff4b5c),
                           valueColor: AlwaysStoppedAnimation<Color>(
-                              Color(0xff056674)),
+                              Theme.of(context).primaryColorDark),
                           strokeWidth: 5)));
             }
 
             /// If no data and no connection then return error
             else if(listEvent.data == null && isConnected==false){
               return RefreshIndicator(
-                backgroundColor: Color(0xff056674),
+                backgroundColor: Theme.of(context).primaryColor,
                 color: Colors.white,
                 onRefresh: _getRefresh,
                 child: ListView(
@@ -112,7 +112,7 @@ class _JoinState extends State<Join> {
                     Center(
                       child: Text(
                         "Erreur de connection",
-                        style: TextStyle(fontFamily: 'Fred', fontSize: 26, color: Color(0xff056674)),
+                        style: TextStyle(fontFamily: 'Fred', fontSize: 26, color: Theme.of(context).primaryColorLight),
                       ),
                     ),
 
@@ -126,7 +126,7 @@ class _JoinState extends State<Join> {
             /// If there is no event display a message
             else if (listEvent.data.length == 0) {
               return RefreshIndicator(
-                backgroundColor: Color(0xff056674),
+                backgroundColor: Theme.of(context).primaryColor,
                 color: Colors.white,
                 onRefresh: _getRefresh,
                 child: ListView(
@@ -135,7 +135,7 @@ class _JoinState extends State<Join> {
                     Center(
                         child: Text(
                           "Pas d'event pour le moment.",
-                          style: TextStyle(fontFamily: 'Fred', fontSize: 26, color: Color(0xff056674)),
+                          style: TextStyle(fontFamily: 'Fred', fontSize: 26, color: Theme.of(context).primaryColorLight),
                         ),
                       ),
 
@@ -148,7 +148,7 @@ class _JoinState extends State<Join> {
 
               /// If we get data then display it
               return RefreshIndicator(
-                backgroundColor: Color(0xff056674),
+                backgroundColor: Theme.of(context).primaryColor,
                 color: Colors.white,
                 onRefresh: _getRefresh,
                 child: ListView.builder(
@@ -169,11 +169,11 @@ class _JoinState extends State<Join> {
                         title: Text(
                           listEvent.data[index].title,
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xff056674),),
+                              fontSize: 20, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorDark,),
                         ),
                         subtitle: Text(
                           listEvent.data[index].category.name,
-                          style: TextStyle(fontSize: 16, color: Color(0xff056674)),
+                          style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColorDark,),
                         ),
                         children: <Widget>[
                           Padding(
@@ -193,7 +193,7 @@ class _JoinState extends State<Join> {
                                       DateTime.parse(listEvent
                                           .data[index].dateTime
                                           .substring(0, 10))),
-                                  style: TextStyle(fontSize: 18, color: Color(0xff056674)),
+                                  style: TextStyle(fontSize: 18, color: Theme.of(context).primaryColorDark,),
                                 ),
                                 SizedBox(
                                   width: 30,
@@ -209,7 +209,7 @@ class _JoinState extends State<Join> {
                                 Text(
                                   listEvent.data[index].dateTime
                                       .substring(11, 16),
-                                  style: TextStyle(fontSize: 18, color: Color(0xff056674)),
+                                  style: TextStyle(fontSize: 18,color: Theme.of(context).primaryColorDark,),
                                 ),
                                 SizedBox(
                                   width: 30,
@@ -228,7 +228,7 @@ class _JoinState extends State<Join> {
                                       '/' +
                                       listEvent.data[index].allPeople
                                           .toString(),
-                                  style: TextStyle(fontSize: 18, color: Color(0xff056674)),
+                                  style: TextStyle(fontSize: 18,  color: Theme.of(context).primaryColorDark,),
                                 ),
                               ],
                             ),
@@ -268,7 +268,7 @@ class _JoinState extends State<Join> {
                                       listEvent.data[index].address.name,
                                       style: TextStyle(
                                         fontSize: 18
-                                        , color: Color(0xff056674)
+                                        , color: Theme.of(context).primaryColorDark,
                                       ),
                                     ),
                                   ),
@@ -294,7 +294,7 @@ class _JoinState extends State<Join> {
                                     child: Text(
                                       listEvent.data[index].desc,
                                       maxLines: 3,
-                                      style: TextStyle(fontSize: 18, color: Color(0xff056674)),
+                                      style: TextStyle(fontSize: 18, color: Theme.of(context).primaryColorDark),
                                     ),
                                   ),
                                 ),
@@ -303,7 +303,7 @@ class _JoinState extends State<Join> {
                           ),
                           ButtonBar(children: <Widget>[
                             FlatButton(
-                              color: Color(0xff056674),
+                              color: Theme.of(context).buttonColor,
                               child: Text('Rejoindre'),
                               onPressed: () {
 

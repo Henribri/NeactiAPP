@@ -29,7 +29,7 @@ class NeaAppBar extends StatelessWidget implements PreferredSizeWidget{
         IconButton(
           icon: Icon(
             FontAwesomeIcons.commentDots,
-            color: Color(0xffff4b5c),
+            color: Theme.of(context).primaryColor,
 
             size: 30,
           ),
@@ -38,12 +38,9 @@ class NeaAppBar extends StatelessWidget implements PreferredSizeWidget{
       title: Align(
         alignment: Alignment.centerLeft,
         child: Text(_windowName[selectedIndex],
-            style: TextStyle(
-                color: Color(0xffff4b5c),
-                fontSize: 26.0,
-                fontFamily: 'Fred')),
+            style: Theme.of(context).textTheme.headline1),
       ),
-      backgroundColor: Color(0xfff6f6f6),
+      backgroundColor: Colors.transparent,
     );
   }
 }

@@ -23,7 +23,7 @@ class Home extends StatelessWidget {
               child: Text(
                 'Bienvenue !',
                 style: TextStyle(
-                    color: Color(0xff056674),
+                    color: Theme.of(context).primaryColorLight,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,fontFamily: 'Rob', fontStyle: FontStyle.italic),
               ),
@@ -38,8 +38,8 @@ class Home extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Profil', style: TextStyle(fontSize: 18, fontFamily: 'Rob',color: Color(0xff056674)),),
-                    Icon(Icons.account_circle, size: 20, color: Color(0xff056674),)
+                    Text('Profil', style: Theme.of(context).textTheme.headline3,),
+                    Icon(Icons.account_circle, size: 20, color: Theme.of(context).primaryColorDark,)
                   ],
                 ),
               ),
@@ -55,8 +55,8 @@ class Home extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Nous soutenir', style: TextStyle(fontSize: 18, fontFamily: 'Rob',color: Color(0xff056674)),),
-                    Icon(FontAwesomeIcons.thumbsUp, size: 20, color: Color(0xff056674),)
+                    Text('Nous soutenir', style: Theme.of(context).textTheme.headline3,),
+                    Icon(FontAwesomeIcons.thumbsUp, size: 20, color: Theme.of(context).primaryColorDark,)
                   ],
                 ),
               ),
@@ -76,8 +76,8 @@ class Home extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Paramètres', style: TextStyle(fontSize: 18, fontFamily: 'Rob',color: Color(0xff056674)),),
-                      Icon(Icons.settings, size: 20, color: Color(0xff056674),)
+                      Text('Paramètres', style: Theme.of(context).textTheme.headline3,),
+                      Icon(Icons.settings, size: 20, color: Theme.of(context).primaryColorDark,)
                     ],
                   ),
                 ),
@@ -105,7 +105,7 @@ class Home extends StatelessWidget {
               child: Text(
                 'NeactiTV',
                 style: TextStyle(
-                    color: Color(0xff056674),
+                    color: Theme.of(context).primaryColorLight,
                     fontSize: 20,
                     fontFamily: 'Rob',),
               ),
