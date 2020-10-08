@@ -29,6 +29,20 @@ class _JoinState extends State<Join> {
 
     return data.map((i) => Event.fromJson(i)).toList();
   }
+  bool stream = true;
+  Stream<List<Event>> _getStreamEvent() async* {
+    while (stream) {
+      yield await _getData(Provider.of<User>(context).uid);
+      await Future.delayed(Duration(seconds: 3));
+    }
+  }
+
+  @override
+  void dispose() {
+    stream=false;
+    Future.delayed(Duration(seconds: 1));
+    super.dispose();
+  }
 
   Future<void> _getRefresh() async {
     setState(() {
@@ -36,12 +50,15 @@ class _JoinState extends State<Join> {
     });
   }
 
+
+
   /// Put method to add people
   _putJoinEvent(String eventId, Map body) async {
     String apiUrl = ApiUrl.apiUrl;
     String url = 'http://$apiUrl/events/$eventId/';
 
     Map<String, String> headers = {"Content-type": "application/json"};
+    print(body);
     Response response =
         await patch(url, headers: headers, body: json.encode(body));
 
@@ -80,8 +97,8 @@ class _JoinState extends State<Join> {
   Widget build(BuildContext context) {
     return Container(
       /// Get the data to display
-      child: FutureBuilder(
-          future: _getData(Provider.of<User>(context).uid),
+      child: StreamBuilder(
+          stream: _getStreamEvent(),
           builder: (BuildContext context, AsyncSnapshot listEvent) {
 
             /// Test the connection

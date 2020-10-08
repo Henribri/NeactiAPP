@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:connectivity/connectivity.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart';
 import 'package:neacti/components/flushbar.dart';
+
 import 'package:neacti/models/apiUrl.dart';
 import 'package:neacti/models/user.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,11 +27,28 @@ class _PlansState extends State<Plans> {
   Future<List<Event>> _getData(String userId) async {
     String apiUrl = ApiUrl.apiUrl;
     Response response =
-        await get('http://$apiUrl/events/user_registered/$userId.json');
+    await get('http://$apiUrl/events/user_registered/$userId.json');
     List<dynamic> data = jsonDecode(utf8.decode(response.bodyBytes));
 
     return data.map((i) => Event.fromJson(i)).toList();
   }
+
+
+  bool stream = true;
+  Stream<List<Event>> _getStreamEvent() async* {
+    while (stream) {
+      yield await _getData(Provider.of<User>(context).uid);
+      await Future.delayed(Duration(seconds: 3));
+    }
+  }
+
+  @override
+  void dispose() {
+    stream=false;
+    Future.delayed(Duration(seconds: 1));
+    super.dispose();
+  }
+
 
   /// Put method to remove people
   _putLeaveEvent(String eventId, Map body) async {
@@ -80,8 +100,8 @@ class _PlansState extends State<Plans> {
     return Container(
 
           /// Get the data to display
-          child: FutureBuilder(
-              future: _getData(Provider.of<User>(context).uid),
+          child: StreamBuilder(
+              stream: _getStreamEvent(),
               builder: (BuildContext context, AsyncSnapshot listEvent) {
 
                 /// Test the connection
