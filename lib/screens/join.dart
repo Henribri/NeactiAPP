@@ -33,7 +33,7 @@ class _JoinState extends State<Join> {
   Stream<List<Event>> _getStreamEvent() async* {
     while (stream) {
       yield await _getData(Provider.of<User>(context).uid);
-      await Future.delayed(Duration(seconds: 3));
+      await Future.delayed(Duration(seconds: 10));
     }
   }
 
@@ -64,12 +64,12 @@ class _JoinState extends State<Join> {
 
     if (response.statusCode < 200 || response.statusCode > 400 || json == null) {
       /// Alert error
-      NeaFlushBar(flushTitle:"Erreur lors de l'envoi", flushMessage:"~~~~~~~", isError: true, context: context, isDismissible: true).getNeaFlushbar().show(context);
+      NeaFlushBar(flushTitle:"Erreur", flushMessage:"Veuillez réessayer", isError: true, context: context, isDismissible: true).getNeaFlushbar().show(context);
     }else{
       /// Alert the creation of an event
-      _getRefresh();
       NeaFlushBar(flushTitle:"Vous avez rejoint une activit\é", flushMessage:"Elle est disponible dans Mes plans", isError: false, context: context, isDismissible: true).getNeaFlushbar().show(context);
     }
+    _getRefresh();
   }
 
   /// Variable to contain the list of User registered for the event
