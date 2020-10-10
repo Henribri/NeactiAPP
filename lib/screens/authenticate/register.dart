@@ -25,6 +25,7 @@ class _RegisterState extends State<Register> {
   /// Values of the form
   String email = '';
   String password = '';
+  String confirmPassword ='';
   String error = '';
 
   @override
@@ -34,7 +35,7 @@ class _RegisterState extends State<Register> {
     return loading
         ? Loading()
         : Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).backgroundColor,
             body: SingleChildScrollView(
 
                 /// Use form to send data and validator to check it
@@ -48,7 +49,7 @@ class _RegisterState extends State<Register> {
                     ),
                     Container(
                       padding: EdgeInsets.fromLTRB(15, 8, 15, 8),
-                      color: Colors.pinkAccent[400],
+                      color: Theme.of(context).primaryColor,
                       child: Text("Neacti",
                           style: TextStyle(
                               color: Colors.white,
@@ -60,9 +61,9 @@ class _RegisterState extends State<Register> {
                     ),
                     Container(
                       child: Text(
-                        "Sign up page",
+                        "S'inscrire",
                         style: TextStyle(
-                            color: Colors.pinkAccent[400],
+                            color: Theme.of(context).primaryColorLight,
                             fontSize: 20,
                             fontWeight: FontWeight.bold),
                       ),
@@ -83,7 +84,7 @@ class _RegisterState extends State<Register> {
                           filled: true,
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                                color: Colors.pinkAccent[400], width: 2),
+                                color: Theme.of(context).primaryColor, width: 2),
                           ),
                           labelText: "Email",
                         ),
@@ -107,7 +108,7 @@ class _RegisterState extends State<Register> {
                       width: 300,
                       child: TextFormField(
                         obscureText: true,
-                        cursorColor: Colors.pinkAccent[400],
+                        cursorColor: Theme.of(context).primaryColor,
                         decoration: InputDecoration(
                           labelStyle:
                               TextStyle(color: Colors.black, fontSize: 16),
@@ -115,9 +116,9 @@ class _RegisterState extends State<Register> {
                           filled: true,
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                                color: Colors.pinkAccent[400], width: 2),
+                                color: Theme.of(context).primaryColor, width: 2),
                           ),
-                          labelText: "Password",
+                          labelText: "Mot de passe",
                         ),
                         onChanged: (val) {
                           setState(() => password = val);
@@ -134,12 +135,44 @@ class _RegisterState extends State<Register> {
                     SizedBox(
                       height: 20,
                     ),
+
+                    Container(
+                      width: 300,
+                      child: TextFormField(
+                        obscureText: true,
+                        cursorColor: Theme.of(context).primaryColor,
+                        decoration: InputDecoration(
+                          labelStyle:
+                          TextStyle(color: Colors.black, fontSize: 16),
+                          fillColor: Colors.white,
+                          filled: true,
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Theme.of(context).primaryColor, width: 2),
+                          ),
+                          labelText: "Confirmez votre mot de passe",
+                        ),
+                        onChanged: (val) {
+                          setState(() => confirmPassword = val);
+                        },
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 20,
+                    ),
                     RaisedButton(
-                      color: Colors.pink,
-                      child: Text("Register",
+                      color: Theme.of(context).primaryColor,
+                      child: Text("S'inscrire",
                           style: TextStyle(color: Colors.white)),
                       onPressed: () async {
-                        if (_formKey.currentState.validate()) {
+                        if (_formKey.currentState.validate() && password==confirmPassword) {
 
                           /// Register the user with the auth service
                           dynamic result =
@@ -153,7 +186,7 @@ class _RegisterState extends State<Register> {
                             setState(() {
 
                               /// Display error message
-                              error = "Error";
+                              error = "Erreur";
                               setState(() {
 
                                 /// Cancel the loading page
@@ -162,13 +195,23 @@ class _RegisterState extends State<Register> {
                             });
                           }
                         }
+                        else{
+                          setState(() {
+
+                            /// Display error message
+                            error = "Erreur de mot de passe";
+
+                            /// Cancel the loading page
+                            setState(() => loading = false);
+                          });
+                        }
                       },
                     ),
                     SizedBox(height: 20),
                     Text(
                       error,
                       style: TextStyle(
-                          color: Colors.pinkAccent[400], fontSize: 14),
+                          color: Theme.of(context).primaryColor, fontSize: 14),
                     ),
                     SizedBox(
                       height: 40,
@@ -176,8 +219,8 @@ class _RegisterState extends State<Register> {
 
                     /// Change the page to display
                     FlatButton(
-                      child: Text("Already an account ?",
-                          style: TextStyle(color: Colors.pink, fontSize: 15)),
+                      child: Text("Vous avez déjà un compte ?",
+                          style: TextStyle(color: Theme.of(context).primaryColorLight, fontSize: 15)),
                       onPressed: () {
                         widget.toggleView();
                       },

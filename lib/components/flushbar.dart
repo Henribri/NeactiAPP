@@ -19,6 +19,7 @@ class NeaFlushBar {
   /// Return the Flushbar
   Flushbar getNeaFlushbar(){
     return Flushbar(
+
       title:  flushTitle,
       message:  flushMessage,
       backgroundColor: Theme.of(context).primaryColorDark,

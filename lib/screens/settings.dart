@@ -15,7 +15,8 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Color(0xffff4b5c),),
+      backgroundColor: Theme.of(context).backgroundColor,
+      appBar: AppBar(backgroundColor: Theme.of(context).primaryColor,),
 
       body: Center(
         child: Column(
@@ -50,6 +51,7 @@ class _SettingsState extends State<Settings> {
             FlatButton(
               onPressed: () async {
                 await _auth.signOut();
+                Navigator.pop(context);
               },
               child: Container(
                 width: MediaQuery.of(context).size.width-50,
@@ -59,8 +61,8 @@ class _SettingsState extends State<Settings> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Se déconnecter', style: TextStyle(fontSize: 18, fontFamily: 'Rob',color: Color(0xff056674)),),
-                        Icon(FontAwesomeIcons.signOutAlt, size: 20, color: Color(0xff056674),)
+                        Text('Se déconnecter', style:  Theme.of(context).textTheme.headline3,),
+                        Icon(FontAwesomeIcons.signOutAlt, size: 20, color: Theme.of(context).primaryColorDark,)
                       ],
                     ),
                   ),

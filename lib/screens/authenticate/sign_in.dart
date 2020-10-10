@@ -33,7 +33,7 @@ class _SignInState extends State<SignIn> {
     return loading
         ? Loading()
         : Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).backgroundColor,
             body: SingleChildScrollView(
 
                 /// Use form to send data and validator to check it
@@ -47,7 +47,7 @@ class _SignInState extends State<SignIn> {
                     ),
                     Container(
                       padding: EdgeInsets.fromLTRB(15, 8, 15, 8),
-                      color: Colors.pinkAccent[400],
+                      color: Theme.of(context).primaryColor,
                       child: Text("Neacti",
                           style: TextStyle(
                               color: Colors.white,
@@ -59,9 +59,9 @@ class _SignInState extends State<SignIn> {
                     ),
                     Container(
                       child: Text(
-                        "Sign in page",
+                        "Se connecter",
                         style: TextStyle(
-                            color: Colors.pinkAccent[400],
+                            color: Theme.of(context).primaryColorLight,
                             fontSize: 20,
                             fontWeight: FontWeight.bold),
                       ),
@@ -74,7 +74,7 @@ class _SignInState extends State<SignIn> {
                     Container(
                       width: 300,
                       child: TextFormField(
-                        cursorColor: Colors.pinkAccent[400],
+                        cursorColor: Theme.of(context).primaryColor,
                         decoration: InputDecoration(
                           labelStyle:
                               TextStyle(color: Colors.black, fontSize: 16),
@@ -82,7 +82,7 @@ class _SignInState extends State<SignIn> {
                           filled: true,
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                                color: Colors.pinkAccent[400], width: 2),
+                                color: Theme.of(context).primaryColor, width: 2),
                           ),
                           labelText: "Email",
                         ),
@@ -106,7 +106,7 @@ class _SignInState extends State<SignIn> {
                       width: 300,
                       child: TextFormField(
                         obscureText: true,
-                        cursorColor: Colors.pinkAccent[400],
+                        cursorColor: Theme.of(context).primaryColor,
                         decoration: InputDecoration(
                           labelStyle:
                               TextStyle(color: Colors.black, fontSize: 16),
@@ -114,9 +114,9 @@ class _SignInState extends State<SignIn> {
                           filled: true,
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                                color: Colors.pinkAccent[400], width: 2),
+                                color: Theme.of(context).primaryColor, width: 2),
                           ),
-                          labelText: "Password",
+                          labelText: "Mot  de passe",
                         ),
                         onChanged: (val) {
                           setState(() => password = val);
@@ -134,9 +134,9 @@ class _SignInState extends State<SignIn> {
                       height: 20,
                     ),
                     RaisedButton(
-                      color: Colors.pink,
+                      color: Theme.of(context).primaryColor,
                       child:
-                          Text("Login", style: TextStyle(color: Colors.white)),
+                          Text("Se connecter", style: TextStyle(color: Colors.white)),
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
 
@@ -151,12 +151,22 @@ class _SignInState extends State<SignIn> {
                             setState(() {
 
                               /// Display error message
-                              error = "Error";
+                              error = "Erreur";
 
                               /// Cancel the loading page
                               setState(() => loading = false);
                             });
                           }
+                        }
+                        else{
+                          setState(() {
+
+                            /// Display error message
+                            error = "Erreur de mot de passe";
+
+                            /// Cancel the loading page
+                            setState(() => loading = false);
+                          });
                         }
                       },
                     ),
@@ -164,7 +174,7 @@ class _SignInState extends State<SignIn> {
                     Text(
                       error,
                       style: TextStyle(
-                          color: Colors.pinkAccent[400], fontSize: 14),
+                          color: Theme.of(context).primaryColor, fontSize: 14),
                     ),
                     SizedBox(
                       height: 40,
@@ -172,8 +182,8 @@ class _SignInState extends State<SignIn> {
 
                     /// Change the page to display
                     FlatButton(
-                      child: Text("No account ?",
-                          style: TextStyle(color: Colors.pink, fontSize: 15)),
+                      child: Text("Vous n'avez pas de compte ?",
+                          style: TextStyle(color: Theme.of(context).primaryColorLight, fontSize: 15)),
                       onPressed: () {
                         widget.toggleView();
                       },

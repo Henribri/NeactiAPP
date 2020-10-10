@@ -97,7 +97,7 @@ class _PlansState extends State<Plans> {
   /// Build plans page
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Center(
 
           /// Get the data to display
           child: StreamBuilder(
@@ -172,12 +172,19 @@ class _PlansState extends State<Plans> {
                     onRefresh: _getRefresh,
                     backgroundColor: Theme.of(context).primaryColor,
                     color: Colors.white,
-                    child: ListView.builder(
-                            itemCount: listEvent.data.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Card(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width*0.92,
+                      child: ListView.builder(
+
+
+                              itemCount: listEvent.data.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Column(
+                                  children: [
+
+                                Card(
                                 child: ExpansionTile(
-                                  initiallyExpanded: false,
+                                initiallyExpanded: false,
                                   leading: Icon(
                                     IconData(listEvent.data[index].category.iconId,
                                         fontFamily: listEvent
@@ -187,10 +194,38 @@ class _PlansState extends State<Plans> {
                                     size: 40,
                                     color: Color(0xffff4b5c),
                                   ),
-                                  title: Text(
-                                    listEvent.data[index].title,
-                                    style: TextStyle(
-                                        fontSize: 20, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorDark,),
+                                  title: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        listEvent.data[index].title,
+                                        style: TextStyle(
+                                          fontSize: 20, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorDark,),
+
+                                      ),
+                                      Container(
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                              Icons.group,
+                                              size: 30,
+                                              color: Color(0xffff4b5c),
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              listEvent.data[index].actPeople.length
+                                                  .toString() +
+                                                  '/' +
+                                                  listEvent.data[index].allPeople
+                                                      .toString(),
+                                              style: TextStyle(fontSize: 18,color: Theme.of(context).primaryColorDark,),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
 
                                   ),
                                   subtitle: Text(
@@ -200,59 +235,51 @@ class _PlansState extends State<Plans> {
                                   ),
                                   children: <Widget>[
                                     Padding(
-                                      padding: EdgeInsets.fromLTRB(15, 10, 0, 5),
+                                      padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
                                       child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: <Widget>[
-                                          Icon(
-                                            Icons.date_range,
-                                            size: 30,
-                                            color: Color(0xffff4b5c),
+                                          Row(
+                                            children: [Icon(
+                                              Icons.date_range,
+                                              size: 30,
+                                              color: Color(0xffff4b5c),
+                                            ),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                DateFormat("dd-MM-yyyy").format(
+                                                    DateTime.parse(listEvent
+                                                        .data[index].dateTime
+                                                        .substring(0, 10))),
+                                                style: TextStyle(fontSize: 18,color: Theme.of(context).primaryColorDark,),
+                                              ),
+
+                                            ],
+
                                           ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                            DateFormat("dd-MM-yyyy").format(
-                                                DateTime.parse(listEvent
-                                                    .data[index].dateTime
-                                                    .substring(0, 10))),
-                                            style: TextStyle(fontSize: 18,color: Theme.of(context).primaryColorDark,),
-                                          ),
-                                          SizedBox(
-                                            width: 30,
-                                          ),
-                                          Icon(
-                                            Icons.access_time,
-                                            size: 30,
-                                            color: Color(0xffff4b5c),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                            listEvent.data[index].dateTime
-                                                .substring(11, 16),
-                                            style: TextStyle(fontSize: 18,color: Theme.of(context).primaryColorDark,),
-                                          ),
-                                          SizedBox(
-                                            width: 30,
-                                          ),
-                                          Icon(
-                                            Icons.group,
-                                            size: 30,
-                                            color: Color(0xffff4b5c),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                            listEvent.data[index].actPeople.length
-                                                    .toString() +
-                                                '/' +
-                                                listEvent.data[index].allPeople
-                                                    .toString(),
-                                            style: TextStyle(fontSize: 18,color: Theme.of(context).primaryColorDark,),
-                                          ),
+
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                Icons.access_time,
+                                                size: 30,
+                                                color: Color(0xffff4b5c),
+                                              ),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                listEvent.data[index].dateTime
+                                                    .substring(11, 16),
+                                                style: TextStyle(fontSize: 18,color: Theme.of(context).primaryColorDark,),
+                                              ),
+                                            ],
+                                          )
+
+
+
                                         ],
                                       ),
                                     ),
@@ -320,20 +347,20 @@ class _PlansState extends State<Plans> {
                                             width: 10,
                                           ),
                                           Flexible(
-                                              child: Container(
-                                                child: Text(
-                                                  listEvent.data[index].desc,
-                                                  maxLines: 3,
-                                                  style: TextStyle(fontSize: 18,color: Theme.of(context).primaryColorDark,),
-                                                ),
+                                            child: Container(
+                                              child: Text(
+                                                listEvent.data[index].desc,
+                                                maxLines: 3,
+                                                style: TextStyle(fontSize: 18,color: Theme.of(context).primaryColorDark,),
                                               ),
+                                            ),
                                           ),
                                         ],
                                       ),
                                     ),
                                     ButtonBar(children: <Widget>[
                                       FlatButton(
-                              color: Theme.of(context).primaryColorDark,
+                                        color: Theme.of(context).primaryColorDark,
                                         child: Text('Quitter'),
                                         onPressed: () {
 
@@ -344,8 +371,8 @@ class _PlansState extends State<Plans> {
                                           /// Remove the user from the list of registered
                                           newActPeople
                                               .removeWhere((item) =>
-                                                  item ==
-                                                  Provider.of<User>(context).uid);
+                                          item ==
+                                              Provider.of<User>(context).uid);
 
                                           /// Map it for the request
                                           registeredPeople["act_people"] =
@@ -362,9 +389,14 @@ class _PlansState extends State<Plans> {
                                     ]),
                                   ],
                                 ),
-                              );
-                            },
-                      ),
+                                ),
+                                    SizedBox(height: 10,)
+                                  ],
+                                );
+
+                              },
+                        ),
+                    ),
 
 
 

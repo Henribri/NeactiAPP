@@ -86,7 +86,7 @@ class Home extends StatelessWidget {
           ),
           SizedBox(height:5),
 
-          SizedBox(height:5),
+          SizedBox(height:10),
 
           Divider(
             color: Color(0xffff4b5c),
@@ -99,7 +99,7 @@ class Home extends StatelessWidget {
 
           /// Neacti TV
           Padding(
-            padding: EdgeInsets.only(top:10, left: 20, bottom: 5),
+            padding: EdgeInsets.only(top:15, left: 20, bottom: 10),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -117,7 +117,7 @@ class Home extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
               margin: EdgeInsets.fromLTRB(10,2,10,0 ),
-              width: MediaQuery.of(context).size.width,
+              width: MediaQuery.of(context).size.width*0.80,
               height: 200,
               child: Carousel(
               borderRadius: true,
@@ -136,6 +136,7 @@ class Home extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(height: 80,)
 
 
         ],
