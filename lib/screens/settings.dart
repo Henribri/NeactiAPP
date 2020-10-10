@@ -2,14 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:neacti/models/apiUrl.dart';
 import 'package:neacti/services/auth.dart';
+
+
 class Settings extends StatefulWidget {
+
+  VoidCallback changeTheme;
+  Settings({@required this.changeTheme});
+
   @override
   _SettingsState createState() => _SettingsState();
 }
 
 class _SettingsState extends State<Settings> {
-
   String url = ApiUrl.apiUrl;
+
   final AuthService _auth = AuthService();
 
   @override
@@ -35,11 +41,9 @@ class _SettingsState extends State<Settings> {
               child: Text('Changed'),
               color: Colors.red,
               onPressed: (){
-
                 setState(() {
                   ApiUrl().setUrl(url);
                 });
-
               },
             ),
 
@@ -63,6 +67,27 @@ class _SettingsState extends State<Settings> {
                       children: [
                         Text('Se déconnecter', style:  Theme.of(context).textTheme.headline3,),
                         Icon(FontAwesomeIcons.signOutAlt, size: 20, color: Theme.of(context).primaryColorDark,)
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 10,),
+            FlatButton(
+              onPressed: () {
+                widget.changeTheme();
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width-50,
+                child: Card(
+                  child: Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Changer de theme', style:  Theme.of(context).textTheme.headline3,),
+                        Icon(Icons.wb_sunny, size: 20, color: Theme.of(context).primaryColorDark,)
                       ],
                     ),
                   ),

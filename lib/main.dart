@@ -11,11 +11,15 @@ import 'package:flutter/services.dart';
 
 void main() => runApp(Neacti());
 
-class Neacti extends StatelessWidget {
+class Neacti extends StatefulWidget {
 
 
+  @override
+  _NeactiState createState() => _NeactiState();
+}
+
+class _NeactiState extends State<Neacti> {
   bool isDark = true;
-
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +36,11 @@ class Neacti extends StatelessWidget {
           '/wrapper': (context) => Wrapper(),
           '/home': (context) => PageBasis(),
           '/plans': (context) => Plans(),
-          '/profil/settings':(context)=>Settings(),
+          '/profil/settings':(context)=>Settings(changeTheme: (){
+            setState(() {
+              isDark=!isDark;
+            });
+          },),
 
 
         },
