@@ -22,12 +22,12 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: AppBar(backgroundColor: Theme.of(context).primaryColor,),
+      appBar: AppBar(backgroundColor: Theme.of(context).primaryColor, title: Text("Paramètres"),),
 
       body: Center(
         child: Column(
           children: [
-            Container(
+            /*Container(
               width: 200,
               child: TextField(
                 onChanged: (value){
@@ -49,8 +49,8 @@ class _SettingsState extends State<Settings> {
 
             SizedBox(height: 50,),
             Text(ApiUrl.apiUrl),
-
-
+             */
+SizedBox(height: 20,),
 
             FlatButton(
               onPressed: () async {
