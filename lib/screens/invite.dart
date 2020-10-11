@@ -148,7 +148,7 @@ class _InviteState extends State<Invite> {
                       height: 80,
                       width: 80,
                       child: CircularProgressIndicator(
-                          backgroundColor: Color(0xffff4b5c),
+                          backgroundColor: Theme.of(context).primaryColor,
                           valueColor: AlwaysStoppedAnimation<Color>(
                               Theme.of(context).primaryColorDark),
                           strokeWidth: 5)));
@@ -517,14 +517,14 @@ class _InviteState extends State<Invite> {
                                       ? Icon(
                                           Icons.close,
                                           size: 40,
-                                          color: Color(0xffff4b5c),
+                                          color: Theme.of(context).primaryColor,
                                         )
                                       : Icon(
                                           IconData(_category.iconId,
                                               fontFamily: _category.fontFamily,
                                               fontPackage: _category.fontPackage),
                                           size: 40,
-                                          color: Color(0xffff4b5c),
+                                          color: Theme.of(context).primaryColor,
                                         ),
                                   title: Row(
                                     mainAxisAlignment:
@@ -554,7 +554,7 @@ class _InviteState extends State<Invite> {
                                           Icon(
                                             Icons.group,
                                             size: 30,
-                                            color: Color(0xffff4b5c),
+                                            color: Theme.of(context).primaryColor,
                                           ),
                                           SizedBox(
                                             width: 10,
@@ -599,7 +599,7 @@ class _InviteState extends State<Invite> {
                                               Icon(
                                                 Icons.date_range,
                                                 size: 30,
-                                                color: Color(0xffff4b5c),
+                                                color: Theme.of(context).primaryColor,
                                               ),
                                               SizedBox(
                                                 width: 10,
@@ -630,7 +630,7 @@ class _InviteState extends State<Invite> {
                                               Icon(
                                                 Icons.access_time,
                                                 size: 30,
-                                                color: Color(0xffff4b5c),
+                                                color: Theme.of(context).primaryColor,
                                               ),
                                               SizedBox(
                                                 width: 10,
@@ -668,7 +668,7 @@ class _InviteState extends State<Invite> {
                                           Icon(
                                             Icons.location_on,
                                             size: 30,
-                                            color: Color(0xffff4b5c),
+                                            color: Theme.of(context).primaryColor,
                                           ),
                                           SizedBox(
                                             width: 10,
@@ -708,7 +708,7 @@ class _InviteState extends State<Invite> {
                                           Icon(
                                             Icons.description,
                                             size: 30,
-                                            color: Color(0xffff4b5c),
+                                            color: Theme.of(context).primaryColor,
                                           ),
                                           SizedBox(
                                             width: 10,
@@ -797,8 +797,8 @@ class _InviteState extends State<Invite> {
                           },
                           shape: RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(5.0),
-                              side: BorderSide(color: Color(0xffff4b5c))),
-                          color: Color(0xffff4b5c),
+                              side: BorderSide(color: Theme.of(context).primaryColor)),
+                          color: Theme.of(context).primaryColor,
                           child: Text(
                             "Publier l'activité",
                             style: TextStyle(fontSize: 20, color: Colors.white),

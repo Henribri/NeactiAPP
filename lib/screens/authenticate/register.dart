@@ -173,14 +173,16 @@ class _RegisterState extends State<Register> {
                           style: TextStyle(color: Colors.white)),
                       onPressed: () async {
                         if (_formKey.currentState.validate() && password==confirmPassword) {
+                          setState(() {
+
+                            /// Set loading page during the request
+                            loading = true;
+                          });
 
                           /// Register the user with the auth service
                           dynamic result =
                               await _auth.registerWithEmail(email, password);
-                          setState(() {
-                            /// Set loading page during the request
-                            loading = true;
-                          });
+
 
                           if (result == null) {
                             setState(() {

@@ -111,7 +111,7 @@ class _JoinState extends State<Join> {
                       height: 80,
                       width: 80,
                       child: CircularProgressIndicator(
-                          backgroundColor: Color(0xffff4b5c),
+                          backgroundColor: Theme.of(context).primaryColor,
                           valueColor: AlwaysStoppedAnimation<Color>(
                               Theme.of(context).primaryColorDark),
                           strokeWidth: 5)));
@@ -186,7 +186,7 @@ class _JoinState extends State<Join> {
                                 fontPackage:
                                 listEvent.data[index].category.fontPackage),
                             size: 40,
-                            color: Color(0xffff4b5c),
+                            color: Theme.of(context).primaryColor,
                           ),
                           title: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -203,7 +203,7 @@ class _JoinState extends State<Join> {
                                     Icon(
                                       Icons.group,
                                       size: 30,
-                                      color: Color(0xffff4b5c),
+                                      color: Theme.of(context).primaryColor,
                                     ),
                                     SizedBox(
                                       width: 10,
@@ -236,7 +236,7 @@ class _JoinState extends State<Join> {
                                     children: [Icon(
                                       Icons.date_range,
                                       size: 30,
-                                      color: Color(0xffff4b5c),
+                                      color: Theme.of(context).primaryColor,
                                     ),
                                       SizedBox(
                                         width: 10,
@@ -258,7 +258,7 @@ class _JoinState extends State<Join> {
                                       Icon(
                                         Icons.access_time,
                                         size: 30,
-                                        color: Color(0xffff4b5c),
+                                        color: Theme.of(context).primaryColor,
                                       ),
                                       SizedBox(
                                         width: 10,
@@ -286,7 +286,7 @@ class _JoinState extends State<Join> {
                                   Icon(
                                     Icons.location_on,
                                     size: 30,
-                                    color: Color(0xffff4b5c),
+                                    color: Theme.of(context).primaryColor,
                                   ),
                                   SizedBox(
                                     width: 10,
@@ -327,7 +327,7 @@ class _JoinState extends State<Join> {
                                   Icon(
                                     Icons.description,
                                     size: 30,
-                                    color: Color(0xffff4b5c),
+                                    color: Theme.of(context).primaryColor,
                                   ),
                                   SizedBox(
                                     width: 10,
