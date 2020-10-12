@@ -123,15 +123,15 @@ class Home extends StatelessWidget {
               borderRadius: true,
                 images: [
                   NetworkImage(
-                      'https://i.ibb.co/rmnYzFS/79480485-2550935611671223-9103336282276233216-n.png'),
+                      'https://i.ibb.co/PzXRNkT/Infos-Neacti.png'),
                   NetworkImage(
-                      'https://i.ibb.co/rmnYzFS/79480485-2550935611671223-9103336282276233216-n.png'),
+                      'https://i.ibb.co/F6JwT98/Infos-Neacti2.png'),
                   NetworkImage(
-                      'https://i.ibb.co/rmnYzFS/79480485-2550935611671223-9103336282276233216-n.png'),
+                      'https://i.ibb.co/vsd4nhJ/Infos-Neacti3.png'),
                 ],
                 showIndicator: true,
                 autoplay: true,
-                autoplayDuration: Duration(seconds: 4),
+                autoplayDuration: Duration(seconds: 8),
                 indicatorBgPadding: 1,
               ),
             ),
