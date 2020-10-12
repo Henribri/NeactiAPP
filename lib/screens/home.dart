@@ -121,6 +121,7 @@ class Home extends StatelessWidget {
               height: 200,
               child: Carousel(
               borderRadius: true,
+
                 images: [
                   NetworkImage(
                       'https://i.ibb.co/PzXRNkT/Infos-Neacti.png'),

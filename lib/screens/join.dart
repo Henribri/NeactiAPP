@@ -33,7 +33,7 @@ class _JoinState extends State<Join> {
   Stream<List<Event>> _getStreamEvent() async* {
     while (stream) {
       yield await _getData(Provider.of<User>(context).uid);
-      await Future.delayed(Duration(seconds: 10));
+      await Future.delayed(Duration(seconds: 5));
     }
   }
 
