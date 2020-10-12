@@ -1,7 +1,7 @@
 class ApiUrl {
 
   /// Ip config
-  static String apiUrl = "192.168.1.209:8000";
+  static String apiUrl = "neacti.hopto.org:8000";
   ApiUrl();
 
 

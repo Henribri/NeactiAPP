@@ -526,68 +526,67 @@ class _InviteState extends State<Invite> {
                                           size: 40,
                                           color: Theme.of(context).primaryColor,
                                         ),
-                                  title: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      _title == null
-                                          ? Text(
-                                              'Titre',
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                                color: Theme.of(context)
-                                                    .primaryColorDark,
-                                              ),
-                                            )
-                                          : Text(
-                                              _title,
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                                color: Theme.of(context)
-                                                    .primaryColorDark,
-                                              ),
-                                            ),
-                                      Row(
-                                        children: [
-                                          Icon(
-                                            Icons.group,
-                                            size: 30,
-                                            color: Theme.of(context).primaryColor,
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                            '0' + '/' + _nbr.toString(),
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              color: Theme.of(context)
-                                                  .primaryColorDark,
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  subtitle: _category == null
+                                  title: _title == null
                                       ? Text(
-                                          'Error',
+                                          'Titre',
                                           style: TextStyle(
-                                            fontSize: 16,
-                                            color:
-                                                Theme.of(context).primaryColorDark,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(context)
+                                                .primaryColorDark,
                                           ),
                                         )
                                       : Text(
-                                          _category.name,
+                                          _title,
                                           style: TextStyle(
-                                            fontSize: 16,
-                                            color:
-                                                Theme.of(context).primaryColorDark,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(context)
+                                                .primaryColorDark,
                                           ),
                                         ),
+                                  subtitle: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                    _category == null
+                                      ? Text(
+                                    'Error',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color:
+                                      Theme.of(context).primaryColorDark,
+                                    ),
+                                  )
+                                      : Text(
+                                    _category.name,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color:
+                                      Theme.of(context).primaryColorDark,
+                                    ),
+                                  ),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.group,
+                                          size: 30,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          '0' + '/' + _nbr.toString(),
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Theme.of(context)
+                                                .primaryColorDark,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+
+            ],),
                                   children: <Widget>[
                                     Padding(
                                       padding: EdgeInsets.fromLTRB(0, 10, 0, 5),

@@ -194,43 +194,42 @@ class _PlansState extends State<Plans> {
                                     size: 40,
                                     color: Theme.of(context).primaryColor,
                                   ),
-                                  title: Row(
+                                  title: Text(
+                                    listEvent.data[index].title,
+                                    style: TextStyle(
+                                      fontSize: 20, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorDark,),
+
+                                  ),
+                                  subtitle: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        listEvent.data[index].title,
-                                        style: TextStyle(
-                                          fontSize: 20, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorDark,),
+                                        listEvent.data[index].category.name,
+                                        style: TextStyle(fontSize: 16,color: Theme.of(context).primaryColorDark,),
 
                                       ),
-                                      Container(
-                                        child: Row(
-                                          children: [
-                                            Icon(
-                                              Icons.group,
-                                              size: 30,
-                                              color: Theme.of(context).primaryColor,
-                                            ),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text(
-                                              listEvent.data[index].actPeople.length
-                                                  .toString() +
-                                                  '/' +
-                                                  listEvent.data[index].allPeople
-                                                      .toString(),
-                                              style: TextStyle(fontSize: 18,color: Theme.of(context).primaryColorDark,),
-                                            ),
-                                          ],
-                                        ),
+                                      Row(
+                                        children: [
+
+                                          Icon(
+                                            Icons.group,
+                                            size: 30,
+                                            color: Theme.of(context).primaryColor,
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            listEvent.data[index].actPeople.length
+                                                .toString() +
+                                                '/' +
+                                                listEvent.data[index].allPeople
+                                                    .toString(),
+                                            style: TextStyle(fontSize: 16,color: Theme.of(context).primaryColorDark,),
+                                          ),
+                                        ],
                                       )
                                     ],
-
-                                  ),
-                                  subtitle: Text(
-                                    listEvent.data[index].category.name,
-                                    style: TextStyle(fontSize: 16,color: Theme.of(context).primaryColorDark,),
 
                                   ),
                                   children: <Widget>[
