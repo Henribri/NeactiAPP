@@ -1,6 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:neacti/screens/invite.dart';
+import 'file:///C:/Users/henri/AndroidStudioProjects/neacti/lib/screens/invite/invite.dart';
 import 'package:neacti/screens/join.dart';
 import 'package:neacti/screens/plans.dart';
 import 'package:neacti/screens/home.dart';

@@ -22,6 +22,8 @@ class _JoinState extends State<Join> {
 
   /// Return list of actual event
   Future<List<Event>> _getData(String userId) async {
+
+
     String apiUrl = ApiUrl.apiUrl;
     Response response = await get(
         'http://$apiUrl/events/user_not_registered/$userId.json');
@@ -31,8 +33,9 @@ class _JoinState extends State<Join> {
   }
   bool stream = true;
   Stream<List<Event>> _getStreamEvent() async* {
+
     while (stream) {
-      yield await _getData(Provider.of<User>(context).uid);
+      yield await _getData(context.read<User>().uid);
       await Future.delayed(Duration(seconds: 5));
     }
   }
@@ -355,7 +358,7 @@ class _JoinState extends State<Join> {
 
                                   /// Add the user from the list of registered
                                   newActPeople
-                                      .add(Provider.of<User>(context).uid);
+                                      .add(context.read<User>().uid);
 
                                   /// Map it for the request
                                   registeredPeople["act_people"] =

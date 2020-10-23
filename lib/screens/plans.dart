@@ -37,7 +37,7 @@ class _PlansState extends State<Plans> {
   bool stream = true;
   Stream<List<Event>> _getStreamEvent() async* {
     while (stream) {
-      yield await _getData(Provider.of<User>(context).uid);
+      yield await _getData(context.read<User>().uid);
       await Future.delayed(Duration(seconds: 5));
     }
   }
@@ -371,7 +371,7 @@ class _PlansState extends State<Plans> {
                                           newActPeople
                                               .removeWhere((item) =>
                                           item ==
-                                              Provider.of<User>(context).uid);
+                                              context.read<User>().uid);
 
                                           /// Map it for the request
                                           registeredPeople["act_people"] =
