@@ -8,10 +8,13 @@ abstract class InviteEvent extends Equatable{
 
 }
 
+/// Event to get Category
 class InviteFetched extends InviteEvent{}
 
+/// Event to post an Activity
 class InvitePost extends InviteEvent{
 
-
+  Map body;
+  InvitePost(this.body);
 
 }

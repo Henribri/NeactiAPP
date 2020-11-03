@@ -10,9 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:neacti/models/event.dart';
 import 'package:http/http.dart';
-import 'package:neacti/screens/invite/bloc/bloc.dart';
-import 'package:neacti/screens/invite/bloc/event.dart';
-import 'package:neacti/screens/invite/bloc/state.dart';
+import 'package:neacti/screens/invite/bloc/invite_bloc.dart';
+import 'package:neacti/screens/invite/bloc/invite_event.dart';
+import 'package:neacti/screens/invite/bloc/invite_state.dart';
 import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:geocoder/geocoder.dart';
@@ -39,46 +39,6 @@ class _InviteState extends State<Invite> {
 
   /// Controller for PageView
   final _controllerP = PageController(initialPage: 0);
-
-  /// Post method
-  Future<Widget> _postEvent({Map body}) async {
-    String apiUrl = ApiUrl.apiUrl;
-    String url = 'http://$apiUrl/events/';
-    Map<String, String> headers = {"Content-type": "application/json"};
-    Response response =
-        await post(url, headers: headers, body: json.encode(body));
-
-    if (response.statusCode < 200 ||
-        response.statusCode > 400 ||
-        json == null) {
-      /// Alert error
-      NeaFlushBar(
-              flushTitle: "Erreur lors de l'envoi",
-              flushMessage: "~~~~~~~",
-              isError: true,
-              context: context,
-              isDismissible: true)
-          .getNeaFlushbar()
-          .show(context);
-    } else {
-      /// Alert the creation of an event
-      NeaFlushBar(
-              flushTitle: "Votre activit\é a bien \ét\é cr\é\ée",
-              flushMessage: "Elle est disponible dans vos plans",
-              isError: false,
-              context: context,
-              isDismissible: true)
-          .getNeaFlushbar()
-          .show(context);
-
-      setState(() {
-        /// Return to the page one if successful
-        _controllerP.jumpTo(0);
-      });
-      //flush.dismiss(true);
-    }
-  }
-
 
 
   /// Get the prediction of google place search and update the value of the location
@@ -122,15 +82,49 @@ class _InviteState extends State<Invite> {
   @override
   Widget build(BuildContext context) {
     return Container(
+
+      /// Create the bloc and get the category by adding event fetch category
       child: BlocProvider(
         create: (BuildContext context)=>InviteBloc()..add(InviteFetched()),
+
+        /// Listen when user post Activity to update the screen
+        child :BlocListener<InviteBloc, InviteState>(
+        listener: (context, state) {
+
+          /// Return flush bar in function of the state
+          if (state is InvitePostSuccess){
+            _category = null;
+            NeaFlushBar(
+                flushTitle: "Votre activit\é a bien \ét\é cr\é\ée",
+                flushMessage: "Elle est disponible dans vos plans",
+                isError: false,
+                context: context,
+                isDismissible: true)
+                .getNeaFlushbar()
+                .show(context);
+                _controllerP.jumpTo(0);
+          }
+          if (state is InvitePostFailure){
+            NeaFlushBar(
+                flushTitle: "Erreur lors de l'envoi",
+                flushMessage: "~~~~~~~",
+                isError: true,
+                context: context,
+                isDismissible: true)
+                .getNeaFlushbar()
+                .show(context);
+
+          }
+    // do stuff here based on BlocA's state
+    },
         child: BlocBuilder<InviteBloc, InviteState>(
             builder: (context, state) {
               /// Test the connection
               _getConnection();
 
+
               /// If no data but connected return circle to wait
-              if (state == null && isConnected) {
+              if (state.getCategories == null && isConnected) {
                 /// If no data return a circle wait
                 return Center(
                     child: Container(
@@ -144,7 +138,7 @@ class _InviteState extends State<Invite> {
               }
 
               /// If no data and no connection then return error
-              else if (state == null && isConnected == false) {
+              else if (state is InviteGetFailure && isConnected == false) {
                 return RefreshIndicator(
                   backgroundColor: Theme.of(context).primaryColor,
                   color: Colors.white,
@@ -451,12 +445,13 @@ class _InviteState extends State<Invite> {
                                   style: TextStyle(
                                     color: Theme.of(context).primaryColorLight,
                                   )),
+
                               value: _category,
                               dropdownColor: Theme.of(context).buttonColor,
                               icon: Icon(Icons.arrow_drop_down),
                               iconSize: 24,
                               style: TextStyle(color: Colors.black, fontSize: 20),
-                              items: state.props
+                              items: state.getCategories
                                   .map<DropdownMenuItem<Category>>(
                                       (Category value) {
                                 return DropdownMenuItem<Category>(
@@ -754,14 +749,15 @@ class _InviteState extends State<Invite> {
                               if (_formKey.currentState.validate() &&
                                   _location != null &&
                                   _date != null &&
-                                  _time != null) {
+                                  _time != null &&
+                                  _category != null) {
                                 /// Create event object to post
                                 Event newEvent = Event(
                                     null,
                                     _title,
                                     _date + ' ' + _time.replaceAll(' ', ''),
                                     _location,
-                                    [Provider.of<User>(context).uid],
+                                    [context.read<User>().uid],
                                     int.parse(_nbr),
                                     _desc,
                                     null,
@@ -770,8 +766,11 @@ class _InviteState extends State<Invite> {
                                 //Flushbar flush = NeaFlushBar(flushTitle:"Veuillez patienter", flushMessage:"Nous ajoutons votre activité", isError: false, context: context, isDismissible: false).getNeaFlushbar();
 
                                 //flush.show(context);
-                                /// Call the post method with a map of the object
-                                _postEvent(body: newEvent.toMap());
+
+                                /// Add event to the bloc
+                                context.bloc<InviteBloc>().add(InvitePost(newEvent.toMap()));
+
+
                               } else {
                                 NeaFlushBar(
                                         flushTitle: "Erreur",
@@ -800,7 +799,7 @@ class _InviteState extends State<Invite> {
               }
             }),
       ),
-    );
+    ));
   }
 }
 
