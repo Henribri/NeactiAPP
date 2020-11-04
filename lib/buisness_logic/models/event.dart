@@ -2,7 +2,7 @@ import 'category.dart';
 import 'address.dart';
 
 /// Event model contain information about event
-class Event {
+class Activity {
   String id;
   String title;
   String dateTime ;
@@ -13,16 +13,16 @@ class Event {
   Category category;
   String categoryRef;
 
-  Event(this.id, this.title, this.dateTime, this.address, this.actPeople, this.allPeople, this.desc, this.category, this.categoryRef);
+  Activity(this.id, this.title, this.dateTime, this.address, this.actPeople, this.allPeople, this.desc, this.category, this.categoryRef);
 
 
   /// Build event object based on Json
-  factory Event.fromJson(Map<String, dynamic> parsedJson){
+  factory Activity.fromJson(Map<String, dynamic> parsedJson){
 
     var actPeopleFromJson = parsedJson['act_people'];
     List<String> actPeopleList = new List<String>.from(actPeopleFromJson);
 
-    return Event(
+    return Activity(
         parsedJson['id'],
         parsedJson['title'],
         parsedJson['date_time'],

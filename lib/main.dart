@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:neacti/screens/donate.dart';
-import 'package:neacti/models/user.dart';
-import 'package:neacti/screens/pageBasis.dart';
-import 'package:neacti/screens/plans.dart';
-import 'package:neacti/screens/settings.dart';
-import 'package:neacti/screens/wrapper.dart';
-import 'package:neacti/services/auth.dart';
+import 'package:neacti/views/donate.dart';
+import 'package:neacti/buisness_logic/models/user.dart';
+import 'package:neacti/views/pageBasis.dart';
+import 'package:neacti/views/settings.dart';
+import 'package:neacti/views/wrapper.dart';
+import 'file:///C:/Users/henri/AndroidStudioProjects/neacti/lib/buisness_logic/services/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 
@@ -35,7 +34,6 @@ class _NeactiState extends State<Neacti> {
         routes: {
           '/wrapper': (context) => Wrapper(),
           '/home': (context) => PageBasis(),
-          '/plans': (context) => Plans(),
           '/profil/settings':(context)=>Settings(changeTheme: (){
             setState(() {
               isDark=!isDark;

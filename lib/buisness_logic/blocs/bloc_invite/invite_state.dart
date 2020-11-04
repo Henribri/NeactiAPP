@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:neacti/models/category.dart';
-import 'package:neacti/models/event.dart';
+import 'package:neacti/buisness_logic/models/category.dart';
+import 'package:neacti/buisness_logic/models/event.dart';
 
 abstract class InviteState{
   const InviteState();
@@ -12,6 +12,8 @@ abstract class InviteState{
 class InviteInitial extends InviteState{}
 
 class InviteGetFailure extends InviteState{}
+
+class InviteConnectionFailure extends InviteState{}
 
 
 /// State return after a fail request

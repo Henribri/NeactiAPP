@@ -1,9 +1,8 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/henri/AndroidStudioProjects/neacti/lib/screens/invite/invite.dart';
-import 'package:neacti/screens/join.dart';
-import 'package:neacti/screens/plans.dart';
-import 'package:neacti/screens/home.dart';
+import 'file:///C:/Users/henri/AndroidStudioProjects/neacti/lib/views/invite.dart';
+import 'package:neacti/views/actvities.dart';
+import 'package:neacti/views/home.dart';
 class NeaNavBar extends StatelessWidget {
 
   /// Index of page
@@ -19,9 +18,9 @@ class NeaNavBar extends StatelessWidget {
   /// List of screen
   final List<Widget> _children = [
     Home(),
-    Plans(),
+    ActivitiesPage(joinPage: false, key: UniqueKey(),),
     Invite(),
-    Join(),
+    ActivitiesPage(joinPage: true, key : UniqueKey()),
     //Donate()
   ];
 

@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:neacti/screens/loading.dart';
-import 'package:neacti/services/auth.dart';
+import 'package:neacti/views/loading.dart';
+import 'file:///C:/Users/henri/AndroidStudioProjects/neacti/lib/buisness_logic/services/auth.dart';
 
 
-class Register extends StatefulWidget {
+class SignIn extends StatefulWidget {
   final Function toggleView;
-  Register({this.toggleView});
+  SignIn({this.toggleView});
 
   @override
-  _RegisterState createState() => _RegisterState();
+  _SignInState createState() => _SignInState();
 }
 
-class _RegisterState extends State<Register> {
-
+class _SignInState extends State<SignIn> {
   /// Get the auth service
   final AuthService _auth = AuthService();
 
@@ -25,7 +24,6 @@ class _RegisterState extends State<Register> {
   /// Values of the form
   String email = '';
   String password = '';
-  String confirmPassword ='';
   String error = '';
 
   @override
@@ -61,7 +59,7 @@ class _RegisterState extends State<Register> {
                     ),
                     Container(
                       child: Text(
-                        "S'inscrire",
+                        "Se connecter",
                         style: TextStyle(
                             color: Theme.of(context).primaryColorLight,
                             fontSize: 20,
@@ -76,7 +74,7 @@ class _RegisterState extends State<Register> {
                     Container(
                       width: 300,
                       child: TextFormField(
-                        cursorColor: Colors.red,
+                        cursorColor: Theme.of(context).primaryColor,
                         decoration: InputDecoration(
                           labelStyle:
                               TextStyle(color: Colors.black, fontSize: 16),
@@ -118,7 +116,7 @@ class _RegisterState extends State<Register> {
                             borderSide: BorderSide(
                                 color: Theme.of(context).primaryColor, width: 2),
                           ),
-                          labelText: "Mot de passe",
+                          labelText: "Mot  de passe",
                         ),
                         onChanged: (val) {
                           setState(() => password = val);
@@ -135,53 +133,20 @@ class _RegisterState extends State<Register> {
                     SizedBox(
                       height: 20,
                     ),
-
-                    Container(
-                      width: 300,
-                      child: TextFormField(
-                        obscureText: true,
-                        cursorColor: Theme.of(context).primaryColor,
-                        decoration: InputDecoration(
-                          labelStyle:
-                          TextStyle(color: Colors.black, fontSize: 16),
-                          fillColor: Colors.white,
-                          filled: true,
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Theme.of(context).primaryColor, width: 2),
-                          ),
-                          labelText: "Confirmez votre mot de passe",
-                        ),
-                        onChanged: (val) {
-                          setState(() => confirmPassword = val);
-                        },
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-
-                    SizedBox(
-                      height: 20,
-                    ),
                     RaisedButton(
                       color: Theme.of(context).primaryColor,
-                      child: Text("S'inscrire",
-                          style: TextStyle(color: Colors.white)),
+                      child:
+                          Text("Se connecter", style: TextStyle(color: Colors.white)),
                       onPressed: () async {
-                        if (_formKey.currentState.validate() && password==confirmPassword) {
-                          setState(() {
+                        if (_formKey.currentState.validate()) {
 
-                            /// Set loading page during the request
-                            loading = true;
-                          });
+                          /// Set loading page during the request
+                          setState(() => loading = true);
 
-                          /// Register the user with the auth service
+                          /// SignIn the user with the auth service
                           dynamic result =
-                              await _auth.registerWithEmail(email, password);
+                              await _auth.signInWithEmail(email, password);
+
 
 
                           if (result == null) {
@@ -189,11 +154,9 @@ class _RegisterState extends State<Register> {
 
                               /// Display error message
                               error = "Erreur";
-                              setState(() {
 
-                                /// Cancel the loading page
-                                loading = false;
-                              });
+                              /// Cancel the loading page
+                              setState(() => loading = false);
                             });
                           }
                         }
@@ -221,7 +184,7 @@ class _RegisterState extends State<Register> {
 
                     /// Change the page to display
                     FlatButton(
-                      child: Text("Vous avez déjà un compte ?",
+                      child: Text("Vous n'avez pas de compte ?",
                           style: TextStyle(color: Theme.of(context).primaryColorLight, fontSize: 15)),
                       onPressed: () {
                         widget.toggleView();

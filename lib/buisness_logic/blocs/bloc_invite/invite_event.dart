@@ -1,12 +1,7 @@
 
 import 'package:equatable/equatable.dart';
 
-abstract class InviteEvent extends Equatable{
-
-  @override
-  List<Object> get props => [];
-
-}
+abstract class InviteEvent{}
 
 /// Event to get Category
 class InviteFetched extends InviteEvent{}

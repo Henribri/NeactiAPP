@@ -2,24 +2,24 @@ import 'dart:ffi';
 import 'package:connectivity/connectivity.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:neacti/components/flushbar.dart';
-import 'package:neacti/models/category.dart';
-import 'package:neacti/models/user.dart';
+import 'package:neacti/views/utils/flushbar.dart';
+import 'package:neacti/buisness_logic/models/category.dart';
+import 'package:neacti/buisness_logic/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:neacti/models/event.dart';
+import 'package:neacti/buisness_logic/models/event.dart';
 import 'package:http/http.dart';
-import 'package:neacti/screens/invite/bloc/invite_bloc.dart';
-import 'package:neacti/screens/invite/bloc/invite_event.dart';
-import 'package:neacti/screens/invite/bloc/invite_state.dart';
+import 'package:neacti/buisness_logic/blocs/bloc_invite/invite_bloc.dart';
+import 'package:neacti/buisness_logic/blocs/bloc_invite/invite_event.dart';
+import 'package:neacti/buisness_logic/blocs/bloc_invite/invite_state.dart';
 import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
-import 'package:neacti/models/address.dart';
-import 'package:neacti/models/apiUrl.dart';
+import 'package:neacti/buisness_logic/models/address.dart';
+import 'package:neacti/buisness_logic/models/apiUrl.dart';
 
 class Invite extends StatefulWidget {
   @override
@@ -59,19 +59,7 @@ class _InviteState extends State<Invite> {
     }
   }
 
-  /// Boolean to test connection
-  bool isConnected = true;
 
-  /// Test the connection and update the bool
-  _getConnection() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.none) {
-      isConnected = false;
-    } else if (connectivityResult == ConnectivityResult.mobile ||
-        connectivityResult == ConnectivityResult.wifi) {
-      isConnected = true;
-    }
-  }
 
   /// Refresh page
   Future<void> _getRefresh() async {
@@ -104,7 +92,7 @@ class _InviteState extends State<Invite> {
                 .show(context);
                 _controllerP.jumpTo(0);
           }
-          if (state is InvitePostFailure){
+          else if (state is InvitePostFailure){
             NeaFlushBar(
                 flushTitle: "Erreur lors de l'envoi",
                 flushMessage: "~~~~~~~",
@@ -119,12 +107,31 @@ class _InviteState extends State<Invite> {
     },
         child: BlocBuilder<InviteBloc, InviteState>(
             builder: (context, state) {
-              /// Test the connection
-              _getConnection();
+              if (state is InviteConnectionFailure) {
+                return RefreshIndicator(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  color: Colors.white,
+                  onRefresh: _getRefresh,
+                  child: ListView(
+                    children: [
+                      SizedBox(
+                        height: 200,
+                      ),
+                      Center(
+                        child: Text("Erreur de connection",
+                            style: TextStyle(
+                                fontFamily: 'Fred',
+                                fontSize: 26,
+                                color: Theme.of(context).primaryColorLight)),
+                      ),
+                    ],
+                  ),
+                );
+              }
 
 
               /// If no data but connected return circle to wait
-              if (state.getCategories == null && isConnected) {
+              else if (state.getCategories == null) {
                 /// If no data return a circle wait
                 return Center(
                     child: Container(
@@ -138,7 +145,7 @@ class _InviteState extends State<Invite> {
               }
 
               /// If no data and no connection then return error
-              else if (state is InviteGetFailure && isConnected == false) {
+              else if (state is InviteConnectionFailure) {
                 return RefreshIndicator(
                   backgroundColor: Theme.of(context).primaryColor,
                   color: Colors.white,
@@ -752,7 +759,7 @@ class _InviteState extends State<Invite> {
                                   _time != null &&
                                   _category != null) {
                                 /// Create event object to post
-                                Event newEvent = Event(
+                                Activity newEvent = Activity(
                                     null,
                                     _title,
                                     _date + ' ' + _time.replaceAll(' ', ''),

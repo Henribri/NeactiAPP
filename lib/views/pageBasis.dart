@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:neacti/components/appbar.dart';
-import 'package:neacti/components/navbar.dart';
+import 'package:neacti/views/utils/appbar.dart';
+import 'package:neacti/views/utils/navbar.dart';
 import 'home.dart';
 
 

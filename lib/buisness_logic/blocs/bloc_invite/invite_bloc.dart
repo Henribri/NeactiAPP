@@ -1,11 +1,12 @@
 import 'dart:convert';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:neacti/models/category.dart';
+import 'package:neacti/buisness_logic/models/category.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart';
-import 'package:neacti/models/apiUrl.dart';
-import 'package:neacti/screens/invite/bloc/invite_event.dart';
-import 'package:neacti/screens/invite/bloc/invite_state.dart';
+import 'package:neacti/buisness_logic/models/apiUrl.dart';
+import 'package:neacti/buisness_logic/blocs/bloc_invite/invite_event.dart';
+import 'package:neacti/buisness_logic/blocs/bloc_invite/invite_state.dart';
 import 'package:http/http.dart' as http;
 
 class InviteBloc extends Bloc<InviteEvent, InviteState>{
@@ -22,13 +23,13 @@ class InviteBloc extends Bloc<InviteEvent, InviteState>{
     /// Handle Get Events
     if (event is InviteFetched){
       try {
-        if (currentState is InviteInitial) {
+      if(! await _isConnected()){
+        yield InviteConnectionFailure();
+      }
+
+        else {
           final categories = await _getCategoryList();
           yield InviteGetSuccess(categories: categories);
-        }
-        if (currentState is InviteGetSuccess) {
-          final categories = await _getCategoryList();
-          yield currentState.copyWith(categories);
         }
       }
       catch(_){
@@ -40,23 +41,12 @@ class InviteBloc extends Bloc<InviteEvent, InviteState>{
     /// Handle Post Events
     if (event is InvitePost){
        bool error = await _postEvent(body:event.body);
-       print(currentState);
 
        if (error){
-         if (currentState is InvitePostFailure) {
-           yield currentState.copyWith(currentState.getCategories);
-         }
-         else {
            yield InvitePostFailure(categories: currentState.getCategories);
-         }
        }
        else{
-           if (currentState is InvitePostSuccess) {
-             yield currentState.copyWith(currentState.getCategories);
-           }
-           else {
              yield InvitePostSuccess(categories: currentState.getCategories);
-           }
        }
     }
 
@@ -98,5 +88,20 @@ class InviteBloc extends Bloc<InviteEvent, InviteState>{
       return true;
     }
   }
+
+  Future<bool> _isConnected() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.none) {
+      return false;
+    } else if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+
+
 
 }
