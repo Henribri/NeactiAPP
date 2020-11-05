@@ -4,12 +4,12 @@ import 'package:neacti/views/utils/navbar.dart';
 import 'home.dart';
 
 
-class PageBasis extends StatefulWidget {
+class MainPage extends StatefulWidget {
   @override
-  _PageBasisState createState() => _PageBasisState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _PageBasisState extends State<PageBasis> {
+class _MainPageState extends State<MainPage> {
 
   /// Index and page
   int selectedIndex =0;

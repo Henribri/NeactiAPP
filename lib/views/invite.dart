@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ffi';
 import 'package:connectivity/connectivity.dart';
 import 'package:flushbar/flushbar.dart';
@@ -40,6 +41,14 @@ class _InviteState extends State<Invite> {
   /// Controller for PageView
   final _controllerP = PageController(initialPage: 0);
 
+  /// Keep inform of the refresh status
+  Completer<void> _refreshCompleter;
+
+  @override
+  void initState() {
+    super.initState();
+    _refreshCompleter = Completer<void>();
+  }
 
   /// Get the prediction of google place search and update the value of the location
   Future<Null> displayPrediction(Prediction p) async {
@@ -61,12 +70,6 @@ class _InviteState extends State<Invite> {
 
 
 
-  /// Refresh page
-  Future<void> _getRefresh() async {
-    setState(() {});
-  }
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -78,6 +81,11 @@ class _InviteState extends State<Invite> {
         /// Listen when user post Activity to update the screen
         child :BlocListener<InviteBloc, InviteState>(
         listener: (context, state) {
+
+          if(state is InviteGetSuccess){
+            _refreshCompleter?.complete();
+            _refreshCompleter = Completer();
+          }
 
           /// Return flush bar in function of the state
           if (state is InvitePostSuccess){
@@ -107,11 +115,15 @@ class _InviteState extends State<Invite> {
     },
         child: BlocBuilder<InviteBloc, InviteState>(
             builder: (context, state) {
+              print(state);
               if (state is InviteConnectionFailure) {
                 return RefreshIndicator(
                   backgroundColor: Theme.of(context).primaryColor,
                   color: Colors.white,
-                  onRefresh: _getRefresh,
+                  onRefresh: (){
+                    context.bloc<InviteBloc>().add(InviteFetched());
+                    return _refreshCompleter.future;
+                  },
                   child: ListView(
                     children: [
                       SizedBox(
@@ -144,28 +156,7 @@ class _InviteState extends State<Invite> {
                             strokeWidth: 5)));
               }
 
-              /// If no data and no connection then return error
-              else if (state is InviteConnectionFailure) {
-                return RefreshIndicator(
-                  backgroundColor: Theme.of(context).primaryColor,
-                  color: Colors.white,
-                  onRefresh: _getRefresh,
-                  child: ListView(
-                    children: [
-                      SizedBox(
-                        height: 200,
-                      ),
-                      Center(
-                        child: Text("Erreur de connection",
-                            style: TextStyle(
-                                fontFamily: 'Fred',
-                                fontSize: 26,
-                                color: Theme.of(context).primaryColorLight)),
-                      ),
-                    ],
-                  ),
-                );
-              } else {
+ else {
                 return Form(
                   key: _formKey,
                   child: PageView(
