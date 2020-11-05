@@ -30,8 +30,14 @@ class ActivitiesPage extends StatefulWidget {
 
 class _ActivitiesPageState extends State<ActivitiesPage> {
 
-  Future<void> _getRefresh() async {
-    setState(() {});
+
+  /// Keep inform of the refresh status
+  Completer<void> _refreshCompleter;
+
+  @override
+  void initState() {
+    super.initState();
+    _refreshCompleter = Completer<void>();
   }
 
 
@@ -52,6 +58,10 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
             ActivitiesBloc()..add(ActivityEventGet(uid: context.read<User>().uid, joinPage:widget.joinPage)),
         child: BlocListener<ActivitiesBloc, ActivitiesState>(
           listener: (context, state) {
+            if(state is ActivitiesGetSuccess){
+              _refreshCompleter?.complete();
+              _refreshCompleter = Completer();
+            }
 
             if (state is ActivitiesPatchFailure) {
               NeaFlushBar(
@@ -84,7 +94,10 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
               return RefreshIndicator(
                 backgroundColor: Theme.of(context).primaryColor,
                 color: Colors.white,
-                onRefresh: _getRefresh,
+                onRefresh: (){
+                context.bloc<ActivitiesBloc>().add(ActivityEventGet(uid: context.read<User>().uid, joinPage: widget.joinPage));
+                return _refreshCompleter.future;
+              },
                 child: ListView(
                   children: [
                     SizedBox(
@@ -122,7 +135,10 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
               return RefreshIndicator(
                 backgroundColor: Theme.of(context).primaryColor,
                 color: Colors.white,
-                onRefresh: _getRefresh,
+                onRefresh: (){
+                  context.bloc<ActivitiesBloc>().add(ActivityEventGet(uid: context.read<User>().uid, joinPage: widget.joinPage));
+                  return _refreshCompleter.future;
+                },
                 child: ListView(
                   children: [
                     SizedBox(
@@ -145,7 +161,10 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
               return RefreshIndicator(
                 backgroundColor: Theme.of(context).primaryColor,
                 color: Colors.white,
-                onRefresh: _getRefresh,
+                onRefresh: (){
+                  context.bloc<ActivitiesBloc>().add(ActivityEventGet(uid: context.read<User>().uid, joinPage: widget.joinPage));
+                  return _refreshCompleter.future;
+                },
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.92,
                   child: ListView.builder(
